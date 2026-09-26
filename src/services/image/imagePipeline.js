@@ -1,9 +1,10 @@
 import { CONVERTIBLE_FORMATS, getImageFormatFromFile } from '@/constants/imageFormats'
 import { AppError, ERROR_CODES } from '@/lib/errors'
-import { applyAdjustments, blurCanvas, grayscaleCanvas, pixelateCanvas } from './adjustments'
+import { applyAdjustments, pixelateCanvas } from './adjustments'
 import { cropCanvas, decodeImage, getContext, createCanvas, resampleCanvas, toCanvas, transformCanvas } from './canvas'
 import { encodeCanvas } from './encoders'
 import { addBorder, applyFilterPreset, censorRegions } from './compositionEffects'
+import { blurWithFocus, monoCanvas } from './effectExtras'
 
 /**
  * Pure image-processing pipeline. Runs inside the image Web Worker, or on the
@@ -86,11 +87,11 @@ const OPERATIONS = {
   effect: (canvas, params) => {
     switch (params.effect) {
       case 'blur':
-        return blurCanvas(canvas, params.amount)
+        return blurWithFocus(canvas, params)
       case 'pixelate':
         return pixelateCanvas(canvas, Math.max(2, (params.amount / 100) * Math.min(canvas.width, canvas.height) * 0.1))
       case 'grayscale':
-        return grayscaleCanvas(canvas, params.amount)
+        return monoCanvas(canvas, params)
       case 'rotate':
       case 'flip':
         return transformCanvas(canvas, params)

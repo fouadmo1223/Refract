@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Palette } from 'lucide-react'
+import { Palette, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/cn'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
@@ -10,6 +10,7 @@ import { FILTER_IDS } from '@/services/image/filterPresets'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { runImageJob } from '@/services/image/imageWorkerClient'
 import { useToolSettings } from '@/store/toolSettingsStore'
+import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaToolFlow } from '@/components/layout/MediaToolFlow'
@@ -19,7 +20,17 @@ import { LoadingState } from '@/components/feedback/States'
 import { ImageResult } from '../shared/ImageResult'
 
 const TOOL_ID = 'image-filters'
-const DEFAULTS = { preset: 'vivid', intensity: 100 }
+const DEFAULTS = { preset: 'vivid', intensity: 100, tune: {} }
+const TUNE_KEYS = [
+  { key: 'brightness', min: -100, max: 100 },
+  { key: 'contrast', min: -100, max: 100 },
+  { key: 'saturation', min: -100, max: 100 },
+  { key: 'temperature', min: -100, max: 100 },
+  { key: 'tint', min: -100, max: 100 },
+  { key: 'sharpen', min: 0, max: 100 },
+  { key: 'vignette', min: 0, max: 100 },
+]
+const hasTune = (tune) => Object.values(tune ?? {}).some(Boolean)
 const THUMB_SIZE = 96
 
 /** Grid of live thumbnails — each shows the actual image with that look. */
@@ -65,7 +76,9 @@ function FilterGrid({ bitmap, value, onChange }) {
 
 export default function FiltersImagePage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
+  const setTune = (key, value) => updateSettings({ tune: { ...settings.tune, [key]: value } })
   const [file, setFile] = useState(null)
   const { bitmap } = usePreviewBitmap(file, 1200)
 
@@ -80,7 +93,7 @@ export default function FiltersImagePage() {
         actionIcon={Palette}
         processingTitle={t('processing.applyingEffect')}
         successMessage="toasts.effectApplied"
-        canProcess={settings.preset !== 'none'}
+        canProcess={settings.preset !== 'none' || hasTune(settings.tune)}
         renderPreview={() =>
           bitmap ? (
             <MediaStage checkerboard>
@@ -93,13 +106,40 @@ export default function FiltersImagePage() {
           )
         }
         renderSettings={() => (
-          <SettingsSection title={t('filters.look')}>
-            <FilterGrid bitmap={bitmap} value={settings.preset} onChange={(preset) => updateSettings({ preset })} />
-            <Slider label={t('effects.intensity')} value={settings.intensity} min={0} max={100} onChange={(intensity) => updateSettings({ intensity })} formatValue={(value) => `${value}%`} />
-          </SettingsSection>
+          <>
+            <SettingsSection title={t('filters.look')}>
+              <FilterGrid bitmap={bitmap} value={settings.preset} onChange={(preset) => updateSettings({ preset })} />
+              <Slider label={t('effects.intensity')} value={settings.intensity} min={0} max={100} onChange={(intensity) => updateSettings({ intensity })} formatValue={(value) => `${value}%`} />
+            </SettingsSection>
+            <SettingsSection
+              title={t('filters.fineTune')}
+              description={t('filters.fineTuneHint')}
+              action={
+                hasTune(settings.tune) && (
+                  <Button variant="ghost" size="xs" leftIcon={RotateCcw} onClick={() => updateSettings({ tune: {} })}>
+                    {t('common.reset')}
+                  </Button>
+                )
+              }
+            >
+              {TUNE_KEYS.map(({ key, min, max }) => (
+                <Slider
+                  key={key}
+                  label={key === 'vignette' ? t('filters.vignette') : t(`editor.adjustments.${key}`)}
+                  value={settings.tune[key] ?? 0}
+                  min={min}
+                  max={max}
+                  origin={min < 0 ? 0 : undefined}
+                  onChange={(value) => setTune(key, value)}
+                  onDoubleClick={() => setTune(key, 0)}
+                  formatValue={(value) => (min < 0 && value > 0 ? `+${value}` : String(value))}
+                />
+              ))}
+            </SettingsSection>
+          </>
         )}
         onProcess={({ file: source, signal, onProgress }) => runImageJob('filter', source, { ...settings, format: 'original', quality: 92 }, { signal, onProgress })}
-        renderResult={(context) => <ImageResult {...context} title={t('result.effectComplete')} suffix={settings.preset} />}
+        renderResult={(context) => <ImageResult {...context} title={t('result.effectComplete')} suffix={settings.preset === 'none' ? 'edited' : settings.preset} />}
       />
     </ToolLayout>
   )

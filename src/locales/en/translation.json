@@ -580,7 +580,32 @@
     "rotation": "Rotation",
     "customAngle": "Custom angle",
     "rotateHint": "Non-right angles expand the canvas; corners stay transparent (or white for JPG).",
-    "flip": "Flip"
+    "flip": "Flip",
+    "focusTitle": "Focus",
+    "focusArea": "Keep sharp",
+    "focusModes": {
+      "none": "Nothing",
+      "radial": "Circle",
+      "band": "Band"
+    },
+    "focusHints": {
+      "none": "The whole image is blurred.",
+      "radial": "A circle stays sharp — click the preview to move it.",
+      "band": "A horizontal strip stays sharp (tilt-shift) — click the preview to move it."
+    },
+    "focusX": "Horizontal position",
+    "focusY": "Vertical position",
+    "focusSize": "Sharp area size",
+    "feather": "Edge softness",
+    "tone": "Tone",
+    "toneStrength": "Tone strength",
+    "tones": {
+      "neutral": "Neutral",
+      "sepia": "Sepia",
+      "cool": "Cool",
+      "green": "Green",
+      "rose": "Rose"
+    }
   },
   "video": {
     "previewUnavailable": "Preview isn’t available for this format",
@@ -1562,6 +1587,24 @@
       "golden": "Golden",
       "cinematic": "Cinematic",
       "sepia": "Sepia"
+    },
+    "fineTune": "Fine-tune",
+    "fineTuneHint": "Adjust on top of the selected look. Double-click a slider to reset it.",
+    "vignette": "Vignette",
+    "groups": {
+      "color": "Light & color",
+      "detail": "Detail & texture"
+    },
+    "adjustments": {
+      "brightness": "Brightness",
+      "contrast": "Contrast",
+      "saturation": "Saturation",
+      "temperature": "Warmth",
+      "hue": "Hue",
+      "sharpen": "Sharpen",
+      "blur": "Blur",
+      "vignette": "Vignette",
+      "grain": "Film grain"
     }
   },
   "collage": {

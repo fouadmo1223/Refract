@@ -55,8 +55,13 @@ export function addBorder(source, settings) {
   return canvas
 }
 
-export function applyFilterPreset(source, { preset, intensity }) {
-  return applyAdjustments(source, presetToAdjustments(preset, intensity))
+/** Preset look scaled by intensity, plus optional fine-tune offsets (`tune`, same keys as the editor). */
+export function applyFilterPreset(source, { preset, intensity, tune }) {
+  const adjustments = presetToAdjustments(preset, intensity)
+  for (const [key, value] of Object.entries(tune ?? {})) {
+    if (key in adjustments && value) adjustments[key] = Math.max(key === 'vignette' || key === 'sharpen' ? 0 : -100, Math.min(100, adjustments[key] + value))
+  }
+  return applyAdjustments(source, adjustments)
 }
 
 function strongBlur(piece, radius) {
