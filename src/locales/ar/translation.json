@@ -1,0 +1,1626 @@
+{
+  "app": {
+    "name": "Refract",
+    "tagline": "أدوات الوسائط"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "homeLabel": "Refract — الصفحة الرئيسية",
+    "imageTools": "أدوات الصور",
+    "videoTools": "أدوات الفيديو",
+    "allTools": "كل الأدوات",
+    "about": "حول",
+    "privacy": "الخصوصية",
+    "primary": "التنقل الرئيسي",
+    "menu": "القائمة",
+    "openMenu": "فتح القائمة",
+    "skipToContent": "تخطَّ إلى المحتوى",
+    "aiStudio": "استوديو الذكاء الاصطناعي"
+  },
+  "footer": {
+    "tagline": "Refract · أدوات وسائط خاصة تعمل داخل متصفحك.",
+    "label": "تذييل الصفحة"
+  },
+  "common": {
+    "decrease": "إنقاص",
+    "increase": "زيادة",
+    "select": "اختر…",
+    "close": "إغلاق",
+    "tryAgain": "حاول مرة أخرى",
+    "retry": "إعادة المحاولة",
+    "loading": "جارٍ التحميل…",
+    "chooseAnother": "اختر ملفًا آخر",
+    "backToSettings": "العودة إلى الإعدادات",
+    "readingFile": "جارٍ قراءة الملف…",
+    "replaceFile": "استبدال الملف",
+    "removeFile": "إزالة الملف",
+    "save": "حفظ",
+    "download": "تنزيل",
+    "processAnother": "معالجة ملف آخر",
+    "soon": "قريبًا",
+    "viewAll": "عرض الكل",
+    "cancel": "إلغاء",
+    "reset": "إعادة الضبط",
+    "copy": "نسخ",
+    "remove": "إزالة",
+    "clear": "مسح",
+    "selectAll": "تحديد الكل",
+    "preview": "معاينة",
+    "breadcrumb": "مسار التنقل",
+    "hexColor": "رمز اللون السداسي",
+    "systemColorPicker": "فتح منتقي الألوان في النظام"
+  },
+  "preferences": {
+    "language": "اللغة",
+    "theme": "المظهر",
+    "themes": {
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "حسب النظام"
+    }
+  },
+  "search": {
+    "title": "البحث في الأدوات",
+    "trigger": "ابحث عن أداة…",
+    "placeholder": "جرّب «ضغط» أو «تحويل webp» أو «قص فيديو»",
+    "results_zero": "لا توجد نتائج",
+    "results_one": "نتيجة واحدة",
+    "results_two": "نتيجتان",
+    "results_few": "{{count}} نتائج",
+    "results_many": "{{count}} نتيجة",
+    "results_other": "{{count}} نتيجة",
+    "popular": "الأدوات الأكثر استخدامًا",
+    "noResults": "لا توجد أدوات تطابق «{{query}}».",
+    "noResultsTitle": "لم يتم العثور على شيء",
+    "navigate": "للتنقل",
+    "open": "للفتح",
+    "filterTools": "تصفية الأدوات"
+  },
+  "recent": {
+    "title": "المهام الأخيرة",
+    "subtitle": "لهذه الجلسة فقط · لا يتم حفظ الملفات أبدًا",
+    "empty": "ستظهر هنا الملفات التي تعالجها.",
+    "clear": "مسح",
+    "status": {
+      "completed": "مكتمل",
+      "failed": "فشل",
+      "canceled": "أُلغي"
+    }
+  },
+  "home": {
+    "seoTitle": "ضغط الصور والفيديو وتحويلها وتعديلها",
+    "seoDescription": "أدوات سريعة وخاصة لضغط الصور والفيديو وتحويلها وتغيير حجمها وقصها وتعديلها — تتم المعالجة محليًا داخل متصفحك.",
+    "eyebrow": "أدوات الوسائط",
+    "headline": "كل ما تحتاجه لتعديل الوسائط وضغطها وتحويلها.",
+    "subtitle": "أدوات سريعة وخاصة وقوية للصور والفيديو. تتم معالجة ملفاتك هنا داخل متصفحك.",
+    "primaryCta": "اختر ملفًا",
+    "secondaryCta": "تصفّح الأدوات",
+    "chooseTool": "ماذا تريد أن تفعل؟",
+    "popularTools": "الأدوات الأكثر استخدامًا",
+    "points": {
+      "private": "تبقى ملفاتك على جهازك",
+      "noAccount": "بدون تسجيل"
+    },
+    "features": {
+      "private": {
+        "title": "ملفاتك تبقى خاصة",
+        "description": "تتم المعالجة محليًا داخل متصفحك، ولا يُرفع أي شيء إلى خادم."
+      },
+      "fast": {
+        "title": "محركات بأداء أصلي",
+        "description": "تحافظ Web Workers وترميزات WebAssembly وFFmpeg على سرعة الواجهة أثناء تنفيذ المهام الثقيلة."
+      },
+      "free": {
+        "title": "بلا حسابات ولا علامات مائية",
+        "description": "افتح الأداة وابدأ العمل. لا شيء لتثبيته، ولا شيء يُضاف إلى ملفاتك."
+      }
+    }
+  },
+  "categories": {
+    "image": {
+      "title": "أدوات الصور",
+      "short": "صور",
+      "description": "ضغط الصور وتحويلها وتغيير حجمها وقصها وتحسينها.",
+      "seoTitle": "أدوات الصور عبر الإنترنت"
+    },
+    "video": {
+      "title": "أدوات الفيديو",
+      "short": "فيديو",
+      "description": "ضغط الفيديو وتحويله وقصه واقتطاعه وتعديله.",
+      "seoTitle": "أدوات الفيديو عبر الإنترنت"
+    },
+    "all": {
+      "title": "كل الأدوات",
+      "short": "الكل",
+      "description": "جميع أدوات الصور والفيديو في مكان واحد.",
+      "seoTitle": "جميع أدوات الوسائط"
+    },
+    "ai": {
+      "title": "استوديو الذكاء الاصطناعي",
+      "short": "ذكاء اصطناعي",
+      "description": "أنشئ صورًا ومقاطع فيديو من النص، أو حرّك صورك الثابتة.",
+      "seoTitle": "مولّد الصور والفيديو بالذكاء الاصطناعي"
+    }
+  },
+  "groups": {
+    "label": "التصفية حسب الفئة",
+    "all": "الكل",
+    "compress": "ضغط",
+    "convert": "تحويل",
+    "edit": "تعديل",
+    "generate": "توليد"
+  },
+  "upload": {
+    "drop": {
+      "image": "أفلت صورة هنا",
+      "images": "أفلت الصور هنا",
+      "video": "أفلت مقطع فيديو هنا",
+      "videos": "أفلت مقاطع الفيديو هنا",
+      "audio": "أفلت ملفًا صوتيًا هنا",
+      "files": "أفلت صورة أو فيديو هنا"
+    },
+    "or": "أو",
+    "browse": "تصفّح الملفات",
+    "releaseToUpload": "أفلت للإضافة",
+    "constraints": "{{formats}} · حتى {{size}}",
+    "pasteHint": "يمكنك أيضًا اللصق من الحافظة"
+  },
+  "privacy": {
+    "badge": "معالجة محلية",
+    "localTitle": "تتم المعالجة محليًا",
+    "localDescription": "لا تغادر ملفاتك جهازك.",
+    "serverTitle": "تتم المعالجة على خادمنا",
+    "serverDescription": "تُرفع الملفات بأمان وتُحذف بعد المعالجة.",
+    "cloudBadge": "يستخدم ذكاءً اصطناعيًا سحابيًا"
+  },
+  "processing": {
+    "compressingImage": "جارٍ ضغط الصورة",
+    "convertingImage": "جارٍ تحويل الصورة",
+    "resizingImage": "جارٍ تغيير حجم الصورة",
+    "croppingImage": "جارٍ قص الصورة",
+    "removingBackground": "جارٍ إزالة الخلفية",
+    "exportingImage": "جارٍ تصدير الصورة",
+    "applyingWatermark": "جارٍ إضافة العلامة المائية",
+    "removingMetadata": "جارٍ إزالة البيانات الوصفية",
+    "applyingEffect": "جارٍ تطبيق التأثير",
+    "encoding": "جارٍ الترميز",
+    "creatingIcon": "جارٍ إنشاء الأيقونة",
+    "rasterizing": "جارٍ عرض ملف SVG",
+    "compressingVideo": "جارٍ ضغط الفيديو",
+    "convertingVideo": "جارٍ تحويل الفيديو",
+    "trimmingVideo": "جارٍ قص الفيديو",
+    "croppingVideo": "جارٍ اقتطاع الفيديو",
+    "resizingVideo": "جارٍ تغيير دقة الفيديو",
+    "removingAudio": "جارٍ إزالة الصوت",
+    "extractingAudio": "جارٍ استخراج الصوت",
+    "addingAudio": "جارٍ إضافة الصوت",
+    "changingSpeed": "جارٍ تغيير السرعة",
+    "rotatingVideo": "جارٍ تدوير الفيديو",
+    "creatingGif": "جارٍ إنشاء صورة GIF",
+    "convertingGif": "جارٍ تحويل صورة GIF",
+    "capturingFrame": "جارٍ التقاط الإطار",
+    "loopingVideo": "جارٍ تكرار الفيديو",
+    "reversingVideo": "جارٍ عكس الفيديو",
+    "changingFps": "جارٍ تغيير معدل الإطارات",
+    "extractingFrames": "جارٍ استخراج الإطارات",
+    "mergingVideos": "جارٍ دمج المقاطع",
+    "keepTabOpen": "لا تُغلق هذه الصفحة أثناء معالجة ملفك.",
+    "stages": {
+      "processing": "جارٍ المعالجة…",
+      "decoding": "جارٍ قراءة الصورة…",
+      "encoding": "جارٍ الترميز…",
+      "finalizing": "جارٍ الإنهاء…",
+      "loadingEngine": "جارٍ تجهيز محرك الفيديو (في المرة الأولى فقط)…",
+      "analyzing": "جارٍ تحليل المقاطع…",
+      "downloadingModel": "جارٍ تنزيل نموذج الذكاء الاصطناعي (في المرة الأولى فقط)…",
+      "removingBackground": "جارٍ تحديد العنصر الرئيسي…",
+      "generatingImage": "الذكاء الاصطناعي يرسم… يستغرق ذلك عادةً من 5 إلى 30 ثانية.",
+      "generatingVideo": "الذكاء الاصطناعي يُنشئ الفيديو… قد يستغرق ذلك بضع دقائق.",
+      "tracing": "جارٍ تتبّع الأشكال…"
+    },
+    "generatingImages": "جارٍ توليد الصور",
+    "generatingVideo": "جارٍ توليد الفيديو",
+    "animatingImage": "جارٍ تحريك الصورة",
+    "tracing": "جارٍ التحويل إلى متجه",
+    "applyingOverlay": "جارٍ إضافة الطبقة",
+    "creatingCollage": "جارٍ إنشاء الكولاج",
+    "splittingVideo": "جارٍ تقسيم الفيديو"
+  },
+  "result": {
+    "before": "قبل",
+    "after": "بعد",
+    "saved": "تم توفير",
+    "larger": "أكبر بنسبة",
+    "format": "الصيغة",
+    "dimensions": "الأبعاد",
+    "resolution": "الدقة",
+    "duration": "المدة",
+    "fileSize": "حجم الملف",
+    "fileName": "اسم الملف",
+    "rename": "إعادة التسمية",
+    "original": "الأصل",
+    "result": "النتيجة",
+    "compareSlider": "مقارنة قبل وبعد",
+    "adjustSettings": "تعديل الإعدادات",
+    "compressionComplete": "اكتمل الضغط",
+    "alreadyOptimized": "الملف محسَّن بالفعل",
+    "alreadyOptimizedHint": "إعادة الترميز ستجعل الملف أكبر، لذا تم الإبقاء على الملف الأصلي كما هو. جرّب جودة أقل أو صيغة حديثة مثل WebP أو AVIF.",
+    "conversionComplete": "اكتمل التحويل",
+    "resizeComplete": "اكتمل تغيير الحجم",
+    "cropComplete": "اكتمل القص",
+    "backgroundRemoved": "تمت إزالة الخلفية",
+    "editComplete": "تعديلاتك جاهزة",
+    "watermarkComplete": "تمت إضافة العلامة المائية",
+    "metadataRemoved": "تمت إزالة البيانات الوصفية",
+    "effectComplete": "تم تطبيق التأثير",
+    "iconComplete": "تم إنشاء الأيقونة",
+    "trimComplete": "اكتمل القص",
+    "audioRemoved": "تمت إزالة الصوت",
+    "audioExtracted": "تم استخراج الصوت",
+    "audioAdded": "تمت إضافة الصوت",
+    "speedComplete": "تم تغيير السرعة",
+    "rotateComplete": "اكتمل التدوير",
+    "gifComplete": "تم إنشاء صورة GIF",
+    "frameCaptured": "تم التقاط الإطار",
+    "loopComplete": "تم إنشاء التكرار",
+    "reverseComplete": "تم عكس الفيديو",
+    "fpsComplete": "تم تغيير معدل الإطارات",
+    "framesExtracted_zero": "لم يُستخرج أي إطار",
+    "framesExtracted_one": "تم استخراج إطار واحد",
+    "framesExtracted_two": "تم استخراج إطارين",
+    "framesExtracted_few": "تم استخراج {{count}} إطارات",
+    "framesExtracted_many": "تم استخراج {{count}} إطارًا",
+    "framesExtracted_other": "تم استخراج {{count}} إطار",
+    "mergeComplete": "تم دمج {{count}} مقاطع",
+    "vectorComplete": "ملف SVG جاهز",
+    "collageComplete": "الكولاج جاهز",
+    "overlayComplete": "تمت إضافة الطبقة",
+    "splitComplete_zero": "لا توجد أجزاء",
+    "splitComplete_one": "جزء واحد",
+    "splitComplete_two": "تم التقسيم إلى جزأين",
+    "splitComplete_few": "تم التقسيم إلى {{count}} أجزاء",
+    "splitComplete_many": "تم التقسيم إلى {{count}} جزءًا",
+    "splitComplete_other": "تم التقسيم إلى {{count}} جزءًا"
+  },
+  "settings": {
+    "compression": "الضغط",
+    "conversion": "التحويل",
+    "output": "المخرجات",
+    "size": "الحجم",
+    "fitting": "الملاءمة",
+    "advanced": "إعدادات متقدمة",
+    "quality": "الجودة",
+    "qualityPreset": "مستوى الجودة",
+    "outputFormat": "صيغة المخرجات",
+    "targetFormat": "التحويل إلى",
+    "keepOriginal": "الإبقاء على الأصل",
+    "transparentFill": "تعبئة المناطق الشفافة بـ",
+    "gifNote": "يُحوَّل الإطار الأول فقط من الصور المتحركة.",
+    "limitDimensions": "تحديد الأبعاد",
+    "limitDimensionsHint": "تصغير الصور الكبيرة بحيث يلائم الضلع الأطول الحد المحدد.",
+    "maxDimension": "الضلع الأطول",
+    "preset": "إعداد جاهز",
+    "width": "العرض",
+    "height": "الارتفاع",
+    "maxWidth": "أقصى عرض",
+    "maxHeight": "أقصى ارتفاع",
+    "lockAspect": "قفل نسبة الأبعاد",
+    "unlockAspect": "إلغاء قفل نسبة الأبعاد",
+    "scale": "المقياس",
+    "noUpscale": "بدون تكبير",
+    "noUpscaleHint": "لا تجعل الصورة أكبر من الأصل أبدًا.",
+    "outputSize": "حجم المخرجات",
+    "addBackground": "إضافة خلفية",
+    "backgroundColor": "لون الخلفية",
+    "modes": {
+      "fit": "احتواء",
+      "fitHint": "تصغير الصورة لتناسب الإطار مع الحفاظ على نسبة الأبعاد الأصلية.",
+      "fill": "ملء",
+      "fillHint": "تغطية الإطار بالكامل وقص الزائد من المنتصف.",
+      "stretch": "تمديد",
+      "stretchHint": "استخدام الحجم المحدد تمامًا حتى لو تشوّهت الصورة."
+    }
+  },
+  "presets": {
+    "quality": {
+      "maximum": "أعلى جودة",
+      "maximumDescription": "بلا فقد ملحوظ، أكبر حجم",
+      "high": "جودة عالية",
+      "highDescription": "تفاصيل ممتازة مع توفير جيد",
+      "balanced": "متوازن",
+      "balancedDescription": "موصى به لمعظم الصور",
+      "small": "حجم صغير",
+      "smallDescription": "أصغر حجم مع نعومة ملحوظة",
+      "custom": "مخصص",
+      "customDescription": "حدده باستخدام شريط التمرير"
+    },
+    "resize": {
+      "custom": "مخصص",
+      "original": "الحجم الأصلي",
+      "instagram-post": "منشور إنستغرام",
+      "instagram-story": "قصة إنستغرام",
+      "facebook-post": "منشور فيسبوك",
+      "youtube-thumbnail": "صورة مصغرة ليوتيوب",
+      "twitter-post": "منشور X (تويتر)",
+      "linkedin-post": "منشور لينكدإن",
+      "website-banner": "بانر موقع إلكتروني"
+    },
+    "video": {
+      "best": "أفضل جودة",
+      "bestDescription": "جودة قريبة من الأصل مع توفير محدود",
+      "high": "جودة عالية",
+      "highDescription": "نتيجة حادة مع توفير جيد",
+      "balanced": "متوازن",
+      "balancedDescription": "موصى به للمشاركة",
+      "maximum": "أقصى ضغط",
+      "maximumDescription": "أصغر حجم بجودة أقل",
+      "custom": "مخصص",
+      "customDescription": "حدد الجودة أو معدل البت بنفسك"
+    },
+    "videoCrop": {
+      "instagram-reel": "ريلز إنستغرام",
+      "tiktok": "تيك توك",
+      "youtube": "يوتيوب",
+      "youtube-shorts": "يوتيوب شورتس",
+      "instagram-story": "قصة إنستغرام",
+      "landscape": "أفقي",
+      "square": "مربع"
+    }
+  },
+  "formats": {
+    "jpeg": "متوافق مع كل شيء، الأفضل للصور الفوتوغرافية",
+    "png": "بلا فقد، يحافظ على الشفافية",
+    "webp": "حديث وصغير ويحافظ على الشفافية",
+    "avif": "أصغر حجم، للمتصفحات الحديثة",
+    "bmp": "صورة نقطية غير مضغوطة",
+    "gif": "256 لونًا، للتوافق مع الأنظمة القديمة",
+    "video": {
+      "mp4": "H.264 + AAC — يعمل في كل مكان",
+      "webm": "VP8 + Vorbis — صيغة ويب مفتوحة",
+      "mov": "حاوية QuickTime بترميز H.264",
+      "avi": "صيغة MPEG-4 الجزء 2 القديمة",
+      "mkv": "حاوية Matroska بترميز H.264",
+      "gif": "صورة متحركة بلا صوت"
+    }
+  },
+  "crop": {
+    "aspectRatio": "نسبة الأبعاد",
+    "free": "حر",
+    "selection": "التحديد",
+    "transform": "التدوير والقلب",
+    "rotateLeft": "تدوير لليسار",
+    "rotateRight": "تدوير لليمين",
+    "flipHorizontal": "قلب أفقي",
+    "flipVertical": "قلب عمودي",
+    "straighten": "تقويم",
+    "zoom": "تكبير",
+    "preview": "معاينة القص",
+    "area": "منطقة القص، {{width}} × {{height}} بكسل. استخدم مفاتيح الأسهم للتحريك."
+  },
+  "removeBg": {
+    "background": "الخلفية",
+    "modes": {
+      "transparent": "شفافة",
+      "color": "لون",
+      "image": "صورة"
+    },
+    "color": "لون الخلفية",
+    "dropBackground": "أفلت صورة الخلفية",
+    "jpegNoTransparency": "صيغة JPG لا تدعم الشفافية",
+    "modelNote": "تعمل على جهازك باستخدام نموذج ذكاء اصطناعي. يتم تنزيل النموذج في أول استخدام (نحو 40 ميغابايت) ثم يُحفظ مؤقتًا."
+  },
+  "editor": {
+    "preview": "معاينة الصورة المعدّلة",
+    "panels": "لوحات المحرر",
+    "tabs": {
+      "adjust": "ضبط",
+      "transform": "تحويل"
+    },
+    "groups": {
+      "light": "الإضاءة",
+      "color": "اللون",
+      "detail": "التفاصيل"
+    },
+    "adjustments": {
+      "brightness": "السطوع",
+      "contrast": "التباين",
+      "saturation": "التشبّع",
+      "exposure": "التعريض",
+      "highlights": "المناطق الساطعة",
+      "shadows": "الظلال",
+      "temperature": "حرارة اللون",
+      "tint": "الصبغة",
+      "blur": "التمويه",
+      "sharpen": "الحدة",
+      "opacity": "العتامة"
+    },
+    "undo": "تراجع",
+    "redo": "إعادة",
+    "resetAll": "إعادة ضبط كل التعديلات",
+    "holdToCompare": "اضغط مطولًا للمقارنة مع الأصل",
+    "rotateFlip": "التدوير والقلب",
+    "crop": "القص",
+    "startCrop": "قص الصورة",
+    "editCrop": "تعديل القص",
+    "applyCrop": "تطبيق القص",
+    "removeCrop": "إزالة القص",
+    "resize": "تغيير الحجم"
+  },
+  "watermark": {
+    "preview": "معاينة العلامة المائية",
+    "content": "العلامة المائية",
+    "text": "نص",
+    "logo": "شعار",
+    "textLabel": "النص",
+    "color": "اللون",
+    "weight": "السُمك",
+    "regular": "عادي",
+    "bold": "عريض",
+    "dropLogo": "أفلت الشعار (يُفضَّل PNG)",
+    "placement": "الموضع",
+    "position": "المكان",
+    "size": "الحجم",
+    "opacity": "العتامة",
+    "rotation": "الدوران",
+    "margin": "الهامش"
+  },
+  "positions": {
+    "top-left": "أعلى اليسار",
+    "top-center": "أعلى المنتصف",
+    "top-right": "أعلى اليمين",
+    "center-left": "منتصف اليسار",
+    "center": "المنتصف",
+    "center-right": "منتصف اليمين",
+    "bottom-left": "أسفل اليسار",
+    "bottom-center": "أسفل المنتصف",
+    "bottom-right": "أسفل اليمين"
+  },
+  "metadata": {
+    "gpsFound": "تحتوي هذه الصورة على بيانات موقع GPS",
+    "none": "لا توجد بيانات وصفية مضمّنة.",
+    "removeTitle": "إزالة البيانات الوصفية",
+    "removeDescription": "صدّر نسخة نظيفة بدون بيانات EXIF أو GPS أو معلومات الكاميرا أو أي بيانات مضمّنة أخرى — مفيد قبل مشاركة الصور علنًا.",
+    "reencodeNote": "يُعاد ترميز البكسلات لضمان الإزالة. تبقى صور PNG بلا فقد، وتُحفظ صور JPEG وWebP بأعلى جودة.",
+    "groups": {
+      "file": "الملف",
+      "camera": "الكاميرا",
+      "capture": "التصوير",
+      "image": "الصورة",
+      "ownership": "الملكية"
+    },
+    "fields": {
+      "fileName": "الاسم",
+      "fileSize": "الحجم",
+      "format": "الصيغة",
+      "dimensions": "الأبعاد",
+      "lastModified": "آخر تعديل"
+    },
+    "exif": {
+      "Make": "الشركة المصنّعة",
+      "Model": "طراز الكاميرا",
+      "LensModel": "العدسة",
+      "Software": "البرنامج",
+      "DateTimeOriginal": "تاريخ الالتقاط",
+      "ExposureTime": "سرعة الغالق",
+      "FNumber": "فتحة العدسة",
+      "ISO": "ISO",
+      "FocalLength": "البعد البؤري",
+      "Flash": "الفلاش",
+      "WhiteBalance": "توازن الأبيض",
+      "Orientation": "الاتجاه",
+      "ColorSpace": "فضاء الألوان",
+      "XResolution": "الدقة الأفقية",
+      "YResolution": "الدقة العمودية",
+      "ExifImageWidth": "العرض المخزّن",
+      "ExifImageHeight": "الارتفاع المخزّن",
+      "Artist": "الفنان",
+      "Copyright": "حقوق النشر",
+      "ImageDescription": "الوصف"
+    }
+  },
+  "batch": {
+    "operation": "العملية",
+    "operations": {
+      "compress": "ضغط",
+      "resize": "تغيير الحجم",
+      "convert": "تحويل"
+    },
+    "status": {
+      "idle": "جاهز",
+      "waiting": "في الانتظار",
+      "processing": "جارٍ المعالجة…",
+      "completed": "مكتمل",
+      "failed": "فشل",
+      "canceled": "أُلغي"
+    },
+    "maxSize": "الحجم الأقصى",
+    "maxSizeHint": "تُصغَّر الصور لتناسب هذه الحدود مع الحفاظ على نسبة أبعادها.",
+    "completed": "المكتمل",
+    "queueTitle": "{{count}} من {{max}} ملفات",
+    "retryFailed": "إعادة محاولة الفاشل",
+    "clearAll": "مسح الكل",
+    "addMore": "إضافة المزيد من الصور",
+    "processing": "جارٍ المعالجة…",
+    "start_zero": "لا توجد صور للمعالجة",
+    "start_one": "معالجة صورة واحدة",
+    "start_two": "معالجة صورتين",
+    "start_few": "معالجة {{count}} صور",
+    "start_many": "معالجة {{count}} صورة",
+    "start_other": "معالجة {{count}} صورة",
+    "downloadAll": "تنزيل",
+    "downloadAllZip": "تنزيل الكل كملف ZIP ({{count}})",
+    "settingsApplyHint": "تُطبَّق الإعدادات على الملفات عند بدء المعالجة.",
+    "zipName_zero": "لا توجد صور",
+    "zipName_one": "صورة واحدة (ZIP)",
+    "zipName_two": "صورتان (ZIP)",
+    "zipName_few": "{{count}} صور (ZIP)",
+    "zipName_many": "{{count}} صورة (ZIP)",
+    "zipName_other": "{{count}} صورة (ZIP)"
+  },
+  "base64": {
+    "about": "ترميز Base64",
+    "aboutDescription": "يحوّل الصورة إلى نص يمكنك لصقه في HTML أو CSS أو JSON. يكون الناتج أكبر بنحو 33% من حجم الملف.",
+    "encodedSize": "الحجم بعد الترميز",
+    "characters": "عدد الأحرف",
+    "formats": {
+      "dataUri": "Data URI",
+      "raw": "Base64 خام",
+      "css": "CSS",
+      "html": "HTML"
+    },
+    "downloadTxt": "تنزيل ملف .txt",
+    "truncated": "يُعرض أول {{count}} حرف فقط. انسخ أو نزّل للحصول على النص كاملًا.",
+    "inputLabel": "نص Base64 أو Data URI",
+    "inputHint": "الصق Data URI (data:image/png;base64,…) أو نص Base64 خامًا.",
+    "decodedImage": "الصورة المفكوكة",
+    "emptyTitle": "ستظهر صورتك هنا",
+    "emptyDescription": "الصق نص Base64 ثم اختر «فك الترميز».",
+    "exportPlaceholder": "فُك ترميز صورة لعرض خيارات التنزيل."
+  },
+  "ico": {
+    "sizes": "أحجام الأيقونة",
+    "nonSquareHint": "هذه الصورة ليست مربعة، لذا ستوضع في منتصف لوحة شفافة."
+  },
+  "colorPicker": {
+    "imageAlt": "صورة لاختيار الألوان منها",
+    "hint": "انقر في أي مكان على الصورة لاختيار لون، وسيتم نسخه تلقائيًا.",
+    "current": "تحت المؤشر",
+    "hoverHint": "مرّر المؤشر فوق الصورة",
+    "picked": "الألوان المختارة",
+    "noneYet": "لم تختر أي لون بعد.",
+    "palette": "لوحة الألوان السائدة"
+  },
+  "effects": {
+    "blur": "التمويه",
+    "strength": "الشدة",
+    "pixelate": "البكسلة",
+    "blockSize": "حجم الكتلة",
+    "grayscale": "تدرّج رمادي",
+    "intensity": "الشدة",
+    "rotation": "الدوران",
+    "customAngle": "زاوية مخصصة",
+    "rotateHint": "الزوايا غير القائمة توسّع اللوحة، وتبقى الزوايا شفافة (أو بيضاء في JPG).",
+    "flip": "القلب"
+  },
+  "video": {
+    "previewUnavailable": "المعاينة غير متاحة لهذه الصيغة",
+    "previewUnavailableHint": "لا يستطيع متصفحك تشغيل هذا الملف، لكن يمكن معالجته.",
+    "crf": "الجودة (CRF)",
+    "crfHint": "القيم الأقل تعني جودة أعلى وحجمًا أكبر. القيمة 23 خيار افتراضي جيد.",
+    "targetBitrate": "معدل بت مستهدف",
+    "targetBitrateHint": "استهدف حجم ملف متوقعًا بدلًا من جودة ثابتة.",
+    "bitrate": "معدل بت الفيديو",
+    "resolution": "الدقة",
+    "originalResolution": "الأصلية",
+    "removeAudio": "إزالة المسار الصوتي",
+    "estimatedOutput": "الحجم المتوقع",
+    "estimateDisclaimer": "يعتمد الحجم الفعلي على الحركة والتفاصيل في الفيديو.",
+    "copyStreams": "نسخ المسارات بدون إعادة ترميز",
+    "copyStreamsHint": "الأسرع وبلا فقد، لكنه يعمل فقط إذا كانت الترميزات متوافقة مع الحاوية الجديدة.",
+    "gifConvertHint": "صور GIF بلا صوت ومحدودة بـ 256 لونًا. لمزيد من التحكم استخدم أداة «فيديو إلى GIF».",
+    "platformPresets": "إعدادات المنصات",
+    "cropNeedsPreview": "لا يمكن معاينة هذه الصيغة، لذا يتم توسيط القص تلقائيًا.",
+    "evenDimensionsHint": "تُقرَّب الأبعاد إلى أرقام زوجية لضمان التوافق.",
+    "upscaleWarning": "التكبير لا يضيف تفاصيل ويزيد حجم الملف.",
+    "rotateNoop": "اختر دورانًا أو قلبًا للمتابعة."
+  },
+  "trim": {
+    "range": "النطاق",
+    "start": "البداية",
+    "end": "النهاية",
+    "startHandle": "بداية القص",
+    "endHandle": "نهاية القص",
+    "selected": "المحدد",
+    "playSelection": "تشغيل التحديد",
+    "pause": "إيقاف مؤقت",
+    "mode": "طريقة القص",
+    "precise": "قص دقيق على مستوى الإطار",
+    "preciseHint": "يعيد ترميز المقطع ليبدأ تمامًا حيث حددت. أبطأ.",
+    "fastHint": "فوري وبلا فقد. يلتقط القص أقرب إطار رئيسي، لذا قد تتغير البداية قليلًا."
+  },
+  "mute": {
+    "title": "إزالة الصوت",
+    "description": "تُزال جميع المسارات الصوتية. يُنسخ مسار الصورة كما هو، فتبقى الجودة مطابقة وتكون العملية سريعة."
+  },
+  "audio": {
+    "output": "مخرجات الصوت",
+    "bitrate": "معدل البت",
+    "formats": {
+      "mp3": "يعمل في كل مكان، وتوازن جيد بين الحجم والجودة.",
+      "wav": "غير مضغوط، الأفضل للتحرير لكن بحجم كبير.",
+      "aac": "ترميز فعّال تستخدمه أجهزة Apple ‏(.m4a)."
+    }
+  },
+  "addAudio": {
+    "track": "المسار الصوتي",
+    "options": "الخيارات",
+    "replace": "استبدال",
+    "mix": "دمج",
+    "replaceHint": "يحل المسار الجديد محل الصوت الأصلي.",
+    "mixHint": "يُشغَّل المسار الجديد فوق الصوت الأصلي.",
+    "volume": "مستوى صوت المسار",
+    "loop": "تكرار الصوت",
+    "loopHint": "كرّر المسار إذا كان أقصر من الفيديو."
+  },
+  "speed": {
+    "title": "سرعة التشغيل",
+    "newDuration": "المدة الجديدة",
+    "sameSpeed": "اختر سرعة غير 1× للمتابعة.",
+    "keepAudio": "الإبقاء على الصوت",
+    "keepAudioHint": "يُمدَّد الصوت زمنيًا مع الحفاظ على طبقته الطبيعية."
+  },
+  "gif": {
+    "output": "إعدادات GIF",
+    "fps": "الإطارات في الثانية",
+    "repeat": "التكرار",
+    "repeatHint": "عدد مرات تشغيل الحركة داخل الفيديو.",
+    "quality": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "حجم صغير"
+    }
+  },
+  "thumbnail": {
+    "position": "موضع الإطار",
+    "previousFrame": "الإطار السابق",
+    "nextFrame": "الإطار التالي",
+    "jumpTo": "الانتقال إلى {{time}}",
+    "needsPlayable": "لا يمكن تشغيل هذه الصيغة في متصفحك. حوّلها إلى MP4 أولًا."
+  },
+  "loop": {
+    "title": "التكرار",
+    "count": "عدد مرات التشغيل"
+  },
+  "reverse": {
+    "title": "العكس",
+    "audio": "عكس الصوت أيضًا",
+    "audioHint": "أوقف هذا الخيار لإزالة الصوت بدلًا من عكسه.",
+    "longWarning": "يحتاج العكس إلى ذاكرة كبيرة. قد تفشل المقاطع الأطول من {{seconds}} ثانية في المتصفح — قصّها أولًا عند الحاجة."
+  },
+  "fps": {
+    "title": "معدل الإطارات",
+    "custom": "معدل إطارات مخصص",
+    "hint": "المعدلات الأقل تعطي ملفات أصغر، والأعلى تكرر الإطارات ولا تضيف سلاسة."
+  },
+  "frames": {
+    "title": "استخراج الإطارات",
+    "interval": "كل",
+    "intervalHint": "الفاصل الزمني بين الإطارات المستخرجة.",
+    "seconds": "ث",
+    "expected": "الإطارات",
+    "limit": "بحد أقصى {{max}} إطار في كل عملية.",
+    "count": "الإطارات",
+    "totalSize": "الحجم الكلي"
+  },
+  "merge": {
+    "title": "دمج المقاطع",
+    "description": "تُدمج المقاطع بالترتيب المعروض، وتُضبط لتطابق المقطع الأول ثم تُصدَّر بصيغة MP4.",
+    "moveUp": "تحريك لأعلى",
+    "moveDown": "تحريك لأسفل",
+    "addClips": "إضافة مقاطع أخرى",
+    "audioDropped": "بعض المقاطع بلا صوت، لذا جاء الفيديو المدمج صامتًا."
+  },
+  "validation": {
+    "qualityRange": "يجب أن تكون الجودة بين 1 و100.",
+    "widthRequired": "أدخل العرض.",
+    "heightRequired": "أدخل الارتفاع.",
+    "dimensionRequired": "أدخل الحجم.",
+    "widthPositive": "يجب أن يكون العرض أكبر من 0.",
+    "heightPositive": "يجب أن يكون الارتفاع أكبر من 0.",
+    "dimensionPositive": "يجب أن يكون الحجم أكبر من 0.",
+    "wholeNumber": "استخدم عددًا صحيحًا.",
+    "dimensionTooLarge": "هذا أكبر مما تستطيع المتصفحات التعامل معه (الحد الأقصى 16384 بكسل).",
+    "fileNameRequired": "أدخل اسم الملف.",
+    "bitrateRange": "يجب أن يكون معدل البت بين 100 و50000 كيلوبت/ث.",
+    "timeFormat": "استخدم وقتًا مثل 1:23.5 أو 83.5.",
+    "timeRangeOrder": "يجب أن يكون وقت النهاية بعد وقت البداية.",
+    "timeRangeBounds": "وقت النهاية يتجاوز نهاية الفيديو.",
+    "watermarkTextRequired": "أدخل نص العلامة المائية.",
+    "selectAtLeastOneSize": "اختر حجمًا واحدًا على الأقل.",
+    "base64Invalid": "هذه ليست بيانات صورة Base64 صالحة.",
+    "base64TooLarge": "الصورة أكبر من أن يتم فك ترميزها (الحد الأقصى 10 ميغابايت).",
+    "loopsRange": "اختر رقمًا بين 1 و20.",
+    "loopCountRange": "اختر رقمًا بين 2 و50.",
+    "fpsRange": "يجب أن يكون معدل الإطارات بين 1 و120.",
+    "intervalRange": "يجب ألا يقل الفاصل عن 0.04 ثانية.",
+    "mergeMinClips": "أضف مقطعين على الأقل للدمج.",
+    "promptRequired": "صف ما تريد إنشاءه.",
+    "seedRange": "يجب أن تكون البذرة عددًا صحيحًا يساوي 0 أو أكبر.",
+    "textRequired": "أدخل نصًا.",
+    "collageMinImages": "أضف صورتين على الأقل.",
+    "fadeRequired": "حدد مدة للظهور أو الاختفاء التدريجي.",
+    "fadeTooLong": "مدة التدرج أطول من الفيديو.",
+    "splitRange": "اختر إعدادات تنتج من 2 إلى {{max}} جزءًا."
+  },
+  "errors": {
+    "UNSUPPORTED_FORMAT": {
+      "title": "صيغة الملف غير مدعومة.",
+      "description": "الصيغ المدعومة: {{formats}}."
+    },
+    "FILE_TOO_LARGE": {
+      "title": "حجم الملف كبير جدًا.",
+      "description": "اختر ملفًا أصغر من الحد المسموح به لهذه الأداة."
+    },
+    "CORRUPTED_FILE": {
+      "title": "تعذّرت قراءة هذا الملف.",
+      "description": "قد يكون تالفًا أو يستخدم ترميزًا لا يدعمه متصفحك."
+    },
+    "UPLOAD_FAILED": {
+      "title": "تعذّرت إضافة الملف.",
+      "description": "حاول اختياره مرة أخرى."
+    },
+    "PROCESSING_FAILED": {
+      "title": "حدث خطأ أثناء معالجة الملف.",
+      "description": "حاول مرة أخرى. إذا تكرر الأمر، جرّب إعدادات مختلفة أو ملفًا آخر."
+    },
+    "BROWSER_UNSUPPORTED": {
+      "title": "متصفحك لا يدعم هذه الميزة.",
+      "description": "جرّب أحدث إصدار من Chrome أو Edge أو Firefox أو Safari."
+    },
+    "OUT_OF_MEMORY": {
+      "title": "لا توجد ذاكرة كافية لإكمال العملية.",
+      "description": "الملف يتطلب موارد أكثر مما يتيحه المتصفح. جرّب مقطعًا أقصر أو دقة أقل، أو أغلق علامات التبويب الأخرى."
+    },
+    "FFMPEG_INIT_FAILED": {
+      "title": "تعذّر تشغيل محرك الفيديو.",
+      "description": "أعد تحميل الصفحة وحاول مجددًا. بعض إضافات الخصوصية تحظر WebAssembly."
+    },
+    "CONVERSION_FAILED": {
+      "title": "فشل التحويل.",
+      "description": "تعذّر تحويل هذا الملف بهذه الإعدادات. جرّب صيغة أخرى أو أوقف خيار نسخ المسارات."
+    },
+    "NETWORK_ERROR": {
+      "title": "خطأ في الشبكة.",
+      "description": "تعذّر تنزيل مورد مطلوب. تحقق من اتصالك وحاول مجددًا."
+    },
+    "BACKGROUND_REMOVAL_FAILED": {
+      "title": "فشلت إزالة الخلفية.",
+      "description": "تعذّر فصل العنصر عن الخلفية. جرّب صورة يكون فيها العنصر أوضح."
+    },
+    "INVALID_DIMENSIONS": {
+      "title": "أبعاد غير صالحة.",
+      "description": "يجب أن يكون العرض والارتفاع موجبين وضمن حدود المتصفح."
+    },
+    "INVALID_CROP": {
+      "title": "منطقة قص غير صالحة.",
+      "description": "حدد منطقة داخل الصورة."
+    },
+    "INVALID_TIME_RANGE": {
+      "title": "نطاق زمني غير صالح.",
+      "description": "يجب أن يكون وقت النهاية بعد وقت البداية وضمن مدة الفيديو."
+    },
+    "TOO_MANY_FILES": {
+      "title": "عدد الملفات كبير جدًا.",
+      "description": "يمكنك إضافة {{max}} ملفًا كحد أقصى في المرة الواحدة."
+    },
+    "INVALID_BASE64": {
+      "title": "بيانات Base64 غير صالحة.",
+      "description": "الصق Data URI كاملًا أو صورة مرمّزة بـ Base64."
+    },
+    "NO_AUDIO_STREAM": {
+      "title": "لم يتم العثور على صوت.",
+      "description": "هذا الفيديو لا يحتوي على مسار صوتي."
+    },
+    "CANCELED": {
+      "title": "تم الإلغاء.",
+      "description": "أُلغيت المعالجة."
+    },
+    "UNKNOWN": {
+      "title": "حدث خطأ ما.",
+      "description": "وقع خطأ غير متوقع. حاول مرة أخرى."
+    },
+    "AI_KEY_REQUIRED": {
+      "title": "مطلوب مفتاح API.",
+      "description": "الصق مفتاح API المجاني في لوحة الإعدادات. استخدم رابط «احصل على مفتاح مجاني» لإنشائه."
+    },
+    "AI_UNAUTHORIZED": {
+      "title": "تم رفض مفتاح API.",
+      "description": "تحقق من صحة المفتاح وأنه مفعّل في حسابك على {{provider}}."
+    },
+    "AI_INSUFFICIENT_CREDITS": {
+      "title": "الرصيد غير كافٍ لهذا النموذج.",
+      "description": "اختر نموذجًا عليه علامة «مجاني»، أو انتظر تجدد رصيدك اليومي المجاني، أو اشحن حسابك على {{provider}}."
+    },
+    "AI_RATE_LIMITED": {
+      "title": "طلبات كثيرة جدًا.",
+      "description": "خدمة الذكاء الاصطناعي تحدّ من عدد الطلبات. انتظر قليلًا ثم حاول مجددًا."
+    },
+    "AI_MODEL_UNAVAILABLE": {
+      "title": "هذا النموذج غير متاح.",
+      "description": "اختر نموذجًا آخر من القائمة."
+    },
+    "AI_GENERATION_FAILED": {
+      "title": "فشل التوليد.",
+      "description": "تعذّر على خدمة الذكاء الاصطناعي إنشاء ذلك. جرّب صياغة أخرى للوصف أو نموذجًا آخر."
+    }
+  },
+  "toasts": {
+    "imageCompressed": "تم ضغط الصورة بنجاح.",
+    "imageConverted": "تم تحويل الصورة بنجاح.",
+    "imageResized": "تم تغيير حجم الصورة بنجاح.",
+    "imageCropped": "تم قص الصورة بنجاح.",
+    "backgroundRemoved": "تمت إزالة الخلفية بنجاح.",
+    "imageExported": "تم تصدير الصورة بنجاح.",
+    "watermarkApplied": "تمت إضافة العلامة المائية بنجاح.",
+    "metadataRemoved": "تمت إزالة البيانات الوصفية بنجاح.",
+    "effectApplied": "تم تطبيق التأثير بنجاح.",
+    "iconCreated": "تم إنشاء الأيقونة بنجاح.",
+    "videoCompressed": "تم ضغط الفيديو بنجاح.",
+    "videoConverted": "تم تحويل الفيديو بنجاح.",
+    "videoTrimmed": "تم قص الفيديو بنجاح.",
+    "videoCropped": "تم اقتطاع الفيديو بنجاح.",
+    "videoResized": "تم تغيير دقة الفيديو بنجاح.",
+    "audioRemoved": "تمت إزالة الصوت بنجاح.",
+    "audioExtracted": "تم استخراج الصوت بنجاح.",
+    "audioAdded": "تمت إضافة الصوت بنجاح.",
+    "speedChanged": "تم تغيير السرعة بنجاح.",
+    "videoRotated": "تم تدوير الفيديو بنجاح.",
+    "gifCreated": "تم إنشاء صورة GIF بنجاح.",
+    "frameCaptured": "تم التقاط الإطار.",
+    "videoLooped": "تم إنشاء التكرار بنجاح.",
+    "videoReversed": "تم عكس الفيديو بنجاح.",
+    "fpsChanged": "تم تغيير معدل الإطارات بنجاح.",
+    "framesExtracted": "تم استخراج الإطارات بنجاح.",
+    "videosMerged": "تم دمج المقاطع بنجاح.",
+    "downloadStarted": "بدأ التنزيل.",
+    "copied": "تم النسخ إلى الحافظة.",
+    "colorCopied": "تم نسخ {{value}}",
+    "batchLimit": "تمت إضافة أول {{max}} ملف فقط.",
+    "imagesGenerated": "تم توليد الصور بنجاح.",
+    "videoGenerated": "تم إنشاء الفيديو بنجاح.",
+    "vectorized": "تم إنشاء ملف SVG بنجاح.",
+    "collageCreated": "تم إنشاء الكولاج بنجاح.",
+    "overlayApplied": "تمت إضافة الطبقة بنجاح.",
+    "videoSplit": "تم تقسيم الفيديو بنجاح."
+  },
+  "tools": {
+    "image-compress": {
+      "title": "ضغط الصور",
+      "short": "تصغير ملفات JPG وPNG وWebP وAVIF",
+      "description": "قلّل حجم ملف الصورة مع الحفاظ على الجودة التي تحتاجها.",
+      "seoTitle": "ضغط الصور أونلاين",
+      "seoDescription": "اضغط صور JPG وPNG وWebP وAVIF داخل متصفحك. اختر الجودة وعاين النتيجة ثم نزّلها — لا تغادر ملفاتك جهازك.",
+      "keywords": "ضغط تصغير حجم تقليل تحسين صورة صور",
+      "action": "ضغط الصورة"
+    },
+    "image-convert": {
+      "title": "تحويل الصور",
+      "short": "JPG وPNG وWebP وAVIF وBMP وGIF",
+      "description": "حوّل الصور بين صيغ JPG وPNG وWebP وAVIF وBMP وGIF.",
+      "seoTitle": "تحويل الصور (JPG وPNG وWebP وAVIF)",
+      "seoDescription": "حوّل PNG إلى WebP وJPG إلى PNG وWebP إلى JPG وPNG إلى AVIF والمزيد — بخصوصية داخل متصفحك.",
+      "keywords": "تحويل صيغة امتداد صورة صور",
+      "action": "تحويل الصورة",
+      "actionTo": "التحويل إلى {{format}}"
+    },
+    "image-resize": {
+      "title": "تغيير حجم الصورة",
+      "short": "أحجام دقيقة وإعدادات للمنصات",
+      "description": "غيّر أبعاد الصورة بالاحتواء أو الملء أو التمديد — أو اختر إعدادًا جاهزًا لمنصات التواصل.",
+      "seoTitle": "تغيير حجم الصور أونلاين",
+      "seoDescription": "غيّر حجم الصور إلى أبعاد دقيقة بالبكسل أو إلى مقاسات إنستغرام ويوتيوب وفيسبوك وX ولينكدإن.",
+      "keywords": "تغيير حجم أبعاد مقاس تكبير تصغير صورة",
+      "action": "تغيير الحجم"
+    },
+    "image-crop": {
+      "title": "قص الصورة",
+      "short": "نسب أبعاد حرة أو ثابتة",
+      "description": "قص الصورة بمقابض دقيقة ونسب أبعاد ثابتة مع التدوير والقلب.",
+      "seoTitle": "قص الصور أونلاين",
+      "seoDescription": "قص الصور إلى 1:1 أو 4:3 أو 16:9 أو 9:16 أو أي حجم. دوّر وقوّم واقلب — داخل متصفحك.",
+      "keywords": "قص اقتصاص نسبة أبعاد صورة",
+      "action": "قص الصورة"
+    },
+    "image-remove-bg": {
+      "title": "إزالة الخلفية",
+      "short": "خلفية شفافة أو لون أو صورة",
+      "description": "أزل الخلفية تلقائيًا واستبدلها بخلفية شفافة أو لون أو صورة أخرى.",
+      "seoTitle": "إزالة خلفية الصورة",
+      "seoDescription": "أزل الخلفيات من الصور باستخدام ذكاء اصطناعي يعمل على جهازك. صدّر PNG شفافًا أو أضف خلفية جديدة.",
+      "keywords": "إزالة حذف خلفية شفافة قص صورة",
+      "action": "إزالة الخلفية"
+    },
+    "image-editor": {
+      "title": "محرر الصور",
+      "short": "الإضاءة والألوان والتفاصيل والتحويلات",
+      "description": "اضبط التعريض والألوان والتفاصيل مع معاينة مباشرة، بالإضافة إلى القص والتدوير والقلب وتغيير الحجم.",
+      "seoTitle": "محرر صور أونلاين",
+      "seoDescription": "عدّل صورك داخل المتصفح: السطوع والتباين والتشبّع وحرارة اللون والحدة والقص والمزيد مع التراجع والإعادة.",
+      "keywords": "تعديل محرر سطوع تباين فلتر ألوان صورة",
+      "action": "تصدير الصورة"
+    },
+    "image-watermark": {
+      "title": "إضافة علامة مائية",
+      "short": "علامة مائية نصية أو شعار",
+      "description": "أضف علامة مائية نصية أو شعارًا مع تحكم كامل في الموضع والحجم والعتامة والدوران.",
+      "seoTitle": "إضافة علامة مائية إلى الصور",
+      "seoDescription": "أضف علامة مائية نصية أو شعارك إلى الصور. تحكم في الموضع والعتامة والحجم والدوران — بمعالجة محلية.",
+      "keywords": "علامة مائية شعار حقوق نص",
+      "action": "إضافة العلامة المائية"
+    },
+    "image-metadata": {
+      "title": "بيانات الصورة الوصفية",
+      "short": "عرض وإزالة بيانات EXIF وGPS",
+      "description": "اطّلع على بيانات الكاميرا والموقع وغيرها من البيانات المضمّنة — وصدّر نسخة نظيفة.",
+      "seoTitle": "عرض وإزالة بيانات الصورة الوصفية (EXIF)",
+      "seoDescription": "اعرض بيانات EXIF وGPS ومعلومات الكاميرا في صورك وأزلها قبل المشاركة.",
+      "keywords": "بيانات وصفية exif موقع خصوصية حذف",
+      "action": "إزالة البيانات الوصفية"
+    },
+    "image-batch": {
+      "title": "المعالجة الجماعية",
+      "short": "ضغط أو تغيير حجم أو تحويل صور متعددة",
+      "description": "عالج حتى 50 صورة دفعة واحدة ونزّلها منفردة أو في ملف ZIP.",
+      "seoTitle": "ضغط وتغيير حجم وتحويل الصور دفعة واحدة",
+      "seoDescription": "اضغط أو غيّر حجم أو حوّل عدة صور مرة واحدة داخل متصفحك ونزّلها كلها في ملف ZIP.",
+      "keywords": "جماعي دفعة متعدد صور كثيرة zip",
+      "action": "معالجة الصور"
+    },
+    "image-to-base64": {
+      "title": "صورة إلى Base64",
+      "short": "ترميز الصور كـ Data URI",
+      "description": "رمّز الصورة بصيغة Base64 لاستخدامها في HTML أو CSS أو JSON.",
+      "seoTitle": "تحويل الصورة إلى Base64",
+      "seoDescription": "حوّل الصور فورًا إلى Data URI بصيغة Base64 أو مقتطفات CSS وHTML.",
+      "keywords": "ترميز base64 نص",
+      "action": "الترميز إلى Base64"
+    },
+    "base64-to-image": {
+      "title": "Base64 إلى صورة",
+      "short": "فك ترميز Data URI إلى ملفات",
+      "description": "الصق نص Base64 أو Data URI واحصل على ملف الصورة.",
+      "seoTitle": "تحويل Base64 إلى صورة",
+      "seoDescription": "فك ترميز نصوص Base64 وData URI إلى ملفات صور قابلة للتنزيل.",
+      "keywords": "فك ترميز base64 صورة",
+      "action": "فك الترميز"
+    },
+    "image-ico": {
+      "title": "محوّل ICO",
+      "short": "أيقونات مواقع بأحجام متعددة",
+      "description": "أنشئ ملف ‎.ico متعدد الدقة لأيقونات المواقع وويندوز.",
+      "seoTitle": "تحويل الصورة إلى ICO (أيقونة موقع)",
+      "seoDescription": "أنشئ ملفات favicon.ico بأحجام 16 و32 و48 و256 بكسل من أي صورة.",
+      "keywords": "أيقونة ico فافيكون",
+      "action": "إنشاء ICO"
+    },
+    "svg-to-png": {
+      "title": "SVG إلى PNG",
+      "short": "تحويل الرسومات المتجهة بأي حجم",
+      "description": "حوّل ملفات SVG إلى PNG أو WebP أو JPG واضحة بأي دقة.",
+      "seoTitle": "تحويل SVG إلى PNG",
+      "seoDescription": "حوّل SVG إلى PNG أو WebP أو JPG عالية الدقة مع خلفية اختيارية.",
+      "keywords": "svg png متجه تحويل",
+      "action": "تحويل SVG"
+    },
+    "png-to-svg": {
+      "title": "صورة إلى SVG",
+      "short": "تحويل PNG أو JPG إلى رسم متجه",
+      "description": "حوّل الشعارات والأيقونات والرسومات إلى رسومات SVG متجهة قابلة للتكبير.",
+      "seoTitle": "تحويل PNG إلى SVG",
+      "seoDescription": "حوّل صور PNG وJPG وWebP إلى رسومات SVG متجهة نظيفة — داخل متصفحك.",
+      "keywords": "svg متجه تحويل شعار أيقونة",
+      "action": "التحويل إلى SVG"
+    },
+    "image-color-picker": {
+      "title": "منتقي الألوان",
+      "short": "اختيار الألوان واستخراج اللوحات",
+      "description": "اختر ألوانًا دقيقة من أي صورة واستخرج لوحة ألوانها السائدة.",
+      "seoTitle": "منتقي الألوان من الصورة",
+      "seoDescription": "اختر ألوان HEX وRGB وHSL من صورة وأنشئ لوحة ألوانها.",
+      "keywords": "لون ألوان منتقي قطارة لوحة hex",
+      "action": "اختيار الألوان"
+    },
+    "image-blur": {
+      "title": "تمويه الصورة",
+      "short": "تمويه ناعم ومتجانس",
+      "description": "طبّق تمويهًا ناعمًا على الصورة بأكملها.",
+      "seoTitle": "تمويه الصور أونلاين",
+      "seoDescription": "موّه الصور بشدة قابلة للتعديل داخل متصفحك.",
+      "keywords": "تمويه ضبابية تنعيم",
+      "action": "تمويه الصورة"
+    },
+    "image-pixelate": {
+      "title": "بكسلة الصورة",
+      "short": "تأثير الفسيفساء",
+      "description": "حوّل الصورة إلى بكسلات بحجم كتلة قابل للتعديل.",
+      "seoTitle": "بكسلة الصور أونلاين",
+      "seoDescription": "طبّق تأثير فسيفساء البكسلات على الصور مع التحكم في حجم الكتلة.",
+      "keywords": "بكسلة فسيفساء إخفاء تشويش",
+      "action": "بكسلة الصورة"
+    },
+    "image-grayscale": {
+      "title": "تدرّج رمادي",
+      "short": "تحويل إلى الأبيض والأسود",
+      "description": "حوّل الصورة إلى الأبيض والأسود مع شدة قابلة للتعديل.",
+      "seoTitle": "تحويل الصورة إلى تدرّج رمادي",
+      "seoDescription": "حوّل الصور إلى الأبيض والأسود مع التحكم في الشدة.",
+      "keywords": "رمادي أبيض وأسود أحادي اللون",
+      "action": "التحويل إلى رمادي"
+    },
+    "image-rotate": {
+      "title": "تدوير الصورة",
+      "short": "‏90° أو 180° أو 270° أو أي زاوية",
+      "description": "دوّر الصورة بزوايا قائمة أو بزاوية مخصصة.",
+      "seoTitle": "تدوير الصور أونلاين",
+      "seoDescription": "دوّر الصور 90 أو 180 أو 270 درجة أو بأي زاوية مخصصة.",
+      "keywords": "تدوير دوران اتجاه",
+      "action": "تدوير الصورة"
+    },
+    "image-flip": {
+      "title": "قلب الصورة",
+      "short": "انعكاس أفقي أو عمودي",
+      "description": "اعكس الصورة أفقيًا أو عموديًا أو في الاتجاهين.",
+      "seoTitle": "قلب الصور أونلاين",
+      "seoDescription": "اقلب الصور واعكسها أفقيًا أو عموديًا.",
+      "keywords": "قلب عكس مرآة انعكاس",
+      "action": "قلب الصورة"
+    },
+    "video-compress": {
+      "title": "ضغط الفيديو",
+      "short": "ملفات MP4 وWebM أصغر",
+      "description": "قلّل حجم ملف الفيديو بمستويات جودة جاهزة والتحكم في الدقة ومعدل البت.",
+      "seoTitle": "ضغط الفيديو أونلاين",
+      "seoDescription": "اضغط ملفات MP4 وMOV وWebM وغيرها بإعدادات جاهزة أو معدل بت مخصص — بخصوصية داخل متصفحك.",
+      "keywords": "ضغط تصغير حجم فيديو مقطع",
+      "action": "ضغط الفيديو"
+    },
+    "video-convert": {
+      "title": "تحويل الفيديو",
+      "short": "MP4 وWebM وMOV وAVI وMKV وGIF",
+      "description": "حوّل الفيديو بين صيغ MP4 وWebM وMOV وAVI وMKV وGIF.",
+      "seoTitle": "تحويل الفيديو (MP4 وWebM وMOV وAVI وMKV)",
+      "seoDescription": "حوّل الفيديو إلى MP4 أو WebM أو MOV أو AVI أو MKV أو GIF باستخدام FFmpeg — داخل متصفحك.",
+      "keywords": "تحويل صيغة فيديو مقطع",
+      "action": "تحويل الفيديو",
+      "actionTo": "التحويل إلى {{format}}"
+    },
+    "video-trim": {
+      "title": "قص الفيديو",
+      "short": "احتفظ بالجزء المهم فقط",
+      "description": "قص الفيديو إلى وقت بداية ونهاية باستخدام خط زمني مرئي.",
+      "seoTitle": "قص الفيديو أونلاين",
+      "seoDescription": "قص الفيديو بخط زمني قابل للسحب. قص سريع بلا فقد أو إعادة ترميز دقيقة على مستوى الإطار.",
+      "keywords": "قص تقطيع تقصير مقطع فيديو",
+      "action": "قص الفيديو"
+    },
+    "video-crop": {
+      "title": "اقتطاع الفيديو",
+      "short": "ريلز وشورتس وتيك توك وغيرها",
+      "description": "اقتطع إطار الفيديو إلى أي منطقة أو نسبة أبعاد جاهزة للمنصات.",
+      "seoTitle": "اقتطاع الفيديو أونلاين",
+      "seoDescription": "اقتطع الفيديو إلى 9:16 أو 1:1 أو 16:9 أو منطقة مخصصة لريلز وتيك توك وشورتس ويوتيوب.",
+      "keywords": "اقتطاع قص إطار نسبة ريلز تيك توك",
+      "action": "اقتطاع الفيديو"
+    },
+    "video-resize": {
+      "title": "تغيير دقة الفيديو",
+      "short": "4K أو 1080p أو 720p أو مخصص",
+      "description": "غيّر دقة الفيديو بإعدادات جاهزة أو أبعاد دقيقة.",
+      "seoTitle": "تغيير حجم الفيديو أونلاين",
+      "seoDescription": "غيّر دقة الفيديو إلى 4K أو 1440p أو 1080p أو 720p أو 480p أو أحجام مخصصة.",
+      "keywords": "دقة حجم أبعاد فيديو",
+      "action": "تغيير الدقة"
+    },
+    "video-mute": {
+      "title": "كتم الفيديو",
+      "short": "إزالة المسار الصوتي",
+      "description": "أزل كل الأصوات من الفيديو دون إعادة ترميز الصورة.",
+      "seoTitle": "إزالة الصوت من الفيديو",
+      "seoDescription": "اكتم الفيديو بإزالة المسار الصوتي — بسرعة وبلا فقد.",
+      "keywords": "كتم إزالة حذف صوت",
+      "action": "إزالة الصوت"
+    },
+    "video-extract-audio": {
+      "title": "استخراج الصوت",
+      "short": "حفظ الصوت بصيغة MP3 أو WAV أو AAC",
+      "description": "استخرج المسار الصوتي من الفيديو بصيغة MP3 أو WAV أو AAC.",
+      "seoTitle": "استخراج الصوت من الفيديو (MP3 وWAV وAAC)",
+      "seoDescription": "حوّل الفيديو إلى صوت: احفظ الصوت بصيغة MP3 أو WAV أو AAC داخل متصفحك.",
+      "keywords": "استخراج صوت فيديو إلى صوت mp3",
+      "action": "استخراج الصوت"
+    },
+    "video-speed": {
+      "title": "تغيير سرعة الفيديو",
+      "short": "حركة بطيئة أو تسريع",
+      "description": "سرّع الفيديو أو أبطئه من 0.25× إلى 2×.",
+      "seoTitle": "تغيير سرعة الفيديو",
+      "seoDescription": "أنشئ فيديو بحركة بطيئة أو سريعة مع صوت طبيعي.",
+      "keywords": "سرعة تسريع إبطاء حركة بطيئة",
+      "action": "تغيير السرعة"
+    },
+    "video-rotate": {
+      "title": "تدوير الفيديو",
+      "short": "التدوير والقلب",
+      "description": "دوّر الفيديو 90° أو 180° أو 270° واقلبه أفقيًا أو عموديًا.",
+      "seoTitle": "تدوير الفيديو أونلاين",
+      "seoDescription": "دوّر الفيديو 90 أو 180 أو 270 درجة واقلبه — داخل متصفحك.",
+      "keywords": "تدوير قلب اتجاه فيديو",
+      "action": "تدوير الفيديو"
+    },
+    "video-to-gif": {
+      "title": "فيديو إلى GIF",
+      "short": "صور GIF نقية بألوان محسّنة",
+      "description": "حوّل مقطعًا إلى صورة GIF متحركة مع التحكم في التوقيت ومعدل الإطارات والعرض والجودة.",
+      "seoTitle": "تحويل الفيديو إلى GIF",
+      "seoDescription": "أنشئ صور GIF متحركة عالية الجودة من فيديوهات MP4 وMOV وWebM.",
+      "keywords": "gif متحركة صورة متحركة",
+      "action": "إنشاء GIF"
+    },
+    "gif-to-video": {
+      "title": "GIF إلى فيديو",
+      "short": "GIF إلى MP4 أو WebM",
+      "description": "حوّل صور GIF المتحركة إلى فيديو MP4 أو WebM أصغر بكثير.",
+      "seoTitle": "تحويل GIF إلى MP4",
+      "seoDescription": "حوّل صور GIF المتحركة إلى MP4 أو WebM — بملفات أصغر بكثير.",
+      "keywords": "gif فيديو mp4",
+      "action": "تحويل GIF"
+    },
+    "video-thumbnail": {
+      "title": "صورة مصغرة من الفيديو",
+      "short": "التقط أي إطار كصورة",
+      "description": "تنقّل داخل الفيديو واحفظ أي إطار بصيغة JPG أو PNG أو WebP.",
+      "seoTitle": "استخراج صورة مصغرة من الفيديو",
+      "seoDescription": "التقط إطارًا بكامل الدقة من أي فيديو بصيغة JPG أو PNG أو WebP.",
+      "keywords": "صورة مصغرة إطار لقطة شاشة غلاف",
+      "action": "التقاط الإطار"
+    },
+    "video-loop": {
+      "title": "تكرار الفيديو",
+      "short": "كرّر المقطع عدة مرات",
+      "description": "كرّر الفيديو عدة مرات في ملف واحد.",
+      "seoTitle": "تكرار الفيديو أونلاين",
+      "seoDescription": "كرّر الفيديو من 2 إلى 50 مرة دون إعادة ترميز.",
+      "keywords": "تكرار حلقة إعادة",
+      "action": "إنشاء التكرار"
+    },
+    "video-reverse": {
+      "title": "عكس الفيديو",
+      "short": "تشغيل للخلف",
+      "description": "اعكس الفيديو مع صوته أو بدونه.",
+      "seoTitle": "عكس الفيديو أونلاين",
+      "seoDescription": "شغّل الفيديو للخلف مع صوت معكوس داخل متصفحك.",
+      "keywords": "عكس للخلف ترجيع",
+      "action": "عكس الفيديو"
+    },
+    "video-fps": {
+      "title": "تغيير معدل الإطارات",
+      "short": "‏24 أو 30 أو 60 إطارًا أو مخصص",
+      "description": "حوّل الفيديو إلى معدل إطارات مختلف.",
+      "seoTitle": "تغيير معدل إطارات الفيديو (FPS)",
+      "seoDescription": "غيّر معدل إطارات الفيديو إلى 24 أو 25 أو 30 أو 60 أو أي قيمة مخصصة.",
+      "keywords": "معدل الإطارات fps إطار",
+      "action": "تغيير معدل الإطارات"
+    },
+    "video-frames": {
+      "title": "استخراج الإطارات",
+      "short": "سلسلة صور في ملف ZIP",
+      "description": "استخرج الإطارات على فترات منتظمة ونزّلها كصور.",
+      "seoTitle": "استخراج الإطارات من الفيديو",
+      "seoDescription": "صدّر إطارات الفيديو كصور JPG أو PNG أو WebP ونزّلها في ملف ZIP.",
+      "keywords": "إطارات استخراج صور لقطات",
+      "action": "استخراج الإطارات"
+    },
+    "video-merge": {
+      "title": "دمج الفيديو",
+      "short": "ضم المقاطع في مقطع واحد",
+      "description": "اجمع عدة مقاطع في ملف MP4 واحد بالترتيب الذي تختاره.",
+      "seoTitle": "دمج الفيديو أونلاين",
+      "seoDescription": "ادمج عدة فيديوهات في ملف MP4 واحد — بخصوصية داخل متصفحك.",
+      "keywords": "دمج ضم جمع مقاطع",
+      "action": "دمج المقاطع"
+    },
+    "video-add-audio": {
+      "title": "إضافة صوت إلى الفيديو",
+      "short": "استبدال الصوت أو دمجه",
+      "description": "أضف موسيقى أو تعليقًا صوتيًا إلى الفيديو — باستبدال الصوت الأصلي أو دمجه.",
+      "seoTitle": "إضافة صوت إلى الفيديو",
+      "seoDescription": "أضف موسيقى إلى الفيديو: استبدل الصوت أو ادمجه، واضبط مستواه وكرّره.",
+      "keywords": "إضافة صوت موسيقى تعليق",
+      "action": "إضافة الصوت"
+    },
+    "ai-image": {
+      "title": "مولّد الصور بالذكاء الاصطناعي",
+      "short": "أنشئ صورًا من وصف نصي",
+      "description": "صف الصورة وأنشئها باستخدام نماذج ذكاء اصطناعي حديثة — مع خيارات مجانية.",
+      "seoTitle": "مولّد صور مجاني بالذكاء الاصطناعي",
+      "seoDescription": "أنشئ صورًا من النص باستخدام FLUX ونماذج أخرى عبر حسابات Pollinations أو Hugging Face المجانية.",
+      "keywords": "ذكاء اصطناعي توليد صورة رسم وصف نص إلى صورة",
+      "action_zero": "توليد الصور",
+      "action_one": "توليد صورة",
+      "action_two": "توليد صورتين",
+      "action_few": "توليد {{count}} صور",
+      "action_many": "توليد {{count}} صورة",
+      "action_other": "توليد {{count}} صورة"
+    },
+    "ai-video": {
+      "title": "مولّد الفيديو بالذكاء الاصطناعي",
+      "short": "حرّك الصور أو أنشئ مقاطع",
+      "description": "أضف الحركة إلى صورة ثابتة مجانًا داخل متصفحك، أو أنشئ فيديو من النص عبر نموذج سحابي.",
+      "seoTitle": "مولّد الفيديو بالذكاء الاصطناعي — صورة إلى فيديو",
+      "seoDescription": "حوّل الصور إلى مقاطع متحركة مجانًا داخل متصفحك، أو أنشئ مقاطع من أوصاف نصية.",
+      "keywords": "ذكاء اصطناعي توليد فيديو تحريك صورة إلى فيديو نص إلى فيديو",
+      "action": "إنشاء الفيديو"
+    },
+    "heic-to-jpg": {
+      "title": "HEIC إلى JPG",
+      "short": "تحويل صور الآيفون",
+      "description": "حوّل صور HEIC/HEIF من الآيفون إلى JPG أو PNG تعمل في كل مكان.",
+      "seoTitle": "تحويل HEIC إلى JPG",
+      "seoDescription": "حوّل صور الآيفون بصيغة HEIC إلى JPG أو PNG بخصوصية داخل متصفحك — بلا رفع.",
+      "keywords": "آيفون ايفون heic صور ابل",
+      "action": "التحويل إلى {{format}}"
+    },
+    "image-text": {
+      "title": "إضافة نص إلى الصورة",
+      "short": "تعليقات وعناوين وميمز",
+      "description": "أضف نصًا أعلى الصورة وأسفلها مع حدود — مثالي للميمز والاقتباسات والعناوين.",
+      "seoTitle": "إضافة نص إلى الصور وصانع الميمز",
+      "seoDescription": "أضف تعليقات ونصوص ميمز إلى الصور بخطوط وألوان وحدود مخصصة. يدعم العربية.",
+      "keywords": "نص كتابة ميم عنوان اقتباس",
+      "action": "تطبيق النص"
+    },
+    "image-censor": {
+      "title": "تمويه جزء من الصورة",
+      "short": "إخفاء الوجوه واللوحات والتفاصيل",
+      "description": "موّه أو بكسل أو غطِّ بالأسود أي مناطق في الصورة قبل مشاركتها.",
+      "seoTitle": "تمويه الوجوه وإخفاء أجزاء من الصورة",
+      "seoDescription": "موّه أو بكسل الوجوه ولوحات السيارات والتفاصيل الخاصة في الصور — على جهازك.",
+      "keywords": "تمويه إخفاء وجه لوحة خصوصية",
+      "action": "تطبيق الإخفاء"
+    },
+    "image-collage": {
+      "title": "كولاج صور",
+      "short": "اجمع الصور في شبكة",
+      "description": "رتّب من 2 إلى 9 صور في شبكة أنيقة مع مسافات وزوايا مستديرة وخلفية.",
+      "seoTitle": "صانع كولاج الصور",
+      "seoDescription": "اصنع كولاج شبكي من حتى 9 صور مع مسافات وزوايا مستديرة.",
+      "keywords": "كولاج دمج صور شبكة تجميع",
+      "action": "إنشاء الكولاج"
+    },
+    "image-border": {
+      "title": "إضافة إطار",
+      "short": "حواف وإطارات وظلال",
+      "description": "أضف حواف وإطارًا ملونًا وزوايا مستديرة وظلًا ناعمًا.",
+      "seoTitle": "إضافة إطار إلى الصورة",
+      "seoDescription": "أضف إطارات وحواف وزوايا مستديرة وظلالًا إلى الصور.",
+      "keywords": "إطار حدود حواف ظل زوايا",
+      "action": "تطبيق الإطار"
+    },
+    "image-filters": {
+      "title": "فلاتر الصور",
+      "short": "أنماط بلمسة مثل كلاسيكي وأبيض وأسود",
+      "description": "طبّق أنماطًا احترافية على صورك مع التحكم في الشدة.",
+      "seoTitle": "فلاتر الصور أونلاين",
+      "seoDescription": "طبّق فلاتر كلاسيكي وأبيض وأسود ودافئ وسينمائي وغيرها على الصور مع التحكم في الشدة.",
+      "keywords": "فلتر فلاتر تأثير نمط",
+      "action": "تطبيق الفلتر"
+    },
+    "video-text": {
+      "title": "إضافة نص إلى الفيديو",
+      "short": "عناوين وتعليقات",
+      "description": "أضف عنوانًا أو تعليقًا إلى الفيديو، للمقطع كاملًا أو لفترة محددة. يدعم العربية.",
+      "seoTitle": "إضافة نص إلى الفيديو",
+      "seoDescription": "أضف عناوين وتعليقات إلى الفيديو بأي لغة، مع خلفية للنص وتوقيت.",
+      "keywords": "نص كتابة عنوان ترجمة",
+      "action": "إضافة النص"
+    },
+    "video-watermark": {
+      "title": "علامة مائية للفيديو",
+      "short": "شعار أو نص",
+      "description": "ضع شعارك أو علامة نصية على مقاطع الفيديو.",
+      "seoTitle": "إضافة علامة مائية إلى الفيديو",
+      "seoDescription": "أضف شعارًا أو علامة مائية نصية إلى الفيديو مع التحكم في الموضع والحجم والعتامة.",
+      "keywords": "علامة مائية شعار",
+      "action": "تطبيق العلامة المائية"
+    },
+    "video-censor": {
+      "title": "تمويه جزء من الفيديو",
+      "short": "إخفاء مناطق طوال المقطع",
+      "description": "موّه أو بكسل أو غطِّ بالأسود مناطق ثابتة في الفيديو.",
+      "seoTitle": "تمويه أو بكسلة منطقة في الفيديو",
+      "seoDescription": "أخفِ الوجوه أو اللوحات أو الشاشات في الفيديو بتمويه أو بكسلة المناطق المحددة.",
+      "keywords": "تمويه إخفاء بكسلة وجه",
+      "action": "تطبيق الإخفاء"
+    },
+    "video-filters": {
+      "title": "فلاتر الفيديو",
+      "short": "أنماط وتصحيح الألوان",
+      "description": "طبّق أنماطًا سينمائية واضبط السطوع والتباين والتشبّع.",
+      "seoTitle": "فلاتر الفيديو وتصحيح الألوان",
+      "seoDescription": "طبّق فلاتر مثل كلاسيكي وأبيض وأسود وحيوي، واضبط السطوع والتباين والتشبّع.",
+      "keywords": "فلتر ألوان سطوع تباين",
+      "action": "تطبيق الفلاتر"
+    },
+    "video-fit": {
+      "title": "ملاءمة الفيديو للريلز",
+      "short": "مقاس 9:16 بدون قص مع خلفية ضبابية",
+      "description": "ضع أي فيديو في مقاس 9:16 أو 1:1 أو 4:5 دون قص، فوق نسخة ضبابية منه أو لون.",
+      "seoTitle": "ملاءمة الفيديو لمقاس 9:16 مع خلفية ضبابية",
+      "seoDescription": "حوّل الفيديو الأفقي إلى مقاس ريلز وتيك توك وشورتس دون قص باستخدام خلفية ضبابية.",
+      "keywords": "ريلز تيك توك عمودي خلفية ضبابية بدون قص",
+      "action": "إنشاء الفيديو"
+    },
+    "video-split": {
+      "title": "تقسيم الفيديو",
+      "short": "تقطيع إلى أجزاء متساوية",
+      "description": "قسّم الفيديو إلى أجزاء متساوية أو مقاطع بطول ثابت.",
+      "seoTitle": "تقسيم الفيديو إلى أجزاء",
+      "seoDescription": "قسّم الفيديو إلى أجزاء متساوية أو مقاطع بأي طول — بسرعة وبلا فقد.",
+      "keywords": "تقسيم تقطيع أجزاء",
+      "action": "تقسيم الفيديو"
+    },
+    "video-fade": {
+      "title": "ظهور واختفاء تدريجي",
+      "short": "بداية ونهاية ناعمة",
+      "description": "أضف ظهورًا تدريجيًا من الأسود واختفاءً إليه، مع تدرج مماثل للصوت.",
+      "seoTitle": "إضافة ظهور واختفاء تدريجي للفيديو",
+      "seoDescription": "أضف ظهورًا واختفاءً تدريجيًا ناعمًا للفيديو والصوت.",
+      "keywords": "تدريجي ظهور اختفاء انتقال",
+      "action": "تطبيق التدرج"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "حول Refract",
+      "intro": "‏Refract مجموعة أدوات وسائط مركّزة تعمل بالكامل داخل متصفحك. صُممت لمن يعملون مع الصور والفيديو يوميًا ويريدون نتائج سريعة دون رفع ملفاتهم إلى أي مكان.",
+      "sections": [
+        {
+          "title": "كيف تعمل",
+          "body": "تُعالج الصور باستخدام Canvas داخل Web Workers، مع ترميزات WebAssembly لصيغ مثل AVIF. أما الفيديو فيستخدم FFmpeg المترجم إلى WebAssembly، ولا يُحمَّل إلا عند فتح أداة فيديو."
+        },
+        {
+          "title": "مصمم للتوسع",
+          "body": "تفصل البنية بين الأدوات وخدمات المعالجة والمزوّدين، بحيث يمكن إضافة ميزات مثل الإعدادات المحفوظة والمعالجة السحابية وحدود ملفات أكبر أو واجهة برمجية دون تغيير سلوك الأدوات."
+        },
+        {
+          "title": "معايير مفتوحة",
+          "body": "تستخدم الملفات الناتجة صيغًا مدعومة على نطاق واسع — MP4 وWebM وPNG وJPG وWebP وAVIF — لتعمل في كل مكان تحتاجه."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "الخصوصية",
+      "intro": "تُعالج ملفاتك على جهازك. لا يرفع Refract الوسائط التي تفتحها ولا يخزنها ولا يحللها.",
+      "sections": [
+        {
+          "title": "معالجة محلية",
+          "body": "تعمل كل أداة داخل علامة التبويب في متصفحك. تبقى الملفات في الذاكرة فقط أثناء عملك، وتُحرَّر عند المغادرة أو المسح."
+        },
+        {
+          "title": "ما الذي نخزّنه",
+          "body": "لا يُحفظ في التخزين المحلي لمتصفحك سوى تفضيلات اللغة والمظهر. أما قائمة المهام الأخيرة فتحتفظ بأسماء الملفات والأدوات للجلسة الحالية فقط."
+        },
+        {
+          "title": "المكوّنات التي يتم تنزيلها",
+          "body": "تُنزّل أداة إزالة الخلفية نموذج الذكاء الاصطناعي من شبكة محتوى IMG.LY عند أول استخدام. يتم تنزيل النموذج فقط — ولا تُرسل صورك أبدًا."
+        }
+      ]
+    },
+    "notFound": {
+      "title": "الصفحة غير موجودة",
+      "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها. جرّب البحث عن أداة بدلًا من ذلك."
+    }
+  },
+  "ai": {
+    "provider": "مزوّد الذكاء الاصطناعي",
+    "service": "الخدمة",
+    "providers": {
+      "pollinations": "حساب مجاني برصيد يومي · صور وفيديو",
+      "huggingface": "رمز مجاني برصيد شهري · صور"
+    },
+    "apiKey": "مفتاح API",
+    "showKey": "إظهار المفتاح",
+    "hideKey": "إخفاء المفتاح",
+    "keyHint": "يُرسل مفتاحك إلى {{provider}} فقط ويبقى في هذا المتصفح.",
+    "getFreeKey": "احصل على مفتاح مجاني",
+    "rememberKey": "تذكّر على هذا الجهاز",
+    "rememberKeyHint": "عند الإيقاف: يُنسى المفتاح عند إغلاق هذه الصفحة.",
+    "model": "النموذج",
+    "modelsUnavailable": "تعذّر تحميل قائمة النماذج — سيُستخدم النموذج الافتراضي.",
+    "free": "مجاني",
+    "paid": "مدفوع",
+    "paidOnly": "يتطلب رصيدًا مدفوعًا",
+    "moreActions": "إجراءات أخرى",
+    "openIn": "فتح في {{tool}}",
+    "copyPrompt": "نسخ الوصف",
+    "prompt": "الوصف",
+    "tryExample": "جرّب:",
+    "submitHint": "اضغط Ctrl + Enter للتوليد",
+    "imagePromptPlaceholder": "صف الصورة: العنصر والمكان والأسلوب والإضاءة…",
+    "videoPromptPlaceholder": "صف المشهد وحركة الكاميرا…",
+    "galleryEmptyTitle": "ستظهر إبداعاتك هنا",
+    "galleryEmptyDescription": "اكتب وصفًا ثم اختر «توليد». تبقى النتائج في هذه الصفحة حتى تغادرها.",
+    "videoGalleryEmptyDescription": "اكتب وصفًا ثم اختر «توليد الفيديو».",
+    "count": "عدد الصور",
+    "fixedSeed": "بذرة ثابتة",
+    "fixedSeedHint": "أعد استخدام البذرة للحصول على نتائج قابلة للتكرار.",
+    "seed": "البذرة",
+    "negativePrompt": "وصف سلبي",
+    "negativePromptHint": "أشياء يجب تجنبها، مثل «ضبابي، نص، علامة مائية».",
+    "privacyDetail": "يُرسل وصفك إلى {{provider}} لإنشاء النتيجة.",
+    "videoMode": "وضع الفيديو",
+    "modes": {
+      "animate": "تحريك صورة · مجاني",
+      "text": "نص إلى فيديو · سحابي"
+    },
+    "motion": "الحركة",
+    "motionEffect": "حركة الكاميرا",
+    "effects": {
+      "zoom-in": "تقريب بطيء",
+      "zoom-out": "إبعاد بطيء",
+      "pan-left": "تحريك لليسار",
+      "pan-right": "تحريك لليمين",
+      "pan-up": "تحريك لأعلى",
+      "pan-down": "تحريك لأسفل"
+    },
+    "dropImageToAnimate": "أفلت صورة لتحريكها",
+    "animateAction": "إنشاء الفيديو",
+    "animateLocalDetail": "يُنشأ الفيديو على جهازك باستخدام FFmpeg. لا حاجة إلى مفتاح أو حساب.",
+    "generateVideo": "توليد الفيديو",
+    "videoCostNote": "تتطلب معظم نماذج تحويل النص إلى فيديو رصيدًا مدفوعًا. يمكن للنماذج التي عليها علامة «مجاني» استخدام رصيدك اليومي المجاني."
+  },
+  "trace": {
+    "title": "التحويل إلى متجه",
+    "style": "النمط",
+    "presets": {
+      "logo": "شعار",
+      "logoHint": "ألوان مسطحة قليلة وحواف حادة. الأفضل للشعارات والأيقونات.",
+      "illustration": "رسم توضيحي",
+      "illustrationHint": "ألوان أكثر ومنحنيات ناعمة للرسومات.",
+      "photo": "صورة",
+      "photoHint": "ألوان كثيرة بمظهر ملصق. الملفات تكون كبيرة.",
+      "lineart": "خطوط",
+      "lineartHint": "أبيض وأسود فقط — رسومات وتواقيع وأختام."
+    },
+    "colors": "الألوان",
+    "detail": "التفاصيل",
+    "details": {
+      "low": "منخفضة",
+      "medium": "متوسطة",
+      "high": "عالية"
+    },
+    "removeBackground": "إزالة الخلفية البيضاء",
+    "removeBackgroundHint": "يحذف الأشكال القريبة من الأبيض لتصبح خلفية SVG شفافة."
+  },
+  "heic": {
+    "previewHint": "لا يستطيع متصفحك معاينة صور HEIC، لكن تحويلها يعمل بشكل طبيعي.",
+    "note": "الصور التي تحتوي على عدة لقطات (التصوير المتتابع والصور الحية) تُصدَّر منها الصورة الرئيسية."
+  },
+  "textTool": {
+    "content": "النص",
+    "top": "النص العلوي",
+    "bottom": "النص السفلي",
+    "style": "النمط",
+    "font": "الخط",
+    "fonts": {
+      "impact": "Impact (ميم)",
+      "sans": "بدون زوائد",
+      "serif": "بزوائد",
+      "mono": "أحادي المسافة"
+    },
+    "fill": "لون النص",
+    "outline": "الحدود",
+    "outlineWidth": "سُمك الحدود",
+    "uppercase": "أحرف كبيرة",
+    "background": "مربع خلفية",
+    "boxColor": "لون المربع",
+    "boxBehind": "مربع خلف النص",
+    "timing": "التوقيت",
+    "wholeVideo": "الإظهار طوال الفيديو"
+  },
+  "censor": {
+    "title": "المناطق المراد إخفاؤها",
+    "editorLabel": "اسحب على الوسائط لتحديد المناطق المراد إخفاؤها",
+    "region": "المنطقة {{index}} — اسحب للتحريك، واضغط Delete للحذف",
+    "removeRegion": "إزالة المنطقة {{index}}",
+    "count_zero": "لا توجد مناطق",
+    "count_one": "منطقة واحدة محددة",
+    "count_two": "منطقتان محددتان",
+    "count_few": "{{count}} مناطق محددة",
+    "count_many": "{{count}} منطقة محددة",
+    "count_other": "{{count}} منطقة محددة",
+    "drawHint": "اسحب على المعاينة لتحديد كل منطقة تريد إخفاءها.",
+    "effect": "التأثير",
+    "modes": {
+      "blur": "تمويه",
+      "pixelate": "بكسلة",
+      "solid": "مربع أسود"
+    },
+    "videoHint": "تبقى المناطق في المكان نفسه طوال الفيديو. المعاينة تقريبية."
+  },
+  "border": {
+    "frame": "الإطار",
+    "padding": "الحواف",
+    "radius": "استدارة الزوايا",
+    "shadow": "ظل",
+    "transparent": "خلفية شفافة",
+    "alphaHint": "الزوايا المستديرة والشفافية تتطلب PNG أو WebP."
+  },
+  "filters": {
+    "look": "النمط",
+    "adjust": "الضبط",
+    "previewNote": "المعاينة المباشرة تقريبية، والتصدير يستخدم الفلتر الدقيق.",
+    "presets": {
+      "none": "بدون",
+      "vivid": "حيوي",
+      "warm": "دافئ",
+      "cool": "بارد",
+      "vintage": "كلاسيكي",
+      "fade": "باهت",
+      "noir": "نوار",
+      "mono": "أحادي",
+      "dramatic": "درامي",
+      "golden": "ذهبي",
+      "cinematic": "سينمائي",
+      "sepia": "بني قديم"
+    }
+  },
+  "collage": {
+    "fileName_zero": "كولاج",
+    "fileName_one": "كولاج من صورة واحدة",
+    "fileName_two": "كولاج من صورتين",
+    "fileName_few": "كولاج من {{count}} صور",
+    "fileName_many": "كولاج من {{count}} صورة",
+    "fileName_other": "كولاج من {{count}} صورة",
+    "addMore": "إضافة المزيد من الصور",
+    "layout": "التخطيط",
+    "columns": "الأعمدة",
+    "auto": "تلقائي",
+    "cellShape": "شكل الخلية",
+    "gap": "المسافة"
+  },
+  "fit": {
+    "canvas": "اللوحة",
+    "resolution": "الدقة",
+    "blurred": "فيديو ضبابي",
+    "hint": "يبقى الفيديو ظاهرًا بالكامل — لا يتم قص أي جزء."
+  },
+  "fade": {
+    "title": "التدرج",
+    "in": "ظهور تدريجي",
+    "out": "اختفاء تدريجي",
+    "audio": "تدرج الصوت أيضًا"
+  },
+  "split": {
+    "title": "التقسيم",
+    "byParts": "أجزاء متساوية",
+    "byLength": "حسب الطول",
+    "parts": "عدد الأجزاء",
+    "length": "طول المقطع",
+    "summary_zero": "لا أجزاء",
+    "summary_one": "جزء واحد مدته نحو {{length}}",
+    "summary_two": "جزآن مدة كل منهما نحو {{length}}",
+    "summary_few": "{{count}} أجزاء مدة كل منها نحو {{length}}",
+    "summary_many": "{{count}} جزءًا مدة كل منها نحو {{length}}",
+    "summary_other": "{{count}} جزءًا مدة كل منها نحو {{length}}",
+    "keyframeNote": "التقسيم فوري وبلا فقد. تلتقط نقاط القطع أقرب إطار رئيسي، لذا قد تختلف الأطوال قليلًا."
+  },
+  "toolPrefs": {
+    "lastUsed": "آخر استخدام",
+    "dragHandle": "إعادة ترتيب {{tool}}",
+    "sortable": "بطاقة أداة قابلة للترتيب",
+    "moved": "تم نقل {{tool}} إلى الموضع {{position}}.",
+    "resetOrder": "إعادة الترتيب الافتراضي",
+    "instructions": "لإعادة الترتيب، اضغط المسافة أو Enter لالتقاط البطاقة، واستخدم مفاتيح الأسهم لتحريكها، ثم اضغط المسافة أو Enter مجددًا لإفلاتها. اضغط Escape للإلغاء."
+  }
+}

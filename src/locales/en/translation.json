@@ -1,0 +1,1590 @@
+{
+  "app": {
+    "name": "Refract",
+    "tagline": "Media Toolkit"
+  },
+  "nav": {
+    "home": "Home",
+    "homeLabel": "Refract — home",
+    "imageTools": "Image Tools",
+    "videoTools": "Video Tools",
+    "allTools": "All Tools",
+    "about": "About",
+    "privacy": "Privacy",
+    "primary": "Main navigation",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "skipToContent": "Skip to content",
+    "aiStudio": "AI Studio"
+  },
+  "footer": {
+    "tagline": "Refract · Private media tools that run in your browser.",
+    "label": "Footer"
+  },
+  "common": {
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "select": "Select…",
+    "close": "Close",
+    "tryAgain": "Try again",
+    "retry": "Retry",
+    "loading": "Loading…",
+    "chooseAnother": "Choose another file",
+    "backToSettings": "Back to settings",
+    "readingFile": "Reading file…",
+    "replaceFile": "Replace file",
+    "removeFile": "Remove file",
+    "save": "Save",
+    "download": "Download",
+    "processAnother": "Process another file",
+    "soon": "Soon",
+    "viewAll": "View all",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "copy": "Copy",
+    "remove": "Remove",
+    "clear": "Clear",
+    "selectAll": "Select all",
+    "preview": "Preview",
+    "breadcrumb": "Breadcrumb",
+    "hexColor": "Hex color",
+    "systemColorPicker": "Open system color picker"
+  },
+  "preferences": {
+    "language": "Language",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "search": {
+    "title": "Search tools",
+    "trigger": "Search tools…",
+    "placeholder": "Try “compress”, “convert webp” or “trim video”",
+    "results_one": "{{count}} result",
+    "results_other": "{{count}} results",
+    "popular": "Popular tools",
+    "noResults": "No tools match “{{query}}”.",
+    "noResultsTitle": "Nothing found",
+    "navigate": "Navigate",
+    "open": "Open",
+    "filterTools": "Filter tools"
+  },
+  "recent": {
+    "title": "Recent jobs",
+    "subtitle": "This session only · files are never stored",
+    "empty": "Files you process will show up here.",
+    "clear": "Clear",
+    "status": {
+      "completed": "Done",
+      "failed": "Failed",
+      "canceled": "Canceled"
+    }
+  },
+  "home": {
+    "seoTitle": "Compress, convert and edit images & videos",
+    "seoDescription": "Fast, private tools to compress, convert, resize, crop and edit images and videos — processed locally in your browser.",
+    "eyebrow": "Media Toolkit",
+    "headline": "Everything you need to edit, compress and convert media.",
+    "subtitle": "Fast, private and powerful tools for images and videos. Your files are processed right here in your browser.",
+    "primaryCta": "Choose a file",
+    "secondaryCta": "Browse tools",
+    "chooseTool": "What would you like to do?",
+    "popularTools": "Popular tools",
+    "points": {
+      "private": "Files stay on your device",
+      "noAccount": "No sign-up required"
+    },
+    "features": {
+      "private": {
+        "title": "Your files stay private",
+        "description": "Processing happens locally in your browser. Nothing is uploaded to a server."
+      },
+      "fast": {
+        "title": "Native-grade engines",
+        "description": "Web Workers, WebAssembly codecs and FFmpeg keep the interface responsive while heavy work runs."
+      },
+      "free": {
+        "title": "No accounts, no watermarks",
+        "description": "Open a tool and start working. Nothing to install, nothing added to your output."
+      }
+    }
+  },
+  "categories": {
+    "image": {
+      "title": "Image Tools",
+      "short": "Image",
+      "description": "Compress, convert, resize, crop and retouch images.",
+      "seoTitle": "Image Tools Online"
+    },
+    "video": {
+      "title": "Video Tools",
+      "short": "Video",
+      "description": "Compress, convert, trim, crop and transform videos.",
+      "seoTitle": "Video Tools Online"
+    },
+    "all": {
+      "title": "All Tools",
+      "short": "All",
+      "description": "Every image and video tool in one place.",
+      "seoTitle": "All Media Tools"
+    },
+    "ai": {
+      "title": "AI Studio",
+      "short": "AI",
+      "description": "Generate images and videos from text, or bring still images to life.",
+      "seoTitle": "AI Image & Video Generator"
+    }
+  },
+  "groups": {
+    "label": "Filter by category",
+    "all": "All",
+    "compress": "Compress",
+    "convert": "Convert",
+    "edit": "Edit",
+    "generate": "Generate"
+  },
+  "upload": {
+    "drop": {
+      "image": "Drop an image here",
+      "images": "Drop images here",
+      "video": "Drop a video here",
+      "videos": "Drop videos here",
+      "audio": "Drop an audio file here",
+      "files": "Drop an image or video here"
+    },
+    "or": "or",
+    "browse": "Browse files",
+    "releaseToUpload": "Release to add",
+    "constraints": "{{formats}} · up to {{size}}",
+    "pasteHint": "You can also paste from the clipboard"
+  },
+  "privacy": {
+    "badge": "Processed locally",
+    "localTitle": "Processed locally",
+    "localDescription": "Your files do not leave your device.",
+    "serverTitle": "Processed on our server",
+    "serverDescription": "Files are uploaded securely and deleted after processing.",
+    "cloudBadge": "Uses cloud AI"
+  },
+  "processing": {
+    "compressingImage": "Compressing your image",
+    "convertingImage": "Converting your image",
+    "resizingImage": "Resizing your image",
+    "croppingImage": "Cropping your image",
+    "removingBackground": "Removing the background",
+    "exportingImage": "Exporting your image",
+    "applyingWatermark": "Applying watermark",
+    "removingMetadata": "Removing metadata",
+    "applyingEffect": "Applying effect",
+    "encoding": "Encoding",
+    "creatingIcon": "Creating icon",
+    "rasterizing": "Rendering SVG",
+    "compressingVideo": "Compressing your video",
+    "convertingVideo": "Converting your video",
+    "trimmingVideo": "Trimming your video",
+    "croppingVideo": "Cropping your video",
+    "resizingVideo": "Resizing your video",
+    "removingAudio": "Removing audio",
+    "extractingAudio": "Extracting audio",
+    "addingAudio": "Adding audio",
+    "changingSpeed": "Changing speed",
+    "rotatingVideo": "Rotating your video",
+    "creatingGif": "Creating your GIF",
+    "convertingGif": "Converting your GIF",
+    "capturingFrame": "Capturing frame",
+    "loopingVideo": "Looping your video",
+    "reversingVideo": "Reversing your video",
+    "changingFps": "Changing frame rate",
+    "extractingFrames": "Extracting frames",
+    "mergingVideos": "Merging your videos",
+    "keepTabOpen": "Don’t close this tab while your file is processing.",
+    "stages": {
+      "processing": "Processing…",
+      "decoding": "Reading image…",
+      "encoding": "Encoding…",
+      "finalizing": "Finalizing…",
+      "loadingEngine": "Preparing the video engine (first time only)…",
+      "analyzing": "Analyzing clips…",
+      "downloadingModel": "Downloading the AI model (first time only)…",
+      "removingBackground": "Detecting the subject…",
+      "generatingImage": "The AI is painting… this usually takes 5–30 seconds.",
+      "generatingVideo": "The AI is rendering… video can take a few minutes.",
+      "tracing": "Tracing shapes…"
+    },
+    "generatingImages": "Generating images",
+    "generatingVideo": "Generating your video",
+    "animatingImage": "Animating your image",
+    "tracing": "Tracing vectors",
+    "applyingOverlay": "Adding overlay",
+    "creatingCollage": "Creating collage",
+    "splittingVideo": "Splitting video"
+  },
+  "result": {
+    "before": "Before",
+    "after": "After",
+    "saved": "Saved",
+    "larger": "Larger by",
+    "format": "Format",
+    "dimensions": "Dimensions",
+    "resolution": "Resolution",
+    "duration": "Duration",
+    "fileSize": "File size",
+    "fileName": "File name",
+    "rename": "Rename",
+    "original": "Original",
+    "result": "Result",
+    "compareSlider": "Before and after comparison",
+    "adjustSettings": "Adjust settings",
+    "compressionComplete": "Compression complete",
+    "alreadyOptimized": "Already optimized",
+    "alreadyOptimizedHint": "Re-encoding would make this file larger, so the original is kept as-is. Try a lower quality or a modern format like WebP or AVIF.",
+    "conversionComplete": "Conversion complete",
+    "resizeComplete": "Resize complete",
+    "cropComplete": "Crop complete",
+    "backgroundRemoved": "Background removed",
+    "editComplete": "Your edits are ready",
+    "watermarkComplete": "Watermark applied",
+    "metadataRemoved": "Metadata removed",
+    "effectComplete": "Effect applied",
+    "iconComplete": "Icon created",
+    "trimComplete": "Trim complete",
+    "audioRemoved": "Audio removed",
+    "audioExtracted": "Audio extracted",
+    "audioAdded": "Audio added",
+    "speedComplete": "Speed changed",
+    "rotateComplete": "Rotation complete",
+    "gifComplete": "GIF created",
+    "frameCaptured": "Frame captured",
+    "loopComplete": "Loop created",
+    "reverseComplete": "Video reversed",
+    "fpsComplete": "Frame rate changed",
+    "framesExtracted_one": "{{count}} frame extracted",
+    "framesExtracted_other": "{{count}} frames extracted",
+    "mergeComplete": "{{count}} clips merged",
+    "vectorComplete": "SVG ready",
+    "collageComplete": "Collage ready",
+    "overlayComplete": "Overlay added",
+    "splitComplete_one": "Split into {{count}} part",
+    "splitComplete_other": "Split into {{count}} parts"
+  },
+  "settings": {
+    "compression": "Compression",
+    "conversion": "Conversion",
+    "output": "Output",
+    "size": "Size",
+    "fitting": "Fitting",
+    "advanced": "Advanced settings",
+    "quality": "Quality",
+    "qualityPreset": "Quality preset",
+    "outputFormat": "Output format",
+    "targetFormat": "Convert to",
+    "keepOriginal": "Keep original",
+    "transparentFill": "Fill transparent areas with",
+    "gifNote": "Only the first frame of animated images is converted.",
+    "limitDimensions": "Limit dimensions",
+    "limitDimensionsHint": "Downscale large images so the longest side fits.",
+    "maxDimension": "Longest side",
+    "preset": "Preset",
+    "width": "Width",
+    "height": "Height",
+    "maxWidth": "Max width",
+    "maxHeight": "Max height",
+    "lockAspect": "Lock aspect ratio",
+    "unlockAspect": "Unlock aspect ratio",
+    "scale": "Scale",
+    "noUpscale": "Don’t upscale",
+    "noUpscaleHint": "Never make the image larger than the original.",
+    "outputSize": "Output size",
+    "addBackground": "Add a background",
+    "backgroundColor": "Background color",
+    "modes": {
+      "fit": "Fit",
+      "fitHint": "Scale to fit inside the box. Keeps the original aspect ratio.",
+      "fill": "Fill",
+      "fillHint": "Cover the whole box and crop the overflow from the center.",
+      "stretch": "Stretch",
+      "stretchHint": "Use the exact size, distorting the image if needed."
+    }
+  },
+  "presets": {
+    "quality": {
+      "maximum": "Maximum quality",
+      "maximumDescription": "Visually lossless, largest files",
+      "high": "High quality",
+      "highDescription": "Great detail with solid savings",
+      "balanced": "Balanced",
+      "balancedDescription": "Recommended for most images",
+      "small": "Small file",
+      "smallDescription": "Smallest size, visible softening",
+      "custom": "Custom",
+      "customDescription": "Set with the slider"
+    },
+    "resize": {
+      "custom": "Custom",
+      "original": "Original size",
+      "instagram-post": "Instagram post",
+      "instagram-story": "Instagram story",
+      "facebook-post": "Facebook post",
+      "youtube-thumbnail": "YouTube thumbnail",
+      "twitter-post": "X (Twitter) post",
+      "linkedin-post": "LinkedIn post",
+      "website-banner": "Website banner"
+    },
+    "video": {
+      "best": "Best quality",
+      "bestDescription": "Near-original quality, modest savings",
+      "high": "High quality",
+      "highDescription": "Sharp output with good savings",
+      "balanced": "Balanced",
+      "balancedDescription": "Recommended for sharing",
+      "maximum": "Maximum compression",
+      "maximumDescription": "Smallest file, lower quality",
+      "custom": "Custom",
+      "customDescription": "Set quality or bitrate yourself"
+    },
+    "videoCrop": {
+      "instagram-reel": "Instagram Reel",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "youtube-shorts": "YouTube Shorts",
+      "instagram-story": "Instagram Story",
+      "landscape": "Landscape",
+      "square": "Square"
+    }
+  },
+  "formats": {
+    "jpeg": "Universal, best for photos",
+    "png": "Lossless, keeps transparency",
+    "webp": "Modern, small, keeps transparency",
+    "avif": "Smallest files, newest browsers",
+    "bmp": "Uncompressed bitmap",
+    "gif": "256 colors, legacy support",
+    "video": {
+      "mp4": "H.264 + AAC — plays everywhere",
+      "webm": "VP8 + Vorbis — open web format",
+      "mov": "QuickTime container, H.264",
+      "avi": "Legacy MPEG-4 Part 2",
+      "mkv": "Matroska container, H.264",
+      "gif": "Animated image, no audio"
+    }
+  },
+  "crop": {
+    "aspectRatio": "Aspect ratio",
+    "free": "Free",
+    "selection": "Selection",
+    "transform": "Rotate & flip",
+    "rotateLeft": "Rotate left",
+    "rotateRight": "Rotate right",
+    "flipHorizontal": "Flip horizontally",
+    "flipVertical": "Flip vertically",
+    "straighten": "Straighten",
+    "zoom": "Zoom",
+    "preview": "Crop preview",
+    "area": "Crop area, {{width}} by {{height}} pixels. Use arrow keys to move."
+  },
+  "removeBg": {
+    "background": "Background",
+    "modes": {
+      "transparent": "Transparent",
+      "color": "Color",
+      "image": "Image"
+    },
+    "color": "Background color",
+    "dropBackground": "Drop a background image",
+    "jpegNoTransparency": "JPG can’t store transparency",
+    "modelNote": "Runs on-device with an AI model. The first run downloads the model (about 40 MB); after that it’s cached."
+  },
+  "editor": {
+    "preview": "Edited image preview",
+    "panels": "Editor panels",
+    "tabs": {
+      "adjust": "Adjust",
+      "transform": "Transform"
+    },
+    "groups": {
+      "light": "Light",
+      "color": "Color",
+      "detail": "Detail"
+    },
+    "adjustments": {
+      "brightness": "Brightness",
+      "contrast": "Contrast",
+      "saturation": "Saturation",
+      "exposure": "Exposure",
+      "highlights": "Highlights",
+      "shadows": "Shadows",
+      "temperature": "Temperature",
+      "tint": "Tint",
+      "blur": "Blur",
+      "sharpen": "Sharpen",
+      "opacity": "Opacity"
+    },
+    "undo": "Undo",
+    "redo": "Redo",
+    "resetAll": "Reset all edits",
+    "holdToCompare": "Hold to compare with the original",
+    "rotateFlip": "Rotate & flip",
+    "crop": "Crop",
+    "startCrop": "Crop image",
+    "editCrop": "Edit crop",
+    "applyCrop": "Apply crop",
+    "removeCrop": "Remove crop",
+    "resize": "Resize"
+  },
+  "watermark": {
+    "preview": "Watermark preview",
+    "content": "Watermark",
+    "text": "Text",
+    "logo": "Logo",
+    "textLabel": "Text",
+    "color": "Color",
+    "weight": "Weight",
+    "regular": "Regular",
+    "bold": "Bold",
+    "dropLogo": "Drop a logo (PNG works best)",
+    "placement": "Placement",
+    "position": "Position",
+    "size": "Size",
+    "opacity": "Opacity",
+    "rotation": "Rotation",
+    "margin": "Margin"
+  },
+  "positions": {
+    "top-left": "Top left",
+    "top-center": "Top center",
+    "top-right": "Top right",
+    "center-left": "Center left",
+    "center": "Center",
+    "center-right": "Center right",
+    "bottom-left": "Bottom left",
+    "bottom-center": "Bottom center",
+    "bottom-right": "Bottom right"
+  },
+  "metadata": {
+    "gpsFound": "This image contains GPS location data",
+    "none": "No embedded metadata found.",
+    "removeTitle": "Remove metadata",
+    "removeDescription": "Export a clean copy without EXIF, GPS, camera details or other embedded data — useful before sharing photos publicly.",
+    "reencodeNote": "Pixels are re-encoded to guarantee removal. PNG stays lossless; JPEG and WebP are saved at maximum quality.",
+    "groups": {
+      "file": "File",
+      "camera": "Camera",
+      "capture": "Capture",
+      "image": "Image",
+      "ownership": "Ownership"
+    },
+    "fields": {
+      "fileName": "Name",
+      "fileSize": "Size",
+      "format": "Format",
+      "dimensions": "Dimensions",
+      "lastModified": "Last modified"
+    },
+    "exif": {
+      "Make": "Camera make",
+      "Model": "Camera model",
+      "LensModel": "Lens",
+      "Software": "Software",
+      "DateTimeOriginal": "Date taken",
+      "ExposureTime": "Shutter speed",
+      "FNumber": "Aperture",
+      "ISO": "ISO",
+      "FocalLength": "Focal length",
+      "Flash": "Flash",
+      "WhiteBalance": "White balance",
+      "Orientation": "Orientation",
+      "ColorSpace": "Color space",
+      "XResolution": "Horizontal resolution",
+      "YResolution": "Vertical resolution",
+      "ExifImageWidth": "Stored width",
+      "ExifImageHeight": "Stored height",
+      "Artist": "Artist",
+      "Copyright": "Copyright",
+      "ImageDescription": "Description"
+    }
+  },
+  "batch": {
+    "operation": "Operation",
+    "operations": {
+      "compress": "Compress",
+      "resize": "Resize",
+      "convert": "Convert"
+    },
+    "status": {
+      "idle": "Ready",
+      "waiting": "Waiting",
+      "processing": "Processing…",
+      "completed": "Completed",
+      "failed": "Failed",
+      "canceled": "Canceled"
+    },
+    "maxSize": "Maximum size",
+    "maxSizeHint": "Images are scaled to fit within these bounds, keeping their aspect ratio.",
+    "completed": "Completed",
+    "queueTitle": "{{count}} of {{max}} files",
+    "retryFailed": "Retry failed",
+    "clearAll": "Clear all",
+    "addMore": "Add more images",
+    "processing": "Processing…",
+    "start_one": "Process {{count}} image",
+    "start_other": "Process {{count}} images",
+    "downloadAll": "Download",
+    "downloadAllZip": "Download all as ZIP ({{count}})",
+    "settingsApplyHint": "Settings apply to files when processing starts.",
+    "zipName_one": "{{count}} image (ZIP)",
+    "zipName_other": "{{count}} images (ZIP)"
+  },
+  "base64": {
+    "about": "Base64 encoding",
+    "aboutDescription": "Turns the image into text you can paste into HTML, CSS or JSON. Encoded output is about 33% larger than the file.",
+    "encodedSize": "Encoded size",
+    "characters": "Characters",
+    "formats": {
+      "dataUri": "Data URI",
+      "raw": "Raw Base64",
+      "css": "CSS",
+      "html": "HTML"
+    },
+    "downloadTxt": "Download .txt",
+    "truncated": "Showing the first {{count}} characters. Copy or download to get the full text.",
+    "inputLabel": "Base64 or data URI",
+    "inputHint": "Paste a data URI (data:image/png;base64,…) or raw Base64 text.",
+    "decodedImage": "Decoded image",
+    "emptyTitle": "Your image will appear here",
+    "emptyDescription": "Paste Base64 text and select Decode.",
+    "exportPlaceholder": "Decode an image to see download options."
+  },
+  "ico": {
+    "sizes": "Icon sizes",
+    "nonSquareHint": "This image isn’t square, so it will be centered on a transparent canvas."
+  },
+  "colorPicker": {
+    "imageAlt": "Image to pick colors from",
+    "hint": "Click anywhere on the image to pick a color. It’s copied automatically.",
+    "current": "Under cursor",
+    "hoverHint": "Hover the image",
+    "picked": "Picked colors",
+    "noneYet": "No colors picked yet.",
+    "palette": "Dominant palette"
+  },
+  "effects": {
+    "blur": "Blur",
+    "strength": "Strength",
+    "pixelate": "Pixelate",
+    "blockSize": "Block size",
+    "grayscale": "Grayscale",
+    "intensity": "Intensity",
+    "rotation": "Rotation",
+    "customAngle": "Custom angle",
+    "rotateHint": "Non-right angles expand the canvas; corners stay transparent (or white for JPG).",
+    "flip": "Flip"
+  },
+  "video": {
+    "previewUnavailable": "Preview isn’t available for this format",
+    "previewUnavailableHint": "Your browser can’t play this file, but it can still be processed.",
+    "crf": "Quality (CRF)",
+    "crfHint": "Lower values mean better quality and larger files. 23 is a good default.",
+    "targetBitrate": "Target bitrate",
+    "targetBitrateHint": "Aim for a predictable file size instead of constant quality.",
+    "bitrate": "Video bitrate",
+    "resolution": "Resolution",
+    "originalResolution": "Original",
+    "removeAudio": "Remove audio track",
+    "estimatedOutput": "Estimated output",
+    "estimateDisclaimer": "Actual size depends on motion and detail in the video.",
+    "copyStreams": "Copy streams without re-encoding",
+    "copyStreamsHint": "Fastest and lossless, but only works when the codecs fit the new container.",
+    "gifConvertHint": "GIFs have no audio and are limited to 256 colors. For more control use Video to GIF.",
+    "platformPresets": "Platform presets",
+    "cropNeedsPreview": "This format can’t be previewed, so the crop is centered automatically.",
+    "evenDimensionsHint": "Dimensions are rounded to even numbers for compatibility.",
+    "upscaleWarning": "Upscaling won’t add detail and increases file size.",
+    "rotateNoop": "Choose a rotation or flip to continue."
+  },
+  "trim": {
+    "range": "Range",
+    "start": "Start",
+    "end": "End",
+    "startHandle": "Trim start",
+    "endHandle": "Trim end",
+    "selected": "Selected",
+    "playSelection": "Play selection",
+    "pause": "Pause",
+    "mode": "Cut mode",
+    "precise": "Frame-accurate cut",
+    "preciseHint": "Re-encodes the clip so it starts exactly where you set it. Slower.",
+    "fastHint": "Instant and lossless. Cuts snap to the nearest keyframe, so the start may shift slightly."
+  },
+  "mute": {
+    "title": "Remove audio",
+    "description": "All audio tracks are removed. The video stream is copied as-is, so quality stays identical and it’s fast."
+  },
+  "audio": {
+    "output": "Audio output",
+    "bitrate": "Bitrate",
+    "formats": {
+      "mp3": "Plays everywhere. Good balance of size and quality.",
+      "wav": "Uncompressed. Best for editing, large files.",
+      "aac": "Efficient codec used by Apple devices (.m4a)."
+    }
+  },
+  "addAudio": {
+    "track": "Audio track",
+    "options": "Options",
+    "replace": "Replace",
+    "mix": "Mix",
+    "replaceHint": "The new track replaces the original audio.",
+    "mixHint": "The new track plays over the original audio.",
+    "volume": "Track volume",
+    "loop": "Loop the audio",
+    "loopHint": "Repeat the track if it’s shorter than the video."
+  },
+  "speed": {
+    "title": "Playback speed",
+    "newDuration": "New duration",
+    "sameSpeed": "Pick a speed other than 1× to continue.",
+    "keepAudio": "Keep audio",
+    "keepAudioHint": "Audio is time-stretched with natural pitch."
+  },
+  "gif": {
+    "output": "GIF settings",
+    "fps": "Frames per second",
+    "repeat": "Repeat",
+    "repeatHint": "How many times the animation plays in the video.",
+    "quality": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Small"
+    }
+  },
+  "thumbnail": {
+    "position": "Frame position",
+    "previousFrame": "Previous frame",
+    "nextFrame": "Next frame",
+    "jumpTo": "Jump to {{time}}",
+    "needsPlayable": "This format can’t be played in your browser. Convert it to MP4 first."
+  },
+  "loop": {
+    "title": "Loop",
+    "count": "Play count"
+  },
+  "reverse": {
+    "title": "Reverse",
+    "audio": "Reverse audio too",
+    "audioHint": "Turn off to remove the audio instead.",
+    "longWarning": "Reversing needs lots of memory. Clips longer than {{seconds}} seconds may fail in the browser — trim first if needed."
+  },
+  "fps": {
+    "title": "Frame rate",
+    "custom": "Custom frame rate",
+    "hint": "Lower frame rates make smaller files; higher rates duplicate frames and won’t add smoothness."
+  },
+  "frames": {
+    "title": "Frame extraction",
+    "interval": "Every",
+    "intervalHint": "Time between extracted frames.",
+    "seconds": "sec",
+    "expected": "Frames",
+    "limit": "Limited to {{max}} frames per run.",
+    "count": "Frames",
+    "totalSize": "Total size"
+  },
+  "merge": {
+    "title": "Merge clips",
+    "description": "Clips are joined in the order shown. They are scaled to match the first clip and exported as MP4.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "addClips": "Add more clips",
+    "audioDropped": "Some clips had no audio, so the merged video is silent."
+  },
+  "validation": {
+    "qualityRange": "Quality must be between 1 and 100.",
+    "widthRequired": "Enter a width.",
+    "heightRequired": "Enter a height.",
+    "dimensionRequired": "Enter a size.",
+    "widthPositive": "Width must be greater than 0.",
+    "heightPositive": "Height must be greater than 0.",
+    "dimensionPositive": "Size must be greater than 0.",
+    "wholeNumber": "Use a whole number.",
+    "dimensionTooLarge": "That’s larger than browsers can handle (16,384 px max).",
+    "fileNameRequired": "Enter a file name.",
+    "bitrateRange": "Bitrate must be between 100 and 50,000 kbps.",
+    "timeFormat": "Use a time like 1:23.5 or 83.5.",
+    "timeRangeOrder": "End time must be after the start time.",
+    "timeRangeBounds": "End time is past the end of the video.",
+    "watermarkTextRequired": "Enter watermark text.",
+    "selectAtLeastOneSize": "Select at least one size.",
+    "base64Invalid": "This isn’t valid Base64 image data.",
+    "base64TooLarge": "This image is too large to decode (10 MB max).",
+    "loopsRange": "Choose between 1 and 20.",
+    "loopCountRange": "Choose between 2 and 50.",
+    "fpsRange": "Frame rate must be between 1 and 120.",
+    "intervalRange": "Interval must be at least 0.04 seconds.",
+    "mergeMinClips": "Add at least two clips to merge.",
+    "promptRequired": "Describe what you want to create.",
+    "seedRange": "Seed must be a whole number of 0 or more.",
+    "textRequired": "Enter some text.",
+    "collageMinImages": "Add at least two photos.",
+    "fadeRequired": "Set a fade in or fade out duration.",
+    "fadeTooLong": "The fades are longer than the video.",
+    "splitRange": "Choose settings that create between 2 and {{max}} parts."
+  },
+  "errors": {
+    "UNSUPPORTED_FORMAT": {
+      "title": "This file format is not supported.",
+      "description": "Supported formats: {{formats}}."
+    },
+    "FILE_TOO_LARGE": {
+      "title": "This file is too large.",
+      "description": "Choose a file smaller than the limit for this tool."
+    },
+    "CORRUPTED_FILE": {
+      "title": "This file couldn’t be read.",
+      "description": "It may be damaged or use an encoding your browser doesn’t support."
+    },
+    "UPLOAD_FAILED": {
+      "title": "The file couldn’t be added.",
+      "description": "Please try selecting it again."
+    },
+    "PROCESSING_FAILED": {
+      "title": "Something went wrong while processing your file.",
+      "description": "Please try again. If it keeps happening, try different settings or another file."
+    },
+    "BROWSER_UNSUPPORTED": {
+      "title": "Your browser doesn’t support this feature.",
+      "description": "Try the latest version of Chrome, Edge, Firefox or Safari."
+    },
+    "OUT_OF_MEMORY": {
+      "title": "Not enough memory to finish.",
+      "description": "The file is too demanding for the browser. Try a shorter clip, a lower resolution, or close other tabs."
+    },
+    "FFMPEG_INIT_FAILED": {
+      "title": "The video engine couldn’t start.",
+      "description": "Reload the page and try again. Some privacy extensions block WebAssembly."
+    },
+    "CONVERSION_FAILED": {
+      "title": "Conversion failed.",
+      "description": "This file couldn’t be converted with these settings. Try another format or turn off stream copy."
+    },
+    "NETWORK_ERROR": {
+      "title": "Network error.",
+      "description": "A required resource couldn’t be downloaded. Check your connection and try again."
+    },
+    "BACKGROUND_REMOVAL_FAILED": {
+      "title": "Background removal failed.",
+      "description": "The subject couldn’t be separated from the background. Try an image with a clearer subject."
+    },
+    "INVALID_DIMENSIONS": {
+      "title": "Invalid dimensions.",
+      "description": "Width and height must be positive and within browser limits."
+    },
+    "INVALID_CROP": {
+      "title": "Invalid crop area.",
+      "description": "Select an area inside the image."
+    },
+    "INVALID_TIME_RANGE": {
+      "title": "Invalid time range.",
+      "description": "The end time must be after the start time and within the video."
+    },
+    "TOO_MANY_FILES": {
+      "title": "Too many files.",
+      "description": "You can add up to {{max}} files at once."
+    },
+    "INVALID_BASE64": {
+      "title": "Invalid Base64 data.",
+      "description": "Paste a complete data URI or Base64-encoded image."
+    },
+    "NO_AUDIO_STREAM": {
+      "title": "No audio found.",
+      "description": "This video doesn’t contain an audio track."
+    },
+    "CANCELED": {
+      "title": "Canceled.",
+      "description": "Processing was canceled."
+    },
+    "UNKNOWN": {
+      "title": "Something went wrong.",
+      "description": "An unexpected error occurred. Please try again."
+    },
+    "AI_KEY_REQUIRED": {
+      "title": "An API key is needed.",
+      "description": "Paste your free API key in the settings panel. Use the “Get a free key” link to create one."
+    },
+    "AI_UNAUTHORIZED": {
+      "title": "The API key was rejected.",
+      "description": "Check that the key is correct and active in your {{provider}} account."
+    },
+    "AI_INSUFFICIENT_CREDITS": {
+      "title": "Not enough credits for this model.",
+      "description": "Pick a model marked Free, wait for your daily free credits to refresh, or top up your {{provider}} account."
+    },
+    "AI_RATE_LIMITED": {
+      "title": "Too many requests.",
+      "description": "The AI service is rate-limiting requests. Wait a moment and try again."
+    },
+    "AI_MODEL_UNAVAILABLE": {
+      "title": "This model isn’t available.",
+      "description": "Choose another model from the list."
+    },
+    "AI_GENERATION_FAILED": {
+      "title": "Generation failed.",
+      "description": "The AI service couldn’t create this. Try rephrasing the prompt or another model."
+    }
+  },
+  "toasts": {
+    "imageCompressed": "Image compressed successfully.",
+    "imageConverted": "Image converted successfully.",
+    "imageResized": "Image resized successfully.",
+    "imageCropped": "Image cropped successfully.",
+    "backgroundRemoved": "Background removed successfully.",
+    "imageExported": "Image exported successfully.",
+    "watermarkApplied": "Watermark applied successfully.",
+    "metadataRemoved": "Metadata removed successfully.",
+    "effectApplied": "Effect applied successfully.",
+    "iconCreated": "Icon created successfully.",
+    "videoCompressed": "Video compressed successfully.",
+    "videoConverted": "Video converted successfully.",
+    "videoTrimmed": "Video trimmed successfully.",
+    "videoCropped": "Video cropped successfully.",
+    "videoResized": "Video resized successfully.",
+    "audioRemoved": "Audio removed successfully.",
+    "audioExtracted": "Audio extracted successfully.",
+    "audioAdded": "Audio added successfully.",
+    "speedChanged": "Speed changed successfully.",
+    "videoRotated": "Video rotated successfully.",
+    "gifCreated": "GIF created successfully.",
+    "frameCaptured": "Frame captured.",
+    "videoLooped": "Loop created successfully.",
+    "videoReversed": "Video reversed successfully.",
+    "fpsChanged": "Frame rate changed successfully.",
+    "framesExtracted": "Frames extracted successfully.",
+    "videosMerged": "Videos merged successfully.",
+    "downloadStarted": "Download started.",
+    "copied": "Copied to clipboard.",
+    "colorCopied": "Copied {{value}}",
+    "batchLimit": "Only the first {{max}} files were added.",
+    "imagesGenerated": "Images generated successfully.",
+    "videoGenerated": "Video created successfully.",
+    "vectorized": "SVG created successfully.",
+    "collageCreated": "Collage created successfully.",
+    "overlayApplied": "Overlay added successfully.",
+    "videoSplit": "Video split successfully."
+  },
+  "tools": {
+    "image-compress": {
+      "title": "Compress Image",
+      "short": "Shrink JPG, PNG, WebP and AVIF files",
+      "description": "Reduce image file size while keeping the quality you need.",
+      "seoTitle": "Compress Image Online",
+      "seoDescription": "Compress JPG, PNG, WebP and AVIF images in your browser. Choose the quality, preview the result and download — files never leave your device.",
+      "keywords": "",
+      "action": "Compress image"
+    },
+    "image-convert": {
+      "title": "Convert Image",
+      "short": "JPG, PNG, WebP, AVIF, BMP and GIF",
+      "description": "Convert images between JPG, PNG, WebP, AVIF, BMP and GIF.",
+      "seoTitle": "Convert Images (JPG, PNG, WebP, AVIF)",
+      "seoDescription": "Convert PNG to WebP, JPG to PNG, WebP to JPG, PNG to AVIF and more — privately in your browser.",
+      "keywords": "",
+      "action": "Convert image",
+      "actionTo": "Convert to {{format}}"
+    },
+    "image-resize": {
+      "title": "Resize Image",
+      "short": "Exact sizes and social presets",
+      "description": "Change image dimensions with fit, fill or stretch — or pick a social media preset.",
+      "seoTitle": "Resize Image Online",
+      "seoDescription": "Resize images to exact pixel dimensions or presets for Instagram, YouTube, Facebook, X and LinkedIn.",
+      "keywords": "",
+      "action": "Resize image"
+    },
+    "image-crop": {
+      "title": "Crop Image",
+      "short": "Free or fixed aspect ratios",
+      "description": "Crop with precise handles, fixed aspect ratios, rotation and flipping.",
+      "seoTitle": "Crop Image Online",
+      "seoDescription": "Crop images to 1:1, 4:3, 16:9, 9:16 or any size. Rotate, straighten and flip — right in your browser.",
+      "keywords": "",
+      "action": "Crop image"
+    },
+    "image-remove-bg": {
+      "title": "Remove Background",
+      "short": "Transparent, color or image backdrop",
+      "description": "Remove the background automatically and replace it with transparency, a color or another image.",
+      "seoTitle": "Remove Image Background",
+      "seoDescription": "Remove backgrounds from photos with on-device AI. Export transparent PNGs or add a new background.",
+      "keywords": "",
+      "action": "Remove background"
+    },
+    "image-editor": {
+      "title": "Image Editor",
+      "short": "Light, color, detail and transforms",
+      "description": "Adjust exposure, color and detail with live preview, plus crop, rotate, flip and resize.",
+      "seoTitle": "Online Photo Editor",
+      "seoDescription": "Edit photos in your browser: brightness, contrast, saturation, temperature, sharpen, crop and more with undo and redo.",
+      "keywords": "",
+      "action": "Export image"
+    },
+    "image-watermark": {
+      "title": "Watermark Image",
+      "short": "Text or logo watermarks",
+      "description": "Add a text or logo watermark with full control over position, size, opacity and rotation.",
+      "seoTitle": "Add Watermark to Image",
+      "seoDescription": "Watermark photos with text or your logo. Control position, opacity, size and rotation — processed locally.",
+      "keywords": "",
+      "action": "Apply watermark"
+    },
+    "image-metadata": {
+      "title": "Image Metadata",
+      "short": "View and remove EXIF & GPS",
+      "description": "Inspect camera, location and other embedded data — and export a clean copy.",
+      "seoTitle": "View & Remove Image Metadata (EXIF)",
+      "seoDescription": "See EXIF, GPS and camera details in your photos and remove them before sharing.",
+      "keywords": "",
+      "action": "Remove metadata"
+    },
+    "image-batch": {
+      "title": "Batch Processing",
+      "short": "Compress, resize or convert many images",
+      "description": "Process up to 50 images at once and download them individually or as a ZIP.",
+      "seoTitle": "Batch Compress, Resize & Convert Images",
+      "seoDescription": "Compress, resize or convert multiple images at once in your browser and download everything as a ZIP.",
+      "keywords": "",
+      "action": "Process images"
+    },
+    "image-to-base64": {
+      "title": "Image to Base64",
+      "short": "Encode images as data URIs",
+      "description": "Encode an image as Base64 for HTML, CSS or JSON.",
+      "seoTitle": "Image to Base64 Converter",
+      "seoDescription": "Convert images to Base64 data URIs, CSS or HTML snippets instantly.",
+      "keywords": "",
+      "action": "Encode to Base64"
+    },
+    "base64-to-image": {
+      "title": "Base64 to Image",
+      "short": "Decode data URIs to files",
+      "description": "Paste Base64 or a data URI and get the image file back.",
+      "seoTitle": "Base64 to Image Converter",
+      "seoDescription": "Decode Base64 strings and data URIs into downloadable image files.",
+      "keywords": "",
+      "action": "Decode"
+    },
+    "image-ico": {
+      "title": "ICO Converter",
+      "short": "Multi-size favicons",
+      "description": "Create a multi-resolution .ico file for favicons and Windows icons.",
+      "seoTitle": "Convert Image to ICO (Favicon)",
+      "seoDescription": "Create favicon.ico files with 16, 32, 48 and 256 px sizes from any image.",
+      "keywords": "",
+      "action": "Create ICO"
+    },
+    "svg-to-png": {
+      "title": "SVG to PNG",
+      "short": "Rasterize vectors at any size",
+      "description": "Render SVG files to crisp PNG, WebP or JPG at any resolution.",
+      "seoTitle": "Convert SVG to PNG",
+      "seoDescription": "Convert SVG to high-resolution PNG, WebP or JPG with optional background.",
+      "keywords": "",
+      "action": "Convert SVG"
+    },
+    "png-to-svg": {
+      "title": "Image to SVG",
+      "short": "Trace PNG or JPG into vector SVG",
+      "description": "Convert logos, icons and illustrations into scalable SVG vectors.",
+      "seoTitle": "Convert PNG to SVG (Vectorize Image)",
+      "seoDescription": "Trace PNG, JPG and WebP images into clean, scalable SVG vector graphics — right in your browser.",
+      "keywords": "",
+      "action": "Convert to SVG"
+    },
+    "image-color-picker": {
+      "title": "Color Picker",
+      "short": "Pick colors and extract palettes",
+      "description": "Pick exact colors from any image and extract its dominant palette.",
+      "seoTitle": "Color Picker from Image",
+      "seoDescription": "Pick HEX, RGB and HSL colors from an image and generate its color palette.",
+      "keywords": "",
+      "action": "Pick colors"
+    },
+    "image-blur": {
+      "title": "Blur Image",
+      "short": "Soft, even gaussian blur",
+      "description": "Apply a smooth blur to an entire image.",
+      "seoTitle": "Blur Image Online",
+      "seoDescription": "Blur images with adjustable strength in your browser.",
+      "keywords": "",
+      "action": "Blur image"
+    },
+    "image-pixelate": {
+      "title": "Pixelate Image",
+      "short": "Mosaic effect",
+      "description": "Pixelate an image with adjustable block size.",
+      "seoTitle": "Pixelate Image Online",
+      "seoDescription": "Apply a pixel mosaic effect to images with adjustable block size.",
+      "keywords": "",
+      "action": "Pixelate image"
+    },
+    "image-grayscale": {
+      "title": "Grayscale Image",
+      "short": "Black and white conversion",
+      "description": "Convert an image to black and white with adjustable intensity.",
+      "seoTitle": "Convert Image to Grayscale",
+      "seoDescription": "Turn photos black and white with adjustable intensity.",
+      "keywords": "",
+      "action": "Convert to grayscale"
+    },
+    "image-rotate": {
+      "title": "Rotate Image",
+      "short": "90°, 180°, 270° or any angle",
+      "description": "Rotate an image by right angles or a custom angle.",
+      "seoTitle": "Rotate Image Online",
+      "seoDescription": "Rotate images by 90, 180, 270 degrees or any custom angle.",
+      "keywords": "",
+      "action": "Rotate image"
+    },
+    "image-flip": {
+      "title": "Flip Image",
+      "short": "Mirror horizontally or vertically",
+      "description": "Mirror an image horizontally, vertically or both.",
+      "seoTitle": "Flip Image Online",
+      "seoDescription": "Flip and mirror images horizontally or vertically.",
+      "keywords": "",
+      "action": "Flip image"
+    },
+    "video-compress": {
+      "title": "Compress Video",
+      "short": "Smaller MP4 and WebM files",
+      "description": "Reduce video file size with quality presets, resolution and bitrate control.",
+      "seoTitle": "Compress Video Online",
+      "seoDescription": "Compress MP4, MOV, WebM and more with presets or custom bitrate — processed privately in your browser.",
+      "keywords": "",
+      "action": "Compress video"
+    },
+    "video-convert": {
+      "title": "Convert Video",
+      "short": "MP4, WebM, MOV, AVI, MKV and GIF",
+      "description": "Convert videos between MP4, WebM, MOV, AVI, MKV and GIF.",
+      "seoTitle": "Convert Video (MP4, WebM, MOV, AVI, MKV)",
+      "seoDescription": "Convert videos to MP4, WebM, MOV, AVI, MKV or GIF with FFmpeg — right in your browser.",
+      "keywords": "",
+      "action": "Convert video",
+      "actionTo": "Convert to {{format}}"
+    },
+    "video-trim": {
+      "title": "Trim Video",
+      "short": "Cut to the part that matters",
+      "description": "Cut a video to a start and end time using a visual timeline.",
+      "seoTitle": "Trim Video Online",
+      "seoDescription": "Trim videos with a draggable timeline. Fast lossless cuts or frame-accurate re-encoding.",
+      "keywords": "",
+      "action": "Trim video"
+    },
+    "video-crop": {
+      "title": "Crop Video",
+      "short": "Reels, Shorts, TikTok and more",
+      "description": "Crop video frames to any area or a platform-ready aspect ratio.",
+      "seoTitle": "Crop Video Online",
+      "seoDescription": "Crop videos to 9:16, 1:1, 16:9 or a custom area for Reels, TikTok, Shorts and YouTube.",
+      "keywords": "",
+      "action": "Crop video"
+    },
+    "video-resize": {
+      "title": "Resize Video",
+      "short": "4K, 1080p, 720p or custom",
+      "description": "Change video resolution with presets or exact dimensions.",
+      "seoTitle": "Resize Video Online",
+      "seoDescription": "Change video resolution to 4K, 1440p, 1080p, 720p, 480p or custom sizes.",
+      "keywords": "",
+      "action": "Resize video"
+    },
+    "video-mute": {
+      "title": "Mute Video",
+      "short": "Remove the audio track",
+      "description": "Remove all audio from a video without re-encoding the picture.",
+      "seoTitle": "Remove Audio from Video",
+      "seoDescription": "Mute videos by removing the audio track — fast and lossless.",
+      "keywords": "",
+      "action": "Remove audio"
+    },
+    "video-extract-audio": {
+      "title": "Extract Audio",
+      "short": "Save the soundtrack as MP3, WAV or AAC",
+      "description": "Extract the audio track from a video as MP3, WAV or AAC.",
+      "seoTitle": "Extract Audio from Video (MP3, WAV, AAC)",
+      "seoDescription": "Convert video to audio: save the soundtrack as MP3, WAV or AAC in your browser.",
+      "keywords": "",
+      "action": "Extract audio"
+    },
+    "video-speed": {
+      "title": "Change Video Speed",
+      "short": "Slow motion or fast forward",
+      "description": "Speed up or slow down a video from 0.25× to 2×.",
+      "seoTitle": "Change Video Speed",
+      "seoDescription": "Make slow-motion or sped-up videos with natural-sounding audio.",
+      "keywords": "",
+      "action": "Change speed"
+    },
+    "video-rotate": {
+      "title": "Rotate Video",
+      "short": "Rotate and flip",
+      "description": "Rotate a video by 90°, 180° or 270° and flip it horizontally or vertically.",
+      "seoTitle": "Rotate Video Online",
+      "seoDescription": "Rotate videos 90, 180 or 270 degrees and flip them — in your browser.",
+      "keywords": "",
+      "action": "Rotate video"
+    },
+    "video-to-gif": {
+      "title": "Video to GIF",
+      "short": "Clean, palette-optimized GIFs",
+      "description": "Turn a clip into an animated GIF with control over timing, frame rate, width and quality.",
+      "seoTitle": "Convert Video to GIF",
+      "seoDescription": "Make high-quality animated GIFs from MP4, MOV and WebM videos.",
+      "keywords": "",
+      "action": "Create GIF"
+    },
+    "gif-to-video": {
+      "title": "GIF to Video",
+      "short": "GIF to MP4 or WebM",
+      "description": "Convert animated GIFs into much smaller MP4 or WebM videos.",
+      "seoTitle": "Convert GIF to MP4",
+      "seoDescription": "Convert animated GIFs to MP4 or WebM — dramatically smaller files.",
+      "keywords": "",
+      "action": "Convert GIF"
+    },
+    "video-thumbnail": {
+      "title": "Video Thumbnail",
+      "short": "Grab any frame as an image",
+      "description": "Scrub through a video and save any frame as JPG, PNG or WebP.",
+      "seoTitle": "Extract Thumbnail from Video",
+      "seoDescription": "Capture a full-resolution frame from any video as JPG, PNG or WebP.",
+      "keywords": "",
+      "action": "Capture frame"
+    },
+    "video-loop": {
+      "title": "Loop Video",
+      "short": "Repeat a clip several times",
+      "description": "Repeat a video multiple times in a single file.",
+      "seoTitle": "Loop Video Online",
+      "seoDescription": "Loop a video 2 to 50 times without re-encoding.",
+      "keywords": "",
+      "action": "Create loop"
+    },
+    "video-reverse": {
+      "title": "Reverse Video",
+      "short": "Play it backwards",
+      "description": "Reverse a video, with or without its audio.",
+      "seoTitle": "Reverse Video Online",
+      "seoDescription": "Play videos backwards with reversed audio, right in your browser.",
+      "keywords": "",
+      "action": "Reverse video"
+    },
+    "video-fps": {
+      "title": "Change Frame Rate",
+      "short": "24, 30, 60 fps or custom",
+      "description": "Convert a video to a different frame rate.",
+      "seoTitle": "Change Video Frame Rate (FPS)",
+      "seoDescription": "Change video FPS to 24, 25, 30, 60 or any custom value.",
+      "keywords": "",
+      "action": "Change frame rate"
+    },
+    "video-frames": {
+      "title": "Extract Frames",
+      "short": "Image sequence as ZIP",
+      "description": "Extract frames at a regular interval and download them as images.",
+      "seoTitle": "Extract Frames from Video",
+      "seoDescription": "Export video frames as JPG, PNG or WebP images and download them as a ZIP.",
+      "keywords": "",
+      "action": "Extract frames"
+    },
+    "video-merge": {
+      "title": "Merge Videos",
+      "short": "Join clips into one",
+      "description": "Combine several clips into a single MP4 in the order you choose.",
+      "seoTitle": "Merge Videos Online",
+      "seoDescription": "Join multiple videos into one MP4 — privately in your browser.",
+      "keywords": "",
+      "action": "Merge videos"
+    },
+    "video-add-audio": {
+      "title": "Add Audio to Video",
+      "short": "Replace or mix a soundtrack",
+      "description": "Add music or narration to a video — replace the original audio or mix them.",
+      "seoTitle": "Add Audio to Video",
+      "seoDescription": "Add music to video: replace or mix the soundtrack, adjust volume and loop the track.",
+      "keywords": "",
+      "action": "Add audio"
+    },
+    "ai-image": {
+      "title": "AI Image Generator",
+      "short": "Create images from a text prompt",
+      "description": "Describe an image and generate it with modern AI models — free options included.",
+      "seoTitle": "Free AI Image Generator",
+      "seoDescription": "Generate images from text with FLUX and other AI models using free Pollinations or Hugging Face accounts.",
+      "keywords": "",
+      "action_one": "Generate image",
+      "action_other": "Generate {{count}} images"
+    },
+    "ai-video": {
+      "title": "AI Video Generator",
+      "short": "Animate images or generate clips",
+      "description": "Bring a still image to life for free in your browser, or generate video from text with a cloud AI model.",
+      "seoTitle": "AI Video Generator — Image to Video",
+      "seoDescription": "Turn images into motion videos for free, right in your browser, or generate clips from text prompts.",
+      "keywords": "",
+      "action": "Create video"
+    },
+    "heic-to-jpg": {
+      "title": "HEIC to JPG",
+      "short": "Convert iPhone photos",
+      "description": "Convert iPhone HEIC/HEIF photos to JPG or PNG that open everywhere.",
+      "seoTitle": "Convert HEIC to JPG",
+      "seoDescription": "Convert iPhone HEIC photos to JPG or PNG privately in your browser — no upload.",
+      "keywords": "",
+      "action": "Convert to {{format}}"
+    },
+    "image-text": {
+      "title": "Add Text to Image",
+      "short": "Captions, titles and memes",
+      "description": "Add top and bottom captions with outlines — perfect for memes, quotes and titles.",
+      "seoTitle": "Add Text to Image & Meme Maker",
+      "seoDescription": "Add captions and meme text to images with custom fonts, colors and outlines. Supports Arabic.",
+      "keywords": "",
+      "action": "Apply text"
+    },
+    "image-censor": {
+      "title": "Blur Part of Image",
+      "short": "Hide faces, plates and details",
+      "description": "Blur, pixelate or black out any areas of an image before sharing it.",
+      "seoTitle": "Blur Faces & Censor Image",
+      "seoDescription": "Blur or pixelate faces, license plates and private details in photos — processed on your device.",
+      "keywords": "",
+      "action": "Apply censor"
+    },
+    "image-collage": {
+      "title": "Photo Collage",
+      "short": "Combine photos into a grid",
+      "description": "Arrange 2–9 photos into a clean grid with spacing, rounded corners and a background.",
+      "seoTitle": "Photo Collage Maker",
+      "seoDescription": "Make a photo grid collage from up to 9 images, with spacing and rounded corners.",
+      "keywords": "",
+      "action": "Create collage"
+    },
+    "image-border": {
+      "title": "Add Border",
+      "short": "Padding, frames and shadows",
+      "description": "Add padding, a colored frame, rounded corners and a soft shadow.",
+      "seoTitle": "Add Border to Image",
+      "seoDescription": "Add borders, padding, rounded corners and drop shadows to images.",
+      "keywords": "",
+      "action": "Apply border"
+    },
+    "image-filters": {
+      "title": "Photo Filters",
+      "short": "One-tap looks like Vintage and Noir",
+      "description": "Apply polished photo looks with adjustable intensity.",
+      "seoTitle": "Photo Filters Online",
+      "seoDescription": "Apply Vintage, Noir, Warm, Cinematic and more filters to photos with adjustable intensity.",
+      "keywords": "",
+      "action": "Apply filter"
+    },
+    "video-text": {
+      "title": "Add Text to Video",
+      "short": "Titles and captions",
+      "description": "Add a title or caption to a video, for the whole clip or a time range. Supports Arabic.",
+      "seoTitle": "Add Text to Video",
+      "seoDescription": "Add titles and captions to videos in any language, with background boxes and timing.",
+      "keywords": "",
+      "action": "Add text"
+    },
+    "video-watermark": {
+      "title": "Watermark Video",
+      "short": "Logo or text watermark",
+      "description": "Brand your videos with a logo or text watermark.",
+      "seoTitle": "Add Watermark to Video",
+      "seoDescription": "Add a logo or text watermark to videos with position, size and opacity controls.",
+      "keywords": "",
+      "action": "Apply watermark"
+    },
+    "video-censor": {
+      "title": "Blur Part of Video",
+      "short": "Hide areas for the whole clip",
+      "description": "Blur, pixelate or black out fixed areas of a video.",
+      "seoTitle": "Blur or Pixelate Video Area",
+      "seoDescription": "Hide faces, plates or screens in videos by blurring or pixelating selected areas.",
+      "keywords": "",
+      "action": "Apply censor"
+    },
+    "video-filters": {
+      "title": "Video Filters",
+      "short": "Looks and color correction",
+      "description": "Apply cinematic looks and adjust brightness, contrast and saturation.",
+      "seoTitle": "Video Filters & Color Correction",
+      "seoDescription": "Apply video filters like Vintage, Noir and Vivid, and correct brightness, contrast and saturation.",
+      "keywords": "",
+      "action": "Apply filters"
+    },
+    "video-fit": {
+      "title": "Fit Video to Reels",
+      "short": "No-crop 9:16 with blurred background",
+      "description": "Fit any video into 9:16, 1:1 or 4:5 without cropping, over a blurred copy or a color.",
+      "seoTitle": "Fit Video to 9:16 with Blur Background",
+      "seoDescription": "Turn landscape videos into Reels, TikTok and Shorts format without cropping, using a blurred background.",
+      "keywords": "",
+      "action": "Create video"
+    },
+    "video-split": {
+      "title": "Split Video",
+      "short": "Cut into equal parts",
+      "description": "Split a video into equal parts or fixed-length segments.",
+      "seoTitle": "Split Video into Parts",
+      "seoDescription": "Split videos into equal parts or segments of any length — fast and lossless.",
+      "keywords": "",
+      "action": "Split video"
+    },
+    "video-fade": {
+      "title": "Fade In / Out",
+      "short": "Smooth start and end",
+      "description": "Fade a video in from black and out to black, with matching audio fades.",
+      "seoTitle": "Add Fade In & Fade Out to Video",
+      "seoDescription": "Add smooth fade-in and fade-out to video and audio.",
+      "keywords": "",
+      "action": "Apply fades"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "About Refract",
+      "intro": "Refract is a set of focused media tools that run entirely in your browser. It’s built for people who work with images and video every day and want fast results without uploading their files anywhere.",
+      "sections": [
+        {
+          "title": "How it works",
+          "body": "Images are processed with the Canvas API inside Web Workers, with WebAssembly codecs for formats like AVIF. Videos use FFmpeg compiled to WebAssembly, loaded only when you open a video tool."
+        },
+        {
+          "title": "Built to grow",
+          "body": "The architecture separates tools, processing services and providers, so features like saved presets, cloud processing, larger file limits or an API can be added without changing how tools behave."
+        },
+        {
+          "title": "Open standards",
+          "body": "Output files use widely supported formats — MP4, WebM, PNG, JPG, WebP and AVIF — so they work everywhere you need them."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy",
+      "intro": "Your files are processed on your device. Refract doesn’t upload, store or analyze the media you open.",
+      "sections": [
+        {
+          "title": "Local processing",
+          "body": "Every tool runs in your browser tab. Files stay in memory only while you work and are released when you leave or clear them."
+        },
+        {
+          "title": "What we store",
+          "body": "Only your language and theme preferences are saved in your browser’s local storage. The recent jobs list keeps file names and tool names for the current session only."
+        },
+        {
+          "title": "Downloaded components",
+          "body": "The background remover downloads its AI model from IMG.LY’s content network the first time you use it. Only the model is downloaded — your images are never sent."
+        }
+      ]
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you’re looking for doesn’t exist or has moved. Try searching for a tool instead."
+    }
+  },
+  "ai": {
+    "provider": "AI provider",
+    "service": "Service",
+    "providers": {
+      "pollinations": "Free account with daily credits · images & video",
+      "huggingface": "Free token with monthly credits · images"
+    },
+    "apiKey": "API key",
+    "showKey": "Show key",
+    "hideKey": "Hide key",
+    "keyHint": "Your key is sent only to {{provider}} and stays in this browser.",
+    "getFreeKey": "Get a free key",
+    "rememberKey": "Remember on this device",
+    "rememberKeyHint": "Off: the key is forgotten when you close this tab.",
+    "model": "Model",
+    "modelsUnavailable": "Couldn’t load the model list — using the default model.",
+    "free": "Free",
+    "paid": "Paid",
+    "paidOnly": "Needs paid credits",
+    "moreActions": "More actions",
+    "openIn": "Open in {{tool}}",
+    "copyPrompt": "Copy prompt",
+    "prompt": "Prompt",
+    "tryExample": "Try:",
+    "submitHint": "Press Ctrl + Enter to generate",
+    "imagePromptPlaceholder": "Describe the image: subject, setting, style, lighting…",
+    "videoPromptPlaceholder": "Describe the scene and camera movement…",
+    "galleryEmptyTitle": "Your creations will appear here",
+    "galleryEmptyDescription": "Write a prompt and select Generate. Results stay in this tab until you leave.",
+    "videoGalleryEmptyDescription": "Write a prompt and select Generate video.",
+    "count": "Number of images",
+    "fixedSeed": "Fixed seed",
+    "fixedSeedHint": "Reuse a seed to get repeatable results.",
+    "seed": "Seed",
+    "negativePrompt": "Negative prompt",
+    "negativePromptHint": "Things to avoid, e.g. “blurry, text, watermark”.",
+    "privacyDetail": "Your prompt is sent to {{provider}} to generate the result.",
+    "videoMode": "Video mode",
+    "modes": {
+      "animate": "Animate an image · free",
+      "text": "Text to video · cloud"
+    },
+    "motion": "Motion",
+    "motionEffect": "Camera movement",
+    "effects": {
+      "zoom-in": "Slow zoom in",
+      "zoom-out": "Slow zoom out",
+      "pan-left": "Pan left",
+      "pan-right": "Pan right",
+      "pan-up": "Pan up",
+      "pan-down": "Pan down"
+    },
+    "dropImageToAnimate": "Drop an image to animate",
+    "animateAction": "Create video",
+    "animateLocalDetail": "The video is rendered on your device with FFmpeg. No key or account needed.",
+    "generateVideo": "Generate video",
+    "videoCostNote": "Most text-to-video models need paid credits. Models marked Free can use your daily free allowance."
+  },
+  "trace": {
+    "title": "Vectorize",
+    "style": "Style",
+    "presets": {
+      "logo": "Logo",
+      "logoHint": "Few flat colors and crisp edges. Best for logos and icons.",
+      "illustration": "Illustration",
+      "illustrationHint": "More colors and smooth curves for drawings.",
+      "photo": "Photo",
+      "photoHint": "Many colors for a posterized look. Files get large.",
+      "lineart": "Line art",
+      "lineartHint": "Black and white only — sketches, signatures, stamps."
+    },
+    "colors": "Colors",
+    "detail": "Detail",
+    "details": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "removeBackground": "Remove white background",
+    "removeBackgroundHint": "Drops near-white shapes so the SVG is transparent."
+  },
+  "heic": {
+    "previewHint": "Your browser can’t preview HEIC photos, but they convert normally.",
+    "note": "Photos with several images (bursts, Live Photos) export the main image."
+  },
+  "textTool": {
+    "content": "Text",
+    "top": "Top text",
+    "bottom": "Bottom text",
+    "style": "Style",
+    "font": "Font",
+    "fonts": {
+      "impact": "Impact (meme)",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "fill": "Text color",
+    "outline": "Outline",
+    "outlineWidth": "Outline width",
+    "uppercase": "All caps",
+    "background": "Background box",
+    "boxColor": "Box color",
+    "boxBehind": "Box behind text",
+    "timing": "Timing",
+    "wholeVideo": "Show for the whole video"
+  },
+  "censor": {
+    "title": "Areas to hide",
+    "editorLabel": "Drag on the media to mark areas to hide",
+    "region": "Area {{index}} — drag to move, Delete to remove",
+    "removeRegion": "Remove area {{index}}",
+    "count_one": "{{count}} area marked",
+    "count_other": "{{count}} areas marked",
+    "drawHint": "Drag on the preview to mark each area you want to hide.",
+    "effect": "Effect",
+    "modes": {
+      "blur": "Blur",
+      "pixelate": "Pixelate",
+      "solid": "Black box"
+    },
+    "videoHint": "Areas stay in the same place for the whole video. The preview shows an approximation."
+  },
+  "border": {
+    "frame": "Frame",
+    "padding": "Padding",
+    "radius": "Corner radius",
+    "shadow": "Drop shadow",
+    "transparent": "Transparent background",
+    "alphaHint": "Rounded corners and transparency need PNG or WebP."
+  },
+  "filters": {
+    "look": "Look",
+    "adjust": "Adjust",
+    "previewNote": "Live preview is an approximation. The export uses the exact filter.",
+    "presets": {
+      "none": "None",
+      "vivid": "Vivid",
+      "warm": "Warm",
+      "cool": "Cool",
+      "vintage": "Vintage",
+      "fade": "Fade",
+      "noir": "Noir",
+      "mono": "Mono",
+      "dramatic": "Dramatic",
+      "golden": "Golden",
+      "cinematic": "Cinematic",
+      "sepia": "Sepia"
+    }
+  },
+  "collage": {
+    "fileName_one": "Collage of {{count}} image",
+    "fileName_other": "Collage of {{count}} images",
+    "addMore": "Add more photos",
+    "layout": "Layout",
+    "columns": "Columns",
+    "auto": "Auto",
+    "cellShape": "Cell shape",
+    "gap": "Spacing"
+  },
+  "fit": {
+    "canvas": "Canvas",
+    "resolution": "Resolution",
+    "blurred": "Blurred video",
+    "hint": "Your whole video stays visible — nothing is cropped."
+  },
+  "fade": {
+    "title": "Fades",
+    "in": "Fade in",
+    "out": "Fade out",
+    "audio": "Fade audio too"
+  },
+  "split": {
+    "title": "Split",
+    "byParts": "Equal parts",
+    "byLength": "By length",
+    "parts": "Number of parts",
+    "length": "Segment length",
+    "summary_one": "{{count}} part of about {{length}}",
+    "summary_other": "{{count}} parts of about {{length}} each",
+    "keyframeNote": "Splitting is instant and lossless. Cuts snap to the nearest keyframe, so lengths can vary slightly."
+  },
+  "toolPrefs": {
+    "lastUsed": "Last used",
+    "dragHandle": "Reorder {{tool}}",
+    "sortable": "sortable tool card",
+    "moved": "{{tool}} moved to position {{position}}.",
+    "resetOrder": "Reset order",
+    "instructions": "To reorder, press Space or Enter to pick up the card, use the arrow keys to move it, then press Space or Enter again to drop it. Press Escape to cancel."
+  }
+}
