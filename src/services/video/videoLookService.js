@@ -46,16 +46,40 @@ export const VIDEO_LOOK_PREVIEW = {
   dramatic: 'contrast(1.35) saturate(1.15)',
 }
 
+export const VIDEO_ADJUSTMENTS = {
+  brightness: [-100, 100],
+  contrast: [-100, 100],
+  saturation: [-100, 100],
+  temperature: [-100, 100],
+  hue: [-180, 180],
+  sharpen: [0, 100],
+  blur: [0, 100],
+  vignette: [0, 100],
+  grain: [0, 100],
+}
+
 /**
- * @param {{ look: string, brightness: number, contrast: number, saturation: number }} settings
- *   brightness/contrast/saturation are -100…100
+ * Look + manual adjustments as one FFmpeg chain. Colour values are -100..100,
+ * hue is degrees, detail/texture values are 0..100.
  */
-export function videoFilterChain({ look, brightness, contrast, saturation }) {
+export function videoFilterChain(settings) {
+  const { look, brightness = 0, contrast = 0, saturation = 0, temperature = 0, hue = 0, sharpen = 0, blur = 0, vignette = 0, grain = 0 } = settings
   const filters = []
   if (VIDEO_LOOKS[look]) filters.push(VIDEO_LOOKS[look])
   if (brightness || contrast || saturation) {
     filters.push(`eq=brightness=${(brightness / 100) * 0.3}:contrast=${1 + (contrast / 100) * 0.6}:saturation=${Math.max(0, 1 + saturation / 100)}`)
   }
+  if (temperature) {
+    const warm = (temperature / 100) * 0.18
+    const r = warm.toFixed(3)
+    const b = (-warm).toFixed(3)
+    filters.push(`colorbalance=rs=${r}:bs=${b}:rm=${r}:bm=${b}:rh=${(warm / 2).toFixed(3)}:bh=${(-warm / 2).toFixed(3)}`)
+  }
+  if (hue) filters.push(`hue=h=${Math.round(hue)}`)
+  if (blur > 0) filters.push(`gblur=sigma=${((blur / 100) * 12).toFixed(2)}`)
+  if (sharpen > 0) filters.push(`unsharp=5:5:${((sharpen / 100) * 1.6).toFixed(2)}:5:5:0`)
+  if (vignette > 0) filters.push(`vignette=angle=${(0.25 + (vignette / 100) * 0.9).toFixed(3)}`)
+  if (grain > 0) filters.push(`noise=alls=${Math.round((grain / 100) * 40)}:allf=t`)
   return filters.join(',') || 'null'
 }
 
