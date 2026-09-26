@@ -7,12 +7,15 @@ export const MAX_EXTRACTED_FRAMES = 300
 const FRAME_TYPES = { jpeg: { ext: 'jpg', mime: 'image/jpeg', args: ['-q:v', '2'] }, png: { ext: 'png', mime: 'image/png', args: [] }, webp: { ext: 'webp', mime: 'image/webp', args: ['-quality', '90'] } }
 
 /** Capture the current frame of a <video> element as an image Blob. */
-export async function captureVideoFrame(video, { format = 'png', quality = 92 } = {}) {
+export async function captureVideoFrame(video, { format = 'png', quality = 92, maxWidth = 0 } = {}) {
   if (!video?.videoWidth) throw new AppError(ERROR_CODES.CORRUPTED_FILE)
+  const scale = maxWidth && video.videoWidth > maxWidth ? maxWidth / video.videoWidth : 1
   const canvas = document.createElement('canvas')
-  canvas.width = video.videoWidth
-  canvas.height = video.videoHeight
-  canvas.getContext('2d').drawImage(video, 0, 0)
+  canvas.width = Math.round(video.videoWidth * scale)
+  canvas.height = Math.round(video.videoHeight * scale)
+  const context = canvas.getContext('2d')
+  context.imageSmoothingQuality = 'high'
+  context.drawImage(video, 0, 0, canvas.width, canvas.height)
   const mime = FRAME_TYPES[format]?.mime ?? 'image/png'
   const blob = await canvasToBlob(canvas, mime, quality / 100)
   return { blob, format, width: canvas.width, height: canvas.height }
@@ -28,6 +31,83 @@ function seekTo(video, time) {
     video.onerror = reject
     video.currentTime = time
   })
+}
+
+export const DEFAULT_SHEET = { columns: 4, rows: 4, width: 1920, gap: 8, background: '#111111', timestamps: true, header: true }
+
+function formatStamp(seconds) {
+  const total = Math.max(0, Math.floor(seconds))
+  const h = Math.floor(total / 3600)
+  const m = Math.floor((total % 3600) / 60)
+  const s = total % 60
+  return `${h ? `${h}:` : ''}${String(m).padStart(h ? 2 : 1, '0')}:${String(s).padStart(2, '0')}`
+}
+
+/**
+ * Contact sheet: a grid of frames sampled evenly across the video, with optional
+ * timestamps and a header line (file name, duration, resolution). Browser-only.
+ */
+export async function createContactSheet(file, settings, { onProgress, signal } = {}) {
+  const s = { ...DEFAULT_SHEET, ...settings }
+  const url = URL.createObjectURL(file)
+  const video = document.createElement('video')
+  video.muted = true
+  video.preload = 'auto'
+  video.src = url
+  try {
+    await new Promise((resolve, reject) => {
+      video.onloadeddata = resolve
+      video.onerror = () => reject(new AppError(ERROR_CODES.CORRUPTED_FILE))
+    })
+    const count = s.columns * s.rows
+    const cellWidth = Math.floor((s.width - s.gap * (s.columns + 1)) / s.columns)
+    const cellHeight = Math.round((cellWidth * video.videoHeight) / video.videoWidth)
+    const headerHeight = s.header ? Math.round(s.width * 0.035) : 0
+    const canvas = document.createElement('canvas')
+    canvas.width = s.width
+    canvas.height = headerHeight + s.gap * (s.rows + 1) + cellHeight * s.rows
+    const context = canvas.getContext('2d')
+    context.fillStyle = s.background
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    const light = parseInt(s.background.slice(1, 3), 16) * 0.299 + parseInt(s.background.slice(3, 5), 16) * 0.587 + parseInt(s.background.slice(5, 7), 16) * 0.114 > 150
+    if (s.header) {
+      context.fillStyle = light ? '#111111' : '#F5F5F5'
+      context.font = `600 ${Math.round(headerHeight * 0.45)}px system-ui, sans-serif`
+      context.textBaseline = 'middle'
+      const info = `${file.name}  ·  ${formatStamp(video.duration)}  ·  ${video.videoWidth}×${video.videoHeight}`
+      context.fillText(info, s.gap, s.gap / 2 + headerHeight / 2, canvas.width - s.gap * 2)
+    }
+    const stampSize = Math.max(10, Math.round(cellHeight * 0.1))
+    for (let index = 0; index < count; index += 1) {
+      if (signal?.aborted) throw new AppError(ERROR_CODES.CANCELED)
+      const time = ((index + 0.5) / count) * video.duration
+      await seekTo(video, time)
+      const column = index % s.columns
+      const row = Math.floor(index / s.columns)
+      const x = s.gap + column * (cellWidth + s.gap)
+      const y = headerHeight + s.gap + row * (cellHeight + s.gap)
+      context.drawImage(video, x, y, cellWidth, cellHeight)
+      if (s.timestamps) {
+        const label = formatStamp(time)
+        context.font = `600 ${stampSize}px ui-monospace, monospace`
+        const padding = stampSize * 0.35
+        const textWidth = context.measureText(label).width
+        context.fillStyle = 'rgba(0,0,0,0.6)'
+        context.fillRect(x + cellWidth - textWidth - padding * 3, y + cellHeight - stampSize - padding * 2.5, textWidth + padding * 2, stampSize + padding * 1.5)
+        context.fillStyle = '#FFFFFF'
+        context.textBaseline = 'top'
+        context.fillText(label, x + cellWidth - textWidth - padding * 2, y + cellHeight - stampSize - padding * 1.75)
+      }
+      onProgress?.((index + 1) / count, 'processing')
+    }
+    const mime = FRAME_TYPES[s.format]?.mime ?? 'image/jpeg'
+    const blob = await canvasToBlob(canvas, mime, (s.quality ?? 90) / 100)
+    return { blob, format: s.format ?? 'jpeg', width: canvas.width, height: canvas.height, time: 0 }
+  } finally {
+    video.removeAttribute('src')
+    video.load()
+    URL.revokeObjectURL(url)
+  }
 }
 
 /**

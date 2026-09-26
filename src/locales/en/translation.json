@@ -825,7 +825,21 @@
     "previousFrame": "Previous frame",
     "nextFrame": "Next frame",
     "jumpTo": "Jump to {{time}}",
-    "needsPlayable": "This format can’t be played in your browser. Convert it to MP4 first."
+    "needsPlayable": "This format can’t be played in your browser. Convert it to MP4 first.",
+    "mode": "Capture",
+    "modes": {
+      "frame": "One frame",
+      "sheet": "Contact sheet"
+    },
+    "modeHints": {
+      "frame": "Scrub to any moment and save that frame.",
+      "sheet": "A grid of frames taken evenly across the whole video."
+    },
+    "sheet": "Contact sheet",
+    "rows": "Rows",
+    "timestamps": "Show timestamps",
+    "header": "Show file info",
+    "headerHint": "File name, duration and resolution above the grid."
   },
   "loop": {
     "title": "Loop",

@@ -76,28 +76,39 @@ function strongBlur(piece, radius) {
  * Blur, pixelate or black-out rectangular regions (x/y/width/height in pixels).
  * strength 1–100 scales relative to each region's size.
  */
-export function censorRegions(source, { regions = [], mode = 'blur', strength = 60 }) {
+export function censorRegions(source, { regions = [], mode = 'blur', strength = 60, color = '#000000', shape = 'rect' }) {
   const canvas = createCanvas(source.width, source.height)
   const context = getContext(canvas)
   context.drawImage(source, 0, 0)
   for (const region of regions) {
+    // Each area may carry its own style; the call's values are the fallback.
+    const areaMode = region.mode ?? mode
+    const areaStrength = region.strength ?? strength
+    const ellipse = (region.shape ?? shape) === 'ellipse'
     const x = Math.max(0, Math.round(region.x))
     const y = Math.max(0, Math.round(region.y))
     const width = Math.min(Math.round(region.width), source.width - x)
     const height = Math.min(Math.round(region.height), source.height - y)
     if (width < 2 || height < 2) continue
-    if (mode === 'solid') {
-      context.fillStyle = '#000'
-      context.fillRect(x, y, width, height)
-      continue
+    context.save()
+    if (ellipse) {
+      context.beginPath()
+      context.ellipse(x + width / 2, y + height / 2, width / 2, height / 2, 0, 0, Math.PI * 2)
+      context.clip()
     }
-    const piece = cropCanvas(canvas, { x, y, width, height })
-    const size = Math.min(width, height)
-    const processed =
-      mode === 'pixelate'
-        ? pixelateCanvas(piece, Math.max(3, (strength / 100) * size * 0.25))
-        : strongBlur(piece, Math.max(2, (strength / 100) * size * 0.18))
-    context.drawImage(processed, x, y)
+    if (areaMode === 'solid') {
+      context.fillStyle = region.color ?? color
+      context.fillRect(x, y, width, height)
+    } else {
+      const piece = cropCanvas(canvas, { x, y, width, height })
+      const size = Math.min(width, height)
+      const processed =
+        areaMode === 'pixelate'
+          ? pixelateCanvas(piece, Math.max(3, (areaStrength / 100) * size * 0.25))
+          : strongBlur(piece, Math.max(2, (areaStrength / 100) * size * 0.18))
+      context.drawImage(processed, x, y)
+    }
+    context.restore()
   }
   return canvas
 }

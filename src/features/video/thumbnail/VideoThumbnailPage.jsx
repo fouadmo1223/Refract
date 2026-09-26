@@ -6,11 +6,14 @@ import { getImageFormat } from '@/constants/imageFormats'
 import { getBaseName } from '@/lib/files'
 import { formatDuration } from '@/lib/format'
 import { useFilmstrip } from '@/hooks/useFilmstrip'
-import { captureVideoFrame } from '@/services/video/videoFramesService'
+import { DEFAULT_SHEET, captureVideoFrame, createContactSheet } from '@/services/video/videoFramesService'
 import { useToolSettings } from '@/store/toolSettingsStore'
 import { IconButton } from '@/components/ui/IconButton'
 import { SegmentedControl } from '@/components/ui/SegmentedControl'
+import { ColorInput } from '@/components/ui/ColorInput'
+import { Select } from '@/components/ui/Select'
 import { Slider } from '@/components/ui/Slider'
+import { Switch } from '@/components/ui/Switch'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaToolFlow } from '@/components/layout/MediaToolFlow'
 import { SettingsSection } from '@/components/layout/Panels'
@@ -20,7 +23,7 @@ import { readVideoMetadata } from '@/services/video/videoMetadataService'
 import { ImageResult } from '@/features/image/shared/ImageResult'
 
 const TOOL_ID = 'video-thumbnail'
-const DEFAULTS = { format: 'jpeg', quality: 92 }
+const DEFAULTS = { mode: 'frame', format: 'jpeg', quality: 92, maxWidth: 0, ...DEFAULT_SHEET }
 const FRAME_STEP = 1 / 30
 
 /**
@@ -70,7 +73,9 @@ function FrameScrubber({ file, meta, videoRef }) {
 
 export default function VideoThumbnailPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
+  const sheet = settings.mode === 'sheet'
   const videoRef = useRef(null)
 
   return (
@@ -86,15 +91,50 @@ export default function VideoThumbnailPage() {
         canProcess={({ meta }) => meta?.playable !== false}
         renderPreview={({ file, meta }) => (meta?.playable === false ? <VideoPreview file={file} meta={meta} /> : <FrameScrubber file={file} meta={meta} videoRef={videoRef} />)}
         renderSettings={({ meta }) => (
+          <>
+          <SettingsSection title={t('thumbnail.mode')}>
+            <SegmentedControl
+              value={settings.mode}
+              onChange={(mode) => updateSettings({ mode })}
+              options={[
+                { value: 'frame', label: t('thumbnail.modes.frame') },
+                { value: 'sheet', label: t('thumbnail.modes.sheet') },
+              ]}
+            />
+            <p className="-mt-1 text-xs text-muted">{t(`thumbnail.modeHints.${settings.mode}`)}</p>
+          </SettingsSection>
+          {sheet && (
+            <SettingsSection title={t('thumbnail.sheet')}>
+              <div className="grid grid-cols-2 gap-3">
+                <Select label={t('collage.columns')} value={settings.columns} onChange={(columns) => updateSettings({ columns })} options={[2, 3, 4, 5, 6].map((value) => ({ value, label: String(value) }))} />
+                <Select label={t('thumbnail.rows')} value={settings.rows} onChange={(rows) => updateSettings({ rows })} options={[2, 3, 4, 5, 6, 8].map((value) => ({ value, label: String(value) }))} />
+              </div>
+              <Select label={t('settings.width')} value={settings.width} onChange={(width) => updateSettings({ width })} options={[1280, 1920, 2560, 3840].map((value) => ({ value, label: `${value}px` }))} />
+              <Slider label={t('collage.gap')} value={settings.gap} min={0} max={32} onChange={(gap) => updateSettings({ gap })} formatValue={(value) => `${value}px`} />
+              <ColorInput label={t('settings.backgroundColor')} value={settings.background} onChange={(background) => updateSettings({ background })} />
+              <Switch label={t('thumbnail.timestamps')} checked={settings.timestamps} onChange={(timestamps) => updateSettings({ timestamps })} />
+              <Switch label={t('thumbnail.header')} description={t('thumbnail.headerHint')} checked={settings.header} onChange={(header) => updateSettings({ header })} />
+            </SettingsSection>
+          )}
           <SettingsSection title={t('settings.output')}>
             <SegmentedControl label={t('settings.outputFormat')} value={settings.format} onChange={(format) => updateSettings({ format })} options={FRAME_FORMATS.map((format) => ({ value: format.id, label: format.label }))} />
             {settings.format !== 'png' && (
               <Slider label={t('settings.quality')} value={settings.quality} min={1} max={100} onChange={(quality) => updateSettings({ quality })} formatValue={(value) => `${value}%`} />
             )}
+            {!sheet && (
+              <Select
+                label={t('frames.size')}
+                value={settings.maxWidth}
+                onChange={(maxWidth) => updateSettings({ maxWidth })}
+                options={[0, 1920, 1280, 640, 320].map((value) => ({ value, label: value ? t('frames.maxWidth', { width: value }) : t('frames.fullSize'), disabled: value && meta?.width ? value >= meta.width : false }))}
+              />
+            )}
             {meta?.playable === false && <p className="text-xs text-muted">{t('thumbnail.needsPlayable')}</p>}
           </SettingsSection>
+          </>
         )}
-        onProcess={async () => {
+        onProcess={async ({ file, signal, onProgress }) => {
+          if (sheet) return createContactSheet(file, settings, { signal, onProgress })
           videoRef.current?.pause()
           const frame = await captureVideoFrame(videoRef.current, settings)
           return { ...frame, time: videoRef.current?.currentTime ?? 0 }
@@ -102,7 +142,7 @@ export default function VideoThumbnailPage() {
         renderResult={(context) => (
           <ImageResult
             {...context}
-            outputName={`${getBaseName(context.file.name)}-${formatDuration(context.result.time).replace(/:/g, '-')}.${getImageFormat(context.result.format).ext}`}
+            outputName={`${getBaseName(context.file.name)}-${sheet ? 'contact-sheet' : formatDuration(context.result.time).replace(/:/g, '-')}.${getImageFormat(context.result.format).ext}`}
             title={t('result.frameCaptured')}
             suffix="frame"
             compare={false}
