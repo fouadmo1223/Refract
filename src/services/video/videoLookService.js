@@ -144,22 +144,71 @@ export async function fitVideoToAspect(file, { aspect, background, color, resolu
 }
 
 // ------------------------------------------------------------------ Fade
-/** Fade video (and optionally audio) in from / out to black. */
-export async function fadeVideo(file, { fadeIn, fadeOut, fadeAudio }, meta, options) {
+export const FADE_STYLES = ['black', 'white', 'color', 'blur']
+export const AUDIO_CURVES = { linear: 'tri', smooth: 'qsin', easeIn: 'exp', easeOut: 'log' }
+
+export const DEFAULT_FADE = {
+  fadeIn: 1,
+  fadeOut: 1,
+  inStyle: 'black',
+  outStyle: 'black',
+  inColor: '#000000',
+  outColor: '#000000',
+  fadeAudio: true,
+  audioCurve: 'smooth',
+}
+
+/** How much of the fade effect is visible at `time` (0 = clear picture, 1 = fully faded) and which side is active. */
+export function fadeAmountAt(time, { fadeIn, fadeOut }, duration) {
+  if (fadeIn > 0 && time < fadeIn) return { amount: 1 - time / fadeIn, side: 'in' }
+  if (fadeOut > 0 && time > duration - fadeOut) return { amount: Math.min(1, (time - (duration - fadeOut)) / fadeOut), side: 'out' }
+  return { amount: 0, side: null }
+}
+
+export const fadeColorFor = (style, color) => (style === 'white' ? '#FFFFFF' : style === 'black' ? '#000000' : color)
+
+/**
+ * One fade side as a filter step. Colour fades use the native `fade`; blur fades
+ * overlay a blurred copy whose alpha fades, blurring only inside the window.
+ */
+function fadeStep({ side, start, length, style, color, label, next, meta }) {
+  if (style !== 'blur') {
+    return `[${label}]fade=t=${side}:st=${seconds(start)}:d=${seconds(length)}:color=${fadeColorFor(style, color).replace('#', '0x')}[${next}]`
+  }
+  const size = Math.min(meta?.width || 640, meta?.height || 360)
+  const radius = Math.max(2, Math.round(size / 30))
+  const window = `between(t,${seconds(Math.max(0, start - 0.1))},${seconds(start + length + 0.1)})`
+  // Fade in: blurred copy starts opaque and fades away; fade out: it fades in.
+  const alphaFade = `fade=t=${side === 'in' ? 'out' : 'in'}:st=${seconds(start)}:d=${seconds(length)}:alpha=1`
+  return (
+    `[${label}]split[${next}a][${next}b];` +
+    `[${next}b]boxblur=luma_radius=${radius}:luma_power=2:chroma_radius=${Math.max(1, Math.round(radius / 2))}:chroma_power=2:enable='${window}',format=yuva420p,${alphaFade}[${next}t];` +
+    `[${next}a][${next}t]overlay=format=auto[${next}]`
+  )
+}
+
+/** Fade in and/or out, each with its own style (black, white, colour or blur), plus curved audio fades. */
+export async function fadeVideo(file, settings, meta, options) {
+  const s = { ...DEFAULT_FADE, ...settings }
   const duration = meta?.duration
-  if (!duration || fadeIn + fadeOut > duration) throw new AppError(ERROR_CODES.INVALID_TIME_RANGE)
-  const video = []
+  if (!duration || s.fadeIn + s.fadeOut > duration) throw new AppError(ERROR_CODES.INVALID_TIME_RANGE)
+  const steps = []
   const audio = []
-  if (fadeIn > 0) {
-    video.push(`fade=t=in:st=0:d=${seconds(fadeIn)}`)
-    audio.push(`afade=t=in:st=0:d=${seconds(fadeIn)}`)
+  const audioCurve = AUDIO_CURVES[s.audioCurve] ?? 'tri'
+  let label = 'pre'
+  if (s.fadeIn > 0) {
+    steps.push(fadeStep({ side: 'in', start: 0, length: s.fadeIn, style: s.inStyle, color: s.inColor, label, next: 'fin', meta }))
+    label = 'fin'
+    audio.push(`afade=t=in:st=0:d=${seconds(s.fadeIn)}:curve=${audioCurve}`)
   }
-  if (fadeOut > 0) {
-    video.push(`fade=t=out:st=${seconds(duration - fadeOut)}:d=${seconds(fadeOut)}`)
-    audio.push(`afade=t=out:st=${seconds(duration - fadeOut)}:d=${seconds(fadeOut)}`)
+  if (s.fadeOut > 0) {
+    const start = duration - s.fadeOut
+    steps.push(fadeStep({ side: 'out', start, length: s.fadeOut, style: s.outStyle, color: s.outColor, label, next: 'fout', meta }))
+    label = 'fout'
+    audio.push(`afade=t=out:st=${seconds(start)}:d=${seconds(s.fadeOut)}:curve=${audioCurve}`)
   }
-  const graph = `[0:v]${video.join(',') || 'null'},format=yuv420p[v]`
-  const result = await runComplexFilter(file, graph, meta, { ...options, audioFilter: fadeAudio && audio.length ? audio.join(',') : undefined })
+  const graph = [`[0:v]format=yuv420p[pre]`, ...steps, `[${label}]format=yuv420p[v]`].join(';')
+  const result = await runComplexFilter(file, graph, meta, { ...options, audioFilter: s.fadeAudio && audio.length ? audio.join(',') : undefined })
   return { ...result, width: meta?.width, height: meta?.height, duration }
 }
 

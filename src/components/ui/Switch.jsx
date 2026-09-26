@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { cn } from '@/lib/cn'
 
-export function Switch({ checked, onChange, label, description, disabled, className, size = 'md' }) {
+export function Switch({ checked, onChange, label, description, disabled, className, size = 'md', 'aria-label': ariaLabel }) {
   const id = useId()
   return (
     <div className={cn('flex items-start justify-between gap-4', className)}>
@@ -16,6 +16,7 @@ export function Switch({ checked, onChange, label, description, disabled, classN
         type="button"
         role="switch"
         aria-checked={checked}
+        aria-label={ariaLabel}
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(

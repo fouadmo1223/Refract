@@ -1606,7 +1606,47 @@
     "title": "Fades",
     "in": "Fade in",
     "out": "Fade out",
-    "audio": "Fade audio too"
+    "audio": "Fade audio too",
+    "duration": "Duration",
+    "fromStyle": "Fade from",
+    "toStyle": "Fade to",
+    "color": "Color",
+    "styles": {
+      "black": "Black",
+      "white": "White",
+      "color": "Color",
+      "blur": "Blur"
+    },
+    "presets": "Presets",
+    "presetNames": {
+      "cinematic": "Cinematic",
+      "dreamy": "Dreamy",
+      "flash": "Flash",
+      "quick": "Quick",
+      "outro": "Outro"
+    },
+    "presetHints": {
+      "cinematic": "Slow fades to black",
+      "dreamy": "Blur in and out",
+      "flash": "Short white flashes",
+      "quick": "Half-second fades",
+      "outro": "Long fade at the end"
+    },
+    "audioTitle": "Audio",
+    "audioCurve": "Audio curve",
+    "curves": {
+      "linear": "Linear",
+      "smooth": "Smooth",
+      "easeIn": "Slow start",
+      "easeOut": "Fast start"
+    },
+    "curveHints": {
+      "linear": "Volume changes at a steady rate.",
+      "smooth": "Gentle start and finish — sounds the most natural.",
+      "easeIn": "Stays loud longer, then drops quickly.",
+      "easeOut": "Changes quickly at first, then settles."
+    },
+    "timeline": "Fade timeline — click to jump"
   },
   "split": {
     "title": "Split",
