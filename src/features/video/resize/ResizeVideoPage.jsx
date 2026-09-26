@@ -7,8 +7,10 @@ import { useValidation } from '@/hooks/useValidation'
 import { even } from '@/services/video/encodingArgs'
 import { resizeVideo } from '@/services/video/videoTransformService'
 import { useToolSettings } from '@/store/toolSettingsStore'
+import { ColorInput } from '@/components/ui/ColorInput'
 import { IconButton } from '@/components/ui/IconButton'
 import { NumberInput } from '@/components/ui/NumberInput'
+import { SegmentedControl } from '@/components/ui/SegmentedControl'
 import { Select } from '@/components/ui/Select'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { SettingsSection } from '@/components/layout/Panels'
@@ -19,7 +21,7 @@ import { VideoResult } from '../shared/VideoResult'
 import { VideoInfo } from '../shared/VideoInfo'
 
 const TOOL_ID = 'video-resize'
-const DEFAULTS = { resolution: '720', width: null, height: null, lockAspect: true }
+const DEFAULTS = { resolution: '720', width: null, height: null, lockAspect: true, fit: 'pad', padColor: '#000000' }
 const schema = z.object({ width: dimensionSchema('width'), height: dimensionSchema('height') })
 
 /** Target size from a preset height (keeps aspect) or custom width/height. */
@@ -74,6 +76,17 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
           <NumberInput label={t('settings.height')} value={size.height} min={2} onChange={(value) => setDimension('height', value)} suffix="px" stepper={false} error={errors.height} className="flex-1" />
         </div>
         <p className="text-xs text-muted">{t('video.evenDimensionsHint')}</p>
+        {Math.abs(size.width / size.height - ratio) > 0.01 && (
+          <>
+            <SegmentedControl
+              label={t('merge.fit')}
+              value={settings.fit}
+              onChange={(fit) => updateSettings({ fit })}
+              options={['pad', 'crop', 'stretch'].map((value) => ({ value, label: t(`resizeVideo.fits.${value}`) }))}
+            />
+            {settings.fit === 'pad' && <ColorInput label={t('merge.barColor')} value={settings.padColor} onChange={(padColor) => updateSettings({ padColor })} />}
+          </>
+        )}
         {size.height > meta.height && <p className="text-xs text-warning">{t('video.upscaleWarning')}</p>}
       </SettingsSection>
     </>
@@ -82,7 +95,8 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
 
 export default function ResizeVideoPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
 
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -96,7 +110,7 @@ export default function ResizeVideoPage() {
         canProcess={({ meta }) => schema.safeParse(resolveSize(settings, meta)).success}
         renderPreview={({ file, meta }) => <VideoPreview file={file} meta={meta} />}
         renderSettings={({ file, meta }) => <ResizeVideoSettings file={file} meta={meta} settings={settings} updateSettings={updateSettings} />}
-        onProcess={({ file, meta, signal, onProgress }) => resizeVideo(file, resolveSize(settings, meta), meta, { signal, onProgress })}
+        onProcess={({ file, meta, signal, onProgress }) => resizeVideo(file, { ...resolveSize(settings, meta), fit: settings.fit, padColor: settings.padColor }, meta, { signal, onProgress })}
         renderResult={(context) => <VideoResult {...context} title={t('result.resizeComplete')} suffix="resized" />}
       />
     </ToolLayout>

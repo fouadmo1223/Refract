@@ -858,7 +858,8 @@
     "title": "Reverse",
     "audio": "Reverse audio too",
     "audioHint": "Turn off to remove the audio instead.",
-    "longWarning": "Reversing needs lots of memory. Clips longer than {{seconds}} seconds may fail in the browser — trim first if needed."
+    "longWarning": "Reversing needs lots of memory. Parts longer than {{seconds}} seconds may fail in the browser — pick a shorter part below.",
+    "partHint": "Reverse only this part — shorter parts use far less memory."
   },
   "fps": {
     "title": "Frame rate",
@@ -1852,7 +1853,15 @@
     "canvas": "Canvas",
     "resolution": "Resolution",
     "blurred": "Blurred video",
-    "hint": "Your whole video stays visible — nothing is cropped."
+    "hint": "Your whole video stays visible — nothing is cropped.",
+    "video": "Video",
+    "size": "Video size",
+    "position": "Position",
+    "positions": {
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom"
+    }
   },
   "fade": {
     "title": "Fades",
@@ -1908,7 +1917,13 @@
     "length": "Segment length",
     "summary_one": "{{count}} part of about {{length}}",
     "summary_other": "{{count}} parts of about {{length}} each",
-    "keyframeNote": "Splitting is instant and lossless. Cuts snap to the nearest keyframe, so lengths can vary slightly."
+    "keyframeNote": "Splitting is instant and lossless. Cuts snap to the nearest keyframe, so lengths can vary slightly.",
+    "byTimes": "At times",
+    "cutPoints": "Cut at",
+    "cutPointsHint": "Times separated by commas, e.g. 0:10, 1:05.5, 90",
+    "cutSummary_one": "{{count}} part — cuts at {{cuts}}",
+    "cutSummary_other": "{{count}} parts — cuts at {{cuts}}",
+    "preciseHint": "Re-encodes so every part starts exactly at its cut. Slower."
   },
   "toolPrefs": {
     "lastUsed": "Last used",
@@ -1938,5 +1953,17 @@
       "small": "Smaller file"
     },
     "frameRate": "Frame rate"
+  },
+  "resizeVideo": {
+    "fits": {
+      "pad": "Add bars",
+      "crop": "Crop to fill",
+      "stretch": "Stretch"
+    }
+  },
+  "cropVideo": {
+    "outputWidth": "Output width",
+    "asCropped": "Same as the crop",
+    "outputHint": "Scale the cropped area, e.g. to 1080 px wide for Reels and Shorts."
   }
 }

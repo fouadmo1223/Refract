@@ -7,6 +7,7 @@ import { useObjectUrl } from '@/hooks/useObjectUrl'
 import { cropVideo } from '@/services/video/videoTransformService'
 import { useToolSettings } from '@/store/toolSettingsStore'
 import { SegmentedControl } from '@/components/ui/SegmentedControl'
+import { Select } from '@/components/ui/Select'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaStage, SettingsSection } from '@/components/layout/Panels'
 import { CropArea } from '@/components/media/CropArea'
@@ -16,7 +17,7 @@ import { VideoToolFlow } from '../shared/VideoToolFlow'
 import { VideoResult } from '../shared/VideoResult'
 
 const TOOL_ID = 'video-crop'
-const DEFAULTS = { aspectId: '9:16' }
+const DEFAULTS = { aspectId: '9:16', outputWidth: 0 }
 
 function aspectValue(id) {
   return VIDEO_ASPECT_RATIOS.find((ratio) => ratio.id === id)?.value ?? null
@@ -45,7 +46,8 @@ function RectInitializer({ meta, rect, onInit, children }) {
 
 export default function CropVideoPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
   const [rect, setRect] = useState(null)
   const aspect = aspectValue(settings.aspectId)
 
@@ -94,10 +96,19 @@ export default function CropVideoPage() {
                 {t('crop.selection')}: <span className="font-semibold text-text">{formatDimensions(Math.round(rect.width), Math.round(rect.height))}</span>
               </p>
             )}
+            <SettingsSection title={t('settings.output')}>
+              <Select
+                label={t('cropVideo.outputWidth')}
+                value={settings.outputWidth}
+                onChange={(outputWidth) => updateSettings({ outputWidth })}
+                options={[0, 2160, 1080, 720, 480].map((value) => ({ value, label: value ? `${value}px` : t('cropVideo.asCropped'), meta: value && rect ? formatDimensions(value, Math.round((value * rect.height) / rect.width)) : undefined }))}
+              />
+              <p className="-mt-1 text-xs text-muted">{t('cropVideo.outputHint')}</p>
+            </SettingsSection>
             {meta?.playable === false && <p className="text-xs text-muted">{t('video.cropNeedsPreview')}</p>}
           </>
         )}
-        onProcess={({ file, meta, signal, onProgress }) => cropVideo(file, roundRect(rect), meta, { signal, onProgress })}
+        onProcess={({ file, meta, signal, onProgress }) => cropVideo(file, roundRect(rect), meta, { signal, onProgress }, { outputWidth: settings.outputWidth })}
         renderResult={(context) => <VideoResult {...context} title={t('result.cropComplete')} suffix="cropped" />}
       />
     </ToolLayout>

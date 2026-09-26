@@ -20,22 +20,34 @@ function runVideoFilter(file, filter, meta, { onProgress, signal, expectedDurati
 /**
  * Crop a video. `rect` is in source pixels; values are forced even for H.264.
  */
-export async function cropVideo(file, rect, meta, options) {
+export async function cropVideo(file, rect, meta, options, { outputWidth = 0 } = {}) {
   if (!rect || rect.width < 2 || rect.height < 2) throw new AppError(ERROR_CODES.INVALID_CROP)
   const width = even(Math.min(rect.width, meta.width - rect.x))
   const height = even(Math.min(rect.height, meta.height - rect.y))
   const x = Math.max(0, Math.round(rect.x))
   const y = Math.max(0, Math.round(rect.y))
-  const result = await runVideoFilter(file, `crop=${width}:${height}:${x}:${y}`, meta, options)
-  return { ...result, width, height, duration: meta?.duration }
+  // Optionally scale the cropped area to a fixed width (e.g. 1080 for Reels).
+  const scaled = outputWidth && outputWidth !== width ? { width: even(outputWidth), height: even((outputWidth * height) / width) } : null
+  const filter = `crop=${width}:${height}:${x}:${y}${scaled ? `,scale=${scaled.width}:${scaled.height}:flags=lanczos,setsar=1` : ''}`
+  const result = await runVideoFilter(file, filter, meta, options)
+  return { ...result, width: scaled?.width ?? width, height: scaled?.height ?? height, duration: meta?.duration }
 }
 
-/** Resize a video to exact (even) dimensions. */
-export async function resizeVideo(file, { width, height }, meta, options) {
+/**
+ * Resize a video to exact (even) dimensions. When the new shape differs from
+ * the source: `stretch` distorts, `pad` adds bars in `padColor`, `crop` fills and trims.
+ */
+export async function resizeVideo(file, { width, height, fit = 'stretch', padColor = '#000000' }, meta, options) {
   if (!(width >= 2 && height >= 2)) throw new AppError(ERROR_CODES.INVALID_DIMENSIONS)
   const w = even(width)
   const h = even(height)
-  const result = await runVideoFilter(file, `scale=${w}:${h}:flags=lanczos,setsar=1`, meta, options)
+  const filter =
+    fit === 'pad'
+      ? `scale=${w}:${h}:force_original_aspect_ratio=decrease:flags=lanczos,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2:color=${padColor.replace('#', '0x')},setsar=1`
+      : fit === 'crop'
+        ? `scale=${w}:${h}:force_original_aspect_ratio=increase:flags=lanczos,crop=${w}:${h},setsar=1`
+        : `scale=${w}:${h}:flags=lanczos,setsar=1`
+  const result = await runVideoFilter(file, filter, meta, options)
   return { ...result, width: w, height: h, duration: meta?.duration }
 }
 

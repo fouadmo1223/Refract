@@ -1,5 +1,5 @@
 import { runFFmpeg } from './ffmpeg/ffmpegClient'
-import { OUTPUT_TYPES, copyFormatFor, encodeArgsFor, reencodeFormatFor } from './encodingArgs'
+import { OUTPUT_TYPES, atempoChain, copyFormatFor, encodeArgsFor, reencodeFormatFor, seconds } from './encodingArgs'
 
 /**
  * Repeat a video N times. `repeat` is a lossless stream copy; `boomerang`
@@ -47,17 +47,23 @@ async function boomerangVideo(file, loops, meta, { onProgress, signal } = {}) {
  */
 export const REVERSE_RECOMMENDED_MAX_SECONDS = 30
 
-export async function reverseVideo(file, { reverseAudio }, meta, { onProgress, signal } = {}) {
+export async function reverseVideo(file, { reverseAudio, start = 0, end = null, speed = 1 }, meta, { onProgress, signal } = {}) {
   const format = reencodeFormatFor(file)
   const output = `output.${format}`
+  const until = end ?? meta?.duration
+  const part = until != null && (start > 0 || until < (meta?.duration ?? Infinity) - 0.05)
+  const length = until != null ? (until - start) / speed : meta?.duration
+  const video = ['reverse', ...(speed !== 1 ? [`setpts=PTS/${speed}`] : [])].join(',')
+  const audio = ['areverse', ...(speed !== 1 ? [atempoChain(speed)] : [])].join(',')
   const blob = await runFFmpeg({
     inputs: [{ file }],
-    buildArgs: ([input]) => ['-i', input, '-vf', 'reverse', ...(reverseAudio ? ['-af', 'areverse'] : ['-an']), ...encodeArgsFor(format), output],
+    // Reversing buffers every frame, so only the chosen part is decoded.
+    buildArgs: ([input]) => [...(part ? ['-ss', seconds(start), '-t', seconds(until - start)] : []), '-i', input, '-vf', video, ...(reverseAudio ? ['-af', audio] : ['-an']), ...encodeArgsFor(format), output],
     output,
     outputType: OUTPUT_TYPES[format],
-    expectedDuration: meta?.duration,
+    expectedDuration: length,
     onProgress,
     signal,
   })
-  return { blob, format, width: meta?.width, height: meta?.height, duration: meta?.duration }
+  return { blob, format, width: meta?.width, height: meta?.height, duration: length }
 }
