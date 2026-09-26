@@ -1,14 +1,37 @@
 import { runFFmpeg } from './ffmpeg/ffmpegClient'
 import { OUTPUT_TYPES, copyFormatFor, encodeArgsFor, reencodeFormatFor } from './encodingArgs'
 
-/** Repeat a video N times (stream copy — fast and lossless). */
-export async function loopVideo(file, { loops }, meta, { onProgress, signal } = {}) {
+/**
+ * Repeat a video N times. `repeat` is a lossless stream copy; `boomerang`
+ * plays forward then backward (re-encoded, no audio) and repeats that.
+ */
+export async function loopVideo(file, { loops, mode = 'repeat' }, meta, options = {}) {
+  if (mode === 'boomerang') return boomerangVideo(file, loops, meta, options)
+  const { onProgress, signal } = options
   const format = copyFormatFor(file)
   const output = `output.${format}`
   const expectedDuration = meta?.duration ? meta.duration * loops : undefined
   const blob = await runFFmpeg({
     inputs: [{ file }],
     buildArgs: ([input]) => ['-stream_loop', String(loops - 1), '-i', input, '-c', 'copy', output],
+    output,
+    outputType: OUTPUT_TYPES[format],
+    expectedDuration,
+    onProgress,
+    signal,
+  })
+  return { blob, format, width: meta?.width, height: meta?.height, duration: expectedDuration }
+}
+
+async function boomerangVideo(file, loops, meta, { onProgress, signal } = {}) {
+  const format = reencodeFormatFor(file)
+  const output = `output.${format}`
+  const expectedDuration = meta?.duration ? meta.duration * 2 * loops : undefined
+  // The first and last frames are dropped from the reversed half so the turnarounds don't stutter.
+  const graph = `[0:v]split[f][b];[b]reverse,trim=start_frame=1,setpts=PTS-STARTPTS[r];[f][r]concat=n=2:v=1:a=0,loop=loop=${loops - 1}:size=32767:start=0,setpts=N/FRAME_RATE/TB,format=yuv420p[v]`
+  const blob = await runFFmpeg({
+    inputs: [{ file }],
+    buildArgs: ([input]) => ['-i', input, '-filter_complex', graph, '-map', '[v]', '-an', ...encodeArgsFor(format), output],
     output,
     outputType: OUTPUT_TYPES[format],
     expectedDuration,

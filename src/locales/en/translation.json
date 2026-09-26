@@ -672,7 +672,22 @@
     "newDuration": "New duration",
     "sameSpeed": "Pick a speed other than 1× to continue.",
     "keepAudio": "Keep audio",
-    "keepAudioHint": "Audio is time-stretched with natural pitch."
+    "keepAudioHint": "Audio is time-stretched with natural pitch.",
+    "custom": "Custom speed",
+    "audioTitle": "Audio",
+    "audioModes": {
+      "keep": "Natural",
+      "pitch": "Pitch shift",
+      "mute": "Mute"
+    },
+    "audioHints": {
+      "keep": "Audio is sped up or slowed down without changing its pitch.",
+      "pitch": "Like a tape: faster sounds higher, slower sounds deeper.",
+      "mute": "The audio track is removed."
+    },
+    "motion": "Motion",
+    "smooth": "Smooth slow motion",
+    "smoothHint": "Blends in-between frames instead of repeating them. Slower to process."
   },
   "gif": {
     "output": "GIF settings",
@@ -694,7 +709,16 @@
   },
   "loop": {
     "title": "Loop",
-    "count": "Play count"
+    "count": "Play count",
+    "style": "Style",
+    "modes": {
+      "repeat": "Repeat",
+      "boomerang": "Boomerang"
+    },
+    "modeHints": {
+      "repeat": "Plays the clip again and again. Fast and lossless.",
+      "boomerang": "Plays forward, then backward. Re-encoded, without audio."
+    }
   },
   "reverse": {
     "title": "Reverse",
