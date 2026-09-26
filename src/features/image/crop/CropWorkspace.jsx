@@ -17,7 +17,7 @@ export function rotatedSize(width, height, rotation) {
  * Crop stage: shows the rotated/flipped preview with a crop overlay whose
  * coordinates are in full-resolution pixels of the transformed image.
  */
-export function CropWorkspace({ bitmap, meta, transform, rect, onRectChange, onRectCommit, aspect, zoom = 1 }) {
+export function CropWorkspace({ bitmap, meta, transform, rect, onRectChange, onRectCommit, aspect, zoom = 1, circle = false }) {
   const { t } = useTranslation()
   if (!bitmap) {
     return (
@@ -38,6 +38,7 @@ export function CropWorkspace({ bitmap, meta, transform, rect, onRectChange, onR
         onChange={onRectChange}
         onChangeEnd={onRectCommit}
         aspect={aspect}
+        circle={circle}
         style={{ width: `calc(min(100%, ${(ratio * 60).toFixed(3)}vh) * ${zoom})` }}
       >
         <CanvasView

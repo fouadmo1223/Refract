@@ -396,19 +396,37 @@
     "straighten": "تقويم",
     "zoom": "تكبير",
     "preview": "معاينة القص",
-    "area": "منطقة القص، {{width}} × {{height}} بكسل. استخدم مفاتيح الأسهم للتحريك."
+    "area": "منطقة القص، {{width}} × {{height}} بكسل. استخدم مفاتيح الأسهم للتحريك.",
+    "shape": "الشكل",
+    "shapes": {
+      "rect": "مستطيل",
+      "circle": "دائرة"
+    },
+    "circleHint": "تصبح الزوايا خارج الدائرة شفافة (PNG أو WebP)."
   },
   "removeBg": {
     "background": "الخلفية",
     "modes": {
       "transparent": "شفافة",
       "color": "لون",
-      "image": "صورة"
+      "image": "صورة",
+      "blur": "ضبابية"
     },
     "color": "لون الخلفية",
     "dropBackground": "أفلت صورة الخلفية",
     "jpegNoTransparency": "صيغة JPG لا تدعم الشفافية",
-    "modelNote": "تعمل على جهازك باستخدام نموذج ذكاء اصطناعي. يتم تنزيل النموذج في أول استخدام (نحو 40 ميغابايت) ثم يُحفظ مؤقتًا."
+    "modelNote": "تعمل على جهازك باستخدام نموذج ذكاء اصطناعي. يتم تنزيل النموذج في أول استخدام (نحو 40 ميغابايت) ثم يُحفظ مؤقتًا.",
+    "blurAmount": "تمويه الخلفية",
+    "subject": "العنصر",
+    "shadow": "ظل",
+    "shadowHint": "ظل ناعم أسفل العنصر.",
+    "outline": "إطار ملصق",
+    "outlineHint": "حد صلب حول العنصر.",
+    "outlineWidth": "عرض الإطار",
+    "outlineColor": "لون الإطار",
+    "cropToSubject": "القص حول العنصر",
+    "cropToSubjectHint": "إزالة المساحة الفارغة حول العنصر.",
+    "cropPadding": "الحشو"
   },
   "editor": {
     "preview": "معاينة الصورة المعدّلة",
@@ -567,7 +585,9 @@
       "dataUri": "Data URI",
       "raw": "Base64 خام",
       "css": "CSS",
-      "html": "HTML"
+      "html": "HTML",
+      "markdown": "Markdown",
+      "json": "JSON"
     },
     "downloadTxt": "تنزيل ملف .txt",
     "truncated": "يُعرض أول {{count}} حرف فقط. انسخ أو نزّل للحصول على النص كاملًا.",
@@ -576,7 +596,11 @@
     "decodedImage": "الصورة المفكوكة",
     "emptyTitle": "ستظهر صورتك هنا",
     "emptyDescription": "الصق نص Base64 ثم اختر «فك الترميز».",
-    "exportPlaceholder": "فُك ترميز صورة لعرض خيارات التنزيل."
+    "exportPlaceholder": "فُك ترميز صورة لعرض خيارات التنزيل.",
+    "wrapLines": "تقسيم الأسطر عند 76 حرفًا",
+    "optimize": "التحسين قبل الترميز",
+    "optimizeHint": "الصورة الأصغر تنتج نص Base64 أقصر بكثير.",
+    "saveAs": "الحفظ بصيغة"
   },
   "ico": {
     "sizes": "أحجام الأيقونة",
@@ -598,7 +622,17 @@
     "hoverHint": "مرّر المؤشر فوق الصورة",
     "picked": "الألوان المختارة",
     "noneYet": "لم تختر أي لون بعد.",
-    "palette": "لوحة الألوان السائدة"
+    "palette": "لوحة الألوان السائدة",
+    "options": "أداة الالتقاط",
+    "sample": "حجم العينة",
+    "onePixel": "1 بكسل",
+    "copyAs": "النسخ بصيغة",
+    "paletteSize": "الألوان",
+    "export": {
+      "list": "نسخ القائمة",
+      "css": "نسخ CSS",
+      "json": "نسخ JSON"
+    }
   },
   "effects": {
     "blur": "التمويه",

@@ -384,19 +384,37 @@
     "straighten": "Straighten",
     "zoom": "Zoom",
     "preview": "Crop preview",
-    "area": "Crop area, {{width}} by {{height}} pixels. Use arrow keys to move."
+    "area": "Crop area, {{width}} by {{height}} pixels. Use arrow keys to move.",
+    "shape": "Shape",
+    "shapes": {
+      "rect": "Rectangle",
+      "circle": "Circle"
+    },
+    "circleHint": "Corners outside the circle become transparent (PNG or WebP)."
   },
   "removeBg": {
     "background": "Background",
     "modes": {
       "transparent": "Transparent",
       "color": "Color",
-      "image": "Image"
+      "image": "Image",
+      "blur": "Blur"
     },
     "color": "Background color",
     "dropBackground": "Drop a background image",
     "jpegNoTransparency": "JPG can’t store transparency",
-    "modelNote": "Runs on-device with an AI model. The first run downloads the model (about 40 MB); after that it’s cached."
+    "modelNote": "Runs on-device with an AI model. The first run downloads the model (about 40 MB); after that it’s cached.",
+    "blurAmount": "Background blur",
+    "subject": "Subject",
+    "shadow": "Drop shadow",
+    "shadowHint": "A soft shadow under the subject.",
+    "outline": "Sticker outline",
+    "outlineHint": "A solid border around the subject.",
+    "outlineWidth": "Outline width",
+    "outlineColor": "Outline color",
+    "cropToSubject": "Crop to subject",
+    "cropToSubjectHint": "Trim the empty space around the subject.",
+    "cropPadding": "Padding"
   },
   "editor": {
     "preview": "Edited image preview",
@@ -547,7 +565,9 @@
       "dataUri": "Data URI",
       "raw": "Raw Base64",
       "css": "CSS",
-      "html": "HTML"
+      "html": "HTML",
+      "markdown": "Markdown",
+      "json": "JSON"
     },
     "downloadTxt": "Download .txt",
     "truncated": "Showing the first {{count}} characters. Copy or download to get the full text.",
@@ -556,7 +576,11 @@
     "decodedImage": "Decoded image",
     "emptyTitle": "Your image will appear here",
     "emptyDescription": "Paste Base64 text and select Decode.",
-    "exportPlaceholder": "Decode an image to see download options."
+    "exportPlaceholder": "Decode an image to see download options.",
+    "wrapLines": "Wrap lines at 76 characters",
+    "optimize": "Optimize before encoding",
+    "optimizeHint": "A smaller image makes a much shorter Base64 string.",
+    "saveAs": "Save as"
   },
   "ico": {
     "sizes": "Icon sizes",
@@ -578,7 +602,17 @@
     "hoverHint": "Hover the image",
     "picked": "Picked colors",
     "noneYet": "No colors picked yet.",
-    "palette": "Dominant palette"
+    "palette": "Dominant palette",
+    "options": "Picker",
+    "sample": "Sample size",
+    "onePixel": "1 px",
+    "copyAs": "Copy as",
+    "paletteSize": "Colors",
+    "export": {
+      "list": "Copy list",
+      "css": "Copy CSS",
+      "json": "Copy JSON"
+    }
   },
   "effects": {
     "blur": "Blur",

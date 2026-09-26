@@ -1,16 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FileImage, ImageIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { getImageFormatFromFile, getImageFormat } from '@/constants/imageFormats'
 import { normalizeError } from '@/lib/errors'
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 import { base64ToImageBlob } from '@/services/image/imageBase64Service'
+import { convertImage } from '@/services/image/imageConversionService'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { useRecentJobsStore } from '@/store/recentJobsStore'
 import { Button } from '@/components/ui/Button'
+import { SegmentedControl } from '@/components/ui/SegmentedControl'
+import { Slider } from '@/components/ui/Slider'
 import { Textarea } from '@/components/ui/Textarea'
 import { ToolLayout } from '@/components/layout/ToolLayout'
-import { MediaStage } from '@/components/layout/Panels'
+import { MediaStage, SettingsSection } from '@/components/layout/Panels'
 import { ExportPanel } from '@/components/media/ExportPanel'
 import { EmptyState } from '@/components/feedback/States'
 
@@ -23,6 +26,24 @@ export default function Base64ToImagePage() {
   const [decoded, setDecoded] = useState(null)
   const addJob = useRecentJobsStore((state) => state.addJob)
   const previewUrl = useObjectUrl(decoded?.blob)
+  const [saveAs, setSaveAs] = useState('original')
+  const [quality, setQuality] = useState(90)
+  const [converted, setConverted] = useState(null)
+
+  // Re-encode the decoded image when a different download format is chosen.
+  useEffect(() => {
+    if (!decoded || saveAs === 'original' || decoded.blob.type === 'image/svg+xml') {
+      setConverted(null)
+      return undefined
+    }
+    let cancelled = false
+    convertImage(decoded.blob, { format: saveAs, quality, background: '#FFFFFF' })
+      .then((result) => !cancelled && setConverted(result))
+      .catch(() => !cancelled && setConverted(null))
+    return () => {
+      cancelled = true
+    }
+  }, [decoded, quality, saveAs])
 
   const handleDecode = async () => {
     try {
@@ -39,8 +60,9 @@ export default function Base64ToImagePage() {
     }
   }
 
-  const formatId = decoded ? getImageFormatFromFile({ type: decoded.blob.type, name: '' }) : null
-  const extension = decoded?.blob.type === 'image/svg+xml' ? 'svg' : formatId ? getImageFormat(formatId).ext : 'png'
+  const formatId = converted ? converted.format : decoded ? getImageFormatFromFile({ type: decoded.blob.type, name: '' }) : null
+  const extension = !converted && decoded?.blob.type === 'image/svg+xml' ? 'svg' : formatId ? getImageFormat(formatId).ext : 'png'
+  const exportBlob = converted?.blob ?? decoded?.blob
 
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -76,8 +98,21 @@ export default function Base64ToImagePage() {
           )}
         </div>
         {decoded ? (
+          <div className="flex flex-col gap-4">
+          {decoded.blob.type !== 'image/svg+xml' && (
+            <div className="rounded-lg border border-border bg-surface p-4">
+              <SettingsSection title={t('base64.saveAs')}>
+                <SegmentedControl
+                  value={saveAs}
+                  onChange={setSaveAs}
+                  options={['original', 'png', 'jpeg', 'webp'].map((value) => ({ value, label: value === 'original' ? t('settings.keepOriginal') : value === 'jpeg' ? 'JPG' : value === 'webp' ? 'WebP' : 'PNG' }))}
+                />
+                {['jpeg', 'webp'].includes(saveAs) && <Slider label={t('settings.quality')} value={quality} min={10} max={100} onChange={setQuality} formatValue={(value) => `${value}%`} />}
+              </SettingsSection>
+            </div>
+          )}
           <ExportPanel
-            blob={decoded.blob}
+            blob={exportBlob}
             fileName={`decoded-image.${extension}`}
             extension={extension}
             width={decoded.width}
@@ -87,6 +122,7 @@ export default function Base64ToImagePage() {
               setInput('')
             }}
           />
+          </div>
         ) : (
           <div className="rounded-lg border border-dashed border-border p-4 text-[13px] text-muted">{t('base64.exportPlaceholder')}</div>
         )}

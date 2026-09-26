@@ -8,8 +8,10 @@ import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { createCanvas, getContext } from '@/services/image/canvas'
 import { describeColor, extractPalette } from '@/services/image/colorService'
 import { useRecentJobsStore } from '@/store/recentJobsStore'
+import { useToolSettings } from '@/store/toolSettingsStore'
 import { Button } from '@/components/ui/Button'
 import { IconButton } from '@/components/ui/IconButton'
+import { SegmentedControl } from '@/components/ui/SegmentedControl'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaStage, SettingsPanel, SettingsSection } from '@/components/layout/Panels'
 import { FileCard } from '@/components/media/FileCard'
@@ -18,8 +20,17 @@ import { PrivacyNote } from '@/components/media/PrivacyNote'
 import { LoadingState } from '@/components/feedback/States'
 
 const TOOL_ID = 'image-color-picker'
+const DEFAULTS = { sample: 1, paletteSize: 8, copyAs: 'hex' }
+const COPY_FORMATS = ['hex', 'rgb', 'hsl']
 
-function ColorRow({ color, onRemove }) {
+/** Palette as CSS custom properties, JSON, or a plain list. */
+function exportPalette(colors, kind) {
+  if (kind === 'css') return `:root {\n${colors.map((color, index) => `  --color-${index + 1}: ${color.hex};`).join('\n')}\n}`
+  if (kind === 'json') return JSON.stringify(colors.map((color) => color.hex), null, 2)
+  return colors.map((color) => color.hex).join(', ')
+}
+
+function ColorRow({ color, onRemove, copyAs = 'hex' }) {
   const { t } = useTranslation()
   const copy = async (value) => {
     await copyToClipboard(value)
@@ -36,13 +47,13 @@ function ColorRow({ color, onRemove }) {
           {color.rgb} · {color.hsl}
         </button>
       </div>
-      <IconButton icon={Copy} label={t('common.copy')} size="xs" onClick={() => copy(color.hex)} />
+      <IconButton icon={Copy} label={t('common.copy')} size="xs" onClick={() => copy(color[copyAs] ?? color.hex)} />
       {onRemove && <IconButton icon={Trash2} label={t('common.remove')} size="xs" variant="danger-ghost" onClick={onRemove} />}
     </li>
   )
 }
 
-function PickerCanvas({ bitmap, onPick, onHover }) {
+function PickerCanvas({ bitmap, onPick, onHover, sample = 1 }) {
   const { t } = useTranslation()
   const sampler = useMemo(() => {
     if (!bitmap) return null
@@ -65,8 +76,24 @@ function PickerCanvas({ bitmap, onPick, onHover }) {
     const rect = imgRef.current.getBoundingClientRect()
     const x = Math.min(sampler.width - 1, Math.max(0, Math.floor(((event.clientX - rect.left) / rect.width) * sampler.width)))
     const y = Math.min(sampler.height - 1, Math.max(0, Math.floor(((event.clientY - rect.top) / rect.height) * sampler.height)))
-    const index = (y * sampler.width + x) * 4
-    return describeColor(sampler.data[index], sampler.data[index + 1], sampler.data[index + 2])
+    // Average an N×N area around the pointer — steadier on noisy photos.
+    const half = Math.floor(sample / 2)
+    let r = 0
+    let g = 0
+    let b = 0
+    let count = 0
+    for (let dy = -half; dy <= half; dy += 1) {
+      for (let dx = -half; dx <= half; dx += 1) {
+        const px = Math.min(sampler.width - 1, Math.max(0, x + dx))
+        const py = Math.min(sampler.height - 1, Math.max(0, y + dy))
+        const index = (py * sampler.width + px) * 4
+        r += sampler.data[index]
+        g += sampler.data[index + 1]
+        b += sampler.data[index + 2]
+        count += 1
+      }
+    }
+    return describeColor(Math.round(r / count), Math.round(g / count), Math.round(b / count))
   }
 
   if (!bitmap || !url) {
@@ -99,6 +126,12 @@ export default function ColorPickerPage() {
   const [picked, setPicked] = useState([])
   const { bitmap } = usePreviewBitmap(file, 1200)
   const addJob = useRecentJobsStore((state) => state.addJob)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
+  const copyExport = async (colors, kind) => {
+    await copyToClipboard(exportPalette(colors, kind))
+    notify.success('toasts.copied')
+  }
 
   const palette = useMemo(() => {
     if (!bitmap) return []
@@ -107,12 +140,13 @@ export default function ColorPickerPage() {
     const canvas = createCanvas(Math.max(1, bitmap.width * scale), Math.max(1, bitmap.height * scale))
     const context = getContext(canvas, { willReadFrequently: true })
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
-    return extractPalette(context.getImageData(0, 0, canvas.width, canvas.height), 8)
-  }, [bitmap])
+    return extractPalette(context.getImageData(0, 0, canvas.width, canvas.height), settings.paletteSize)
+  }, [bitmap, settings.paletteSize])
 
   const handlePick = (color) => {
     setPicked((current) => [color, ...current.filter((item) => item.hex !== color.hex)].slice(0, 12))
-    copyToClipboard(color.hex).then(() => notify.success('toasts.colorCopied', { values: { value: color.hex } }))
+    const value = color[settings.copyAs] ?? color.hex
+    copyToClipboard(value).then(() => notify.success('toasts.colorCopied', { values: { value } }))
   }
 
   const handleFile = ([next]) => {
@@ -134,7 +168,7 @@ export default function ColorPickerPage() {
     <ToolLayout toolId={TOOL_ID}>
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6">
         <div className="min-w-0">
-          <PickerCanvas bitmap={bitmap} onPick={handlePick} onHover={setHovered} />
+          <PickerCanvas bitmap={bitmap} onPick={handlePick} onHover={setHovered} sample={settings.sample} />
           <p className="mt-2 flex items-center gap-1.5 text-xs text-muted">
             <Pipette size={13} aria-hidden="true" />
             {t('colorPicker.hint')}
@@ -142,6 +176,15 @@ export default function ColorPickerPage() {
         </div>
         <SettingsPanel>
           <FileCard file={file} onRemove={() => setFile(null)} />
+          <SettingsSection title={t('colorPicker.options')}>
+            <SegmentedControl
+              label={t('colorPicker.sample')}
+              value={settings.sample}
+              onChange={(sample) => updateSettings({ sample })}
+              options={[1, 3, 5, 9].map((value) => ({ value, label: value === 1 ? t('colorPicker.onePixel') : `${value}×${value}` }))}
+            />
+            <SegmentedControl label={t('colorPicker.copyAs')} value={settings.copyAs} onChange={(copyAs) => updateSettings({ copyAs })} options={COPY_FORMATS.map((value) => ({ value, label: value.toUpperCase() }))} />
+          </SettingsSection>
           <SettingsSection title={t('colorPicker.current')}>
             <div className="flex items-center gap-3 rounded-md bg-surface-2 p-2.5">
               <span className="size-10 shrink-0 rounded-md ring-1 ring-inset ring-black/10" style={{ background: hovered?.hex ?? 'transparent' }} />
@@ -164,7 +207,7 @@ export default function ColorPickerPage() {
             {picked.length ? (
               <ul className="-my-1.5">
                 {picked.map((color) => (
-                  <ColorRow key={color.hex} color={color} onRemove={() => setPicked((current) => current.filter((item) => item.hex !== color.hex))} />
+                  <ColorRow key={color.hex} copyAs={settings.copyAs} color={color} onRemove={() => setPicked((current) => current.filter((item) => item.hex !== color.hex))} />
                 ))}
               </ul>
             ) : (
@@ -172,6 +215,7 @@ export default function ColorPickerPage() {
             )}
           </SettingsSection>
           <SettingsSection title={t('colorPicker.palette')}>
+            <SegmentedControl label={t('colorPicker.paletteSize')} value={settings.paletteSize} onChange={(paletteSize) => updateSettings({ paletteSize })} options={[5, 8, 12, 16].map((value) => ({ value, label: String(value) }))} />
             <div className="flex h-8 overflow-hidden rounded-md ring-1 ring-inset ring-black/10">
               {palette.map((color) => (
                 <button key={color.hex} type="button" title={color.hex} aria-label={color.hex} onClick={() => handlePick(color)} className="h-full flex-1 outline-none focus-visible:ring-2 focus-visible:ring-primary" style={{ background: color.hex }} />
@@ -179,9 +223,16 @@ export default function ColorPickerPage() {
             </div>
             <ul className="-my-1.5">
               {palette.slice(0, 5).map((color) => (
-                <ColorRow key={color.hex} color={color} />
+                <ColorRow key={color.hex} copyAs={settings.copyAs} color={color} />
               ))}
             </ul>
+            <div className="flex flex-wrap gap-1.5">
+              {['list', 'css', 'json'].map((kind) => (
+                <Button key={kind} variant="secondary" size="xs" leftIcon={Copy} onClick={() => copyExport(palette, kind)} disabled={!palette.length}>
+                  {t(`colorPicker.export.${kind}`)}
+                </Button>
+              ))}
+            </div>
           </SettingsSection>
         </SettingsPanel>
       </div>

@@ -68,6 +68,17 @@ function limitDimension(canvas, maxDimension) {
   return resizeCanvas(canvas, { width: maxDimension, height: maxDimension, mode: 'fit', noUpscale: true })
 }
 
+/** Keep only the ellipse inscribed in the canvas (a circle for square crops). */
+function maskEllipse(source) {
+  const canvas = createCanvas(source.width, source.height)
+  const context = getContext(canvas)
+  context.beginPath()
+  context.ellipse(source.width / 2, source.height / 2, source.width / 2, source.height / 2, 0, 0, Math.PI * 2)
+  context.clip()
+  context.drawImage(source, 0, 0)
+  return canvas
+}
+
 /** Scale by a percentage (100 = unchanged). */
 function scaleCanvas(canvas, scale) {
   if (!scale || scale === 100) return canvas
@@ -82,7 +93,8 @@ const OPERATIONS = {
   resize: (canvas, params) => resizeCanvas(canvas, params),
   crop: (canvas, params) => {
     const transformed = transformCanvas(canvas, params)
-    return params.rect ? cropCanvas(transformed, params.rect) : transformed
+    const cropped = params.rect ? cropCanvas(transformed, params.rect) : transformed
+    return params.shape === 'circle' ? maskEllipse(cropped) : cropped
   },
   edit: (canvas, params) => {
     let result = transformCanvas(canvas, params.transform)

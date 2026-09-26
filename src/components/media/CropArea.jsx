@@ -22,7 +22,7 @@ const HANDLE_POSITION = {
  *
  * Geometry is physical (x grows to the right) even in RTL — media isn't mirrored.
  */
-export function CropArea({ mediaWidth, mediaHeight, rect, onChange, onChangeEnd, aspect, children, className, style }) {
+export function CropArea({ mediaWidth, mediaHeight, rect, onChange, onChangeEnd, aspect, children, className, style, circle = false }) {
   const { t } = useTranslation()
   const containerRef = useRef(null)
   const dragRef = useRef(null)
@@ -94,6 +94,7 @@ export function CropArea({ mediaWidth, mediaHeight, rect, onChange, onChangeEnd,
         }}
       >
         <div className="pointer-events-none absolute inset-0 border border-white/90" />
+        {circle && <div className="pointer-events-none absolute inset-0 rounded-full border-2 border-white shadow-[0_0_0_1px_rgba(0,0,0,0.3)]" />}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-y-0 left-1/3 w-px bg-white/35" />
           <div className="absolute inset-y-0 left-2/3 w-px bg-white/35" />

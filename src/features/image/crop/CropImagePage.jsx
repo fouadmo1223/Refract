@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { CONVERTIBLE_FORMATS } from '@/constants/imageFormats'
 import { IMAGE_ASPECT_RATIOS } from '@/constants/presets'
-import { formatDimensions } from '@/lib/format'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { cropImage } from '@/services/image/imageCropService'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { useToolSettings } from '@/store/toolSettingsStore'
 import { Button } from '@/components/ui/Button'
+import { NumberInput } from '@/components/ui/NumberInput'
 import { IconButton } from '@/components/ui/IconButton'
 import { SegmentedControl } from '@/components/ui/SegmentedControl'
 import { Slider } from '@/components/ui/Slider'
@@ -22,12 +22,14 @@ import { FormatSelect } from '../shared/FormatSelect'
 import { CropWorkspace, rotatedSize } from './CropWorkspace'
 
 const TOOL_ID = 'image-crop'
-const DEFAULTS = { aspectId: 'free', format: 'original' }
+const DEFAULTS = { aspectId: 'free', format: 'original', shape: 'rect' }
 const INITIAL_TRANSFORM = { rotation: 0, straighten: 0, flipH: false, flipV: false }
 
 export default function CropImagePage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
+  const circle = settings.shape === 'circle'
   const [file, setFile] = useState(null)
   const [transform, setTransform] = useState(INITIAL_TRANSFORM)
   const [rect, setRect] = useState(null)
@@ -65,11 +67,38 @@ export default function CropImagePage() {
         renderPreview={({ meta }) => (
           <RectInitializer meta={meta} rect={rect} onInit={() => resetRect(meta)}>
             {rect && (
-              <CropWorkspace bitmap={bitmap} meta={meta} transform={effectiveTransform} rect={rect} onRectChange={setRect} aspect={aspect} zoom={zoom} />
+              <CropWorkspace bitmap={bitmap} meta={meta} transform={effectiveTransform} rect={rect} onRectChange={setRect} aspect={aspect} zoom={zoom} circle={circle} />
             )}
           </RectInitializer>
         )}
         renderSettings={({ meta }) => {
+          // Typed width/height keep the selection centred, clamped to the image and the chosen ratio.
+          const setRectSize = (patch) => {
+            if (!rect) return
+            const bounds = rotatedSize(meta.width, meta.height, totalRotation)
+            let width = Math.min(bounds.width, Math.max(1, patch.width ?? rect.width))
+            let height = Math.min(bounds.height, Math.max(1, patch.height ?? rect.height))
+            if (aspect) {
+              if (patch.width != null) height = width / aspect
+              else width = height * aspect
+              if (height > bounds.height) {
+                height = bounds.height
+                width = height * aspect
+              }
+              if (width > bounds.width) {
+                width = bounds.width
+                height = width / aspect
+              }
+            }
+            const cx = rect.x + rect.width / 2
+            const cy = rect.y + rect.height / 2
+            setRect({
+              x: Math.min(bounds.width - width, Math.max(0, cx - width / 2)),
+              y: Math.min(bounds.height - height, Math.max(0, cy - height / 2)),
+              width,
+              height,
+            })
+          }
           const applyTransform = (patch) => {
             const next = { ...transform, ...patch }
             setTransform(next)
@@ -87,10 +116,24 @@ export default function CropImagePage() {
                   }}
                   options={IMAGE_ASPECT_RATIOS.map((ratio) => ({ value: ratio.id, label: ratio.label ?? t('crop.free') }))}
                 />
+                <SegmentedControl
+                  label={t('crop.shape')}
+                  value={settings.shape}
+                  onChange={(shape) => {
+                    updateSettings(shape === 'circle' && settings.aspectId === 'free' ? { shape, aspectId: '1:1' } : { shape })
+                    if (shape === 'circle' && settings.aspectId === 'free') resetRect(meta, 1)
+                  }}
+                  options={[
+                    { value: 'rect', label: t('crop.shapes.rect') },
+                    { value: 'circle', label: t('crop.shapes.circle') },
+                  ]}
+                />
+                {circle && <p className="-mt-1 text-xs text-muted">{t('crop.circleHint')}</p>}
                 {rect && (
-                  <p className="tabular rounded-md bg-surface-2 px-3 py-2 text-[13px] text-text-2">
-                    {t('crop.selection')}: <span className="font-semibold text-text">{formatDimensions(Math.round(rect.width), Math.round(rect.height))}</span>
-                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <NumberInput label={t('settings.width')} value={Math.round(rect.width)} min={1} suffix="px" stepper={false} onChange={(width) => Number.isFinite(width) && setRectSize({ width })} />
+                    <NumberInput label={t('settings.height')} value={Math.round(rect.height)} min={1} suffix="px" stepper={false} onChange={(height) => Number.isFinite(height) && setRectSize({ height })} />
+                  </div>
                 )}
               </SettingsSection>
               <SettingsSection title={t('crop.transform')}>
@@ -132,7 +175,7 @@ export default function CropImagePage() {
           )
         }}
         onProcess={({ file: source, signal, onProgress }) =>
-          cropImage(source, { rect: roundRect(rect), ...effectiveTransform, format: settings.format, quality: 92 }, { signal, onProgress })
+          cropImage(source, { rect: roundRect(rect), ...effectiveTransform, shape: settings.shape, format: circle && ['jpeg', 'bmp'].includes(settings.format) ? 'png' : settings.format, quality: 92 }, { signal, onProgress })
         }
         renderResult={(context) => <ImageResult {...context} title={t('result.cropComplete')} suffix="cropped" compare={false} />}
       />
