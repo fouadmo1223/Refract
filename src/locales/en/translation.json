@@ -1554,8 +1554,30 @@
     "layout": "Layout",
     "columns": "Columns",
     "auto": "Auto",
-    "cellShape": "Cell shape",
-    "gap": "Spacing"
+    "gap": "Spacing",
+    "canvas": "Canvas",
+    "style": "Style",
+    "photoLabel": "Photo {{index}}: {{name}}",
+    "dropToReplace": "Drop to replace",
+    "move": "Drag to swap",
+    "replace": "Replace",
+    "dragToReposition": "Drag to reposition",
+    "resizeColumns": "Drag to resize photos",
+    "resizeRows": "Drag to resize rows",
+    "dndInstructions": "Press space or enter to pick up a photo, use the arrow keys to move it onto another photo, then press space or enter again to swap them.",
+    "photoCount": "{{count}} of {{max}} photos",
+    "shuffle": "Shuffle",
+    "addPhotos": "Add photos",
+    "hints": {
+      "swap": "Drag a photo onto another to swap them",
+      "resize": "Drag the lines between photos to resize",
+      "select": "Click a photo to zoom and reposition it"
+    },
+    "selectedPhoto": "Photo {{index}}",
+    "zoom": "Zoom",
+    "recenter": "Recenter",
+    "evenOut": "Even out",
+    "done": "Done"
   },
   "fit": {
     "canvas": "Canvas",
