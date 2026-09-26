@@ -156,7 +156,8 @@ export function MediaToolFlow({
   return (
     <Stagger stagger={0.08} className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6">
       {hiddenReplaceInput}
-      <StaggerItem className="min-w-0">
+      {/* Both columns are sticky: whichever is shorter stays in view while the taller one scrolls. */}
+      <StaggerItem className="min-w-0 lg:sticky lg:top-20">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={job.status + String(meta.status)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
             {showBareStage ? stage : <MediaStage>{stage}</MediaStage>}
