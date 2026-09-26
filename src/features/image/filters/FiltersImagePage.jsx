@@ -1,0 +1,106 @@
+import { useMemo, useState } from 'react'
+import { Palette } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { cn } from '@/lib/cn'
+import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
+import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
+import { resampleCanvas, toCanvas } from '@/services/image/canvas'
+import { applyFilterPreset } from '@/services/image/compositionEffects'
+import { FILTER_IDS } from '@/services/image/filterPresets'
+import { readImageInfo } from '@/services/image/imageInfoService'
+import { runImageJob } from '@/services/image/imageWorkerClient'
+import { useToolSettings } from '@/store/toolSettingsStore'
+import { Slider } from '@/components/ui/Slider'
+import { ToolLayout } from '@/components/layout/ToolLayout'
+import { MediaToolFlow } from '@/components/layout/MediaToolFlow'
+import { MediaStage, SettingsSection } from '@/components/layout/Panels'
+import { CanvasView } from '@/components/media/CanvasView'
+import { LoadingState } from '@/components/feedback/States'
+import { ImageResult } from '../shared/ImageResult'
+
+const TOOL_ID = 'image-filters'
+const DEFAULTS = { preset: 'vivid', intensity: 100 }
+const THUMB_SIZE = 96
+
+/** Grid of live thumbnails — each shows the actual image with that look. */
+function FilterGrid({ bitmap, value, onChange }) {
+  const { t } = useTranslation()
+  const thumbnails = useMemo(() => {
+    if (!bitmap) return {}
+    const scale = THUMB_SIZE / Math.min(bitmap.width, bitmap.height)
+    const small = resampleCanvas(toCanvas(bitmap), Math.max(1, Math.round(bitmap.width * scale)), Math.max(1, Math.round(bitmap.height * scale)))
+    return Object.fromEntries(
+      FILTER_IDS.map((id) => {
+        const canvas = applyFilterPreset(small, { preset: id, intensity: 100 })
+        const element = document.createElement('canvas')
+        element.width = canvas.width
+        element.height = canvas.height
+        element.getContext('2d').drawImage(canvas, 0, 0)
+        return [id, element.toDataURL('image/jpeg', 0.8)]
+      }),
+    )
+  }, [bitmap])
+
+  return (
+    <div role="radiogroup" aria-label={t('filters.look')} className="grid grid-cols-3 gap-2">
+      {FILTER_IDS.map((id) => {
+        const checked = id === value
+        return (
+          <button
+            key={id}
+            type="button"
+            role="radio"
+            aria-checked={checked}
+            onClick={() => onChange(id)}
+            className={cn('overflow-hidden rounded-md text-start outline-none ring-offset-2 ring-offset-surface focus-visible:ring-2 focus-visible:ring-primary', checked ? 'ring-2 ring-primary' : 'ring-1 ring-border hover:ring-border-strong')}
+          >
+            <div className="aspect-square bg-surface-2">{thumbnails[id] && <img src={thumbnails[id]} alt="" className="size-full object-cover" />}</div>
+            <span className={cn('block truncate px-1.5 py-1 text-2xs font-medium', checked ? 'text-primary-soft-fg' : 'text-text-2')}>{t(`filters.presets.${id}`)}</span>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+export default function FiltersImagePage() {
+  const { t } = useTranslation()
+  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [file, setFile] = useState(null)
+  const { bitmap } = usePreviewBitmap(file, 1200)
+
+  return (
+    <ToolLayout toolId={TOOL_ID}>
+      <MediaToolFlow
+        toolId={TOOL_ID}
+        profile={UPLOAD_PROFILES.image}
+        loadMeta={readImageInfo}
+        onFileChange={setFile}
+        actionLabel={t('tools.image-filters.action')}
+        actionIcon={Palette}
+        processingTitle={t('processing.applyingEffect')}
+        successMessage="toasts.effectApplied"
+        canProcess={settings.preset !== 'none'}
+        renderPreview={() =>
+          bitmap ? (
+            <MediaStage checkerboard>
+              <CanvasView className="h-auto max-h-[62vh] w-auto max-w-full" deps={[bitmap, settings]} draw={() => applyFilterPreset(toCanvas(bitmap), settings)} label={t('common.preview')} />
+            </MediaStage>
+          ) : (
+            <MediaStage>
+              <LoadingState />
+            </MediaStage>
+          )
+        }
+        renderSettings={() => (
+          <SettingsSection title={t('filters.look')}>
+            <FilterGrid bitmap={bitmap} value={settings.preset} onChange={(preset) => updateSettings({ preset })} />
+            <Slider label={t('effects.intensity')} value={settings.intensity} min={0} max={100} onChange={(intensity) => updateSettings({ intensity })} formatValue={(value) => `${value}%`} />
+          </SettingsSection>
+        )}
+        onProcess={({ file: source, signal, onProgress }) => runImageJob('filter', source, { ...settings, format: 'original', quality: 92 }, { signal, onProgress })}
+        renderResult={(context) => <ImageResult {...context} title={t('result.effectComplete')} suffix={settings.preset} />}
+      />
+    </ToolLayout>
+  )
+}
