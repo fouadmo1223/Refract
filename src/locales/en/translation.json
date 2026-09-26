@@ -307,7 +307,8 @@
       "fillHint": "Cover the whole box and crop the overflow from the center.",
       "stretch": "Stretch",
       "stretchHint": "Use the exact size, distorting the image if needed."
-    }
+    },
+    "resizeOptions": "Resize"
   },
   "presets": {
     "quality": {
@@ -559,7 +560,16 @@
   },
   "ico": {
     "sizes": "Icon sizes",
-    "nonSquareHint": "This image isn’t square, so it will be centered on a transparent canvas."
+    "nonSquareHint": "This image isn’t square, so it will be centered on a transparent canvas.",
+    "style": "Style",
+    "fit": "Non-square images",
+    "fits": {
+      "contain": "Fit inside",
+      "cover": "Fill & crop"
+    },
+    "padding": "Padding",
+    "circle": "Circle",
+    "background": "Background"
   },
   "colorPicker": {
     "imageAlt": "Image to pick colors from",
@@ -605,7 +615,36 @@
       "cool": "Cool",
       "green": "Green",
       "rose": "Rose"
-    }
+    },
+    "corners": "Corners",
+    "autoCrop": "Crop empty corners",
+    "autoCropHint": "Trim to the largest rectangle without empty edges.",
+    "cornerFill": "Fill empty corners with",
+    "fills": {
+      "transparent": "Transparent",
+      "color": "Color"
+    },
+    "flipMode": "Mode",
+    "flipModes": {
+      "flip": "Flip",
+      "mirror": "Mirror"
+    },
+    "keepSide": "Keep this side",
+    "sides": {
+      "left": "Left",
+      "right": "Right",
+      "top": "Top",
+      "bottom": "Bottom"
+    },
+    "mirrorHint": "The kept half is reflected onto the other half for a symmetric image.",
+    "pixelStyle": "Style",
+    "pixelStyles": {
+      "square": "Blocks",
+      "tiles": "Tiles",
+      "dots": "Dots"
+    },
+    "pixelGap": "Gap",
+    "pixelBackground": "Gap color"
   },
   "video": {
     "previewUnavailable": "Preview isn’t available for this format",
@@ -779,7 +818,8 @@
     "collageMinImages": "Add at least two photos.",
     "fadeRequired": "Set a fade in or fade out duration.",
     "fadeTooLong": "The fades are longer than the video.",
-    "splitRange": "Choose settings that create between 2 and {{max}} parts."
+    "splitRange": "Choose settings that create between 2 and {{max}} parts.",
+    "targetSize": "Enter a size of at least 5 KB."
   },
   "errors": {
     "UNSUPPORTED_FORMAT": {
@@ -1732,5 +1772,17 @@
     "moved": "{{tool}} moved to position {{position}}.",
     "resetOrder": "Reset order",
     "instructions": "To reorder, press Space or Enter to pick up the card, use the arrow keys to move it, then press Space or Enter again to drop it. Press Escape to cancel."
+  },
+  "compress": {
+    "mode": "Compress by",
+    "modes": {
+      "quality": "Quality",
+      "size": "Target size"
+    },
+    "targetSize": "Target file size",
+    "targetHint": "We'll find the best quality that fits. Original: {{size}}.",
+    "targetUnsupported": "Target size works with JPG, WebP and AVIF — pick one of those output formats.",
+    "targetHit": "Best quality that fits the target: {{quality}}%.",
+    "targetMissed": "The target couldn't be reached — this is the smallest file (quality {{quality}}%). Try scaling the image down too."
   }
 }

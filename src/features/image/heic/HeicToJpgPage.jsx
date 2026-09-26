@@ -1,5 +1,6 @@
 import { Smartphone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { OutputSizeOptions } from '../shared/OutputSizeOptions'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { formatBytes } from '@/lib/format'
 import { convertHeic, readHeicInfo } from '@/services/image/heicService'
@@ -12,7 +13,7 @@ import { MediaStage, SettingsSection } from '@/components/layout/Panels'
 import { ImageResult } from '../shared/ImageResult'
 
 const TOOL_ID = 'heic-to-jpg'
-const DEFAULTS = { format: 'jpeg', quality: 90 }
+const DEFAULTS = { format: 'jpeg', quality: 90, scale: 100, limitDimensions: false, maxDimension: 2560 }
 
 /** Most browsers can't render HEIC, so show a file summary instead of a preview. */
 function HeicPlaceholder({ file }) {
@@ -35,7 +36,8 @@ function HeicPlaceholder({ file }) {
 
 export default function HeicToJpgPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
 
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -49,6 +51,7 @@ export default function HeicToJpgPage() {
         successMessage="toasts.imageConverted"
         renderPreview={({ file }) => <HeicPlaceholder file={file} />}
         renderSettings={() => (
+          <>
           <SettingsSection title={t('settings.output')}>
             <SegmentedControl
               label={t('settings.outputFormat')}
@@ -64,8 +67,12 @@ export default function HeicToJpgPage() {
             )}
             <p className="text-xs text-muted">{t('heic.note')}</p>
           </SettingsSection>
+          <SettingsSection title={t('settings.resizeOptions')}>
+            <OutputSizeOptions settings={settings} updateSettings={updateSettings} />
+          </SettingsSection>
+          </>
         )}
-        onProcess={({ file, signal, onProgress }) => convertHeic(file, settings, { signal, onProgress })}
+        onProcess={({ file, signal, onProgress }) => convertHeic(file, { ...settings, maxDimension: settings.limitDimensions ? settings.maxDimension : null }, { signal, onProgress })}
         renderResult={(context) => <ImageResult {...context} title={t('result.conversionComplete')} suffix="" compare={false} />}
       />
     </ToolLayout>

@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
-import { pixelateCanvas } from '@/services/image/adjustments'
-import { blurWithFocus, monoCanvas } from '@/services/image/effectExtras'
-import { toCanvas, transformCanvas } from '@/services/image/canvas'
+import { blurWithFocus, flipImage, monoCanvas, pixelateStyled, rotateImage } from '@/services/image/effectExtras'
+import { toCanvas } from '@/services/image/canvas'
 import { applyImageEffect } from '@/services/image/imageEffectsService'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { useToolSettings } from '@/store/toolSettingsStore'
@@ -21,10 +20,10 @@ import { ImageResult } from '../shared/ImageResult'
  */
 export const EFFECT_PREVIEWS = {
   blur: (source, settings) => blurWithFocus(toCanvas(source), settings),
-  pixelate: (source, settings) => pixelateCanvas(toCanvas(source), Math.max(2, (settings.amount / 100) * Math.min(source.width, source.height) * 0.1)),
+  pixelate: (source, settings) => pixelateStyled(toCanvas(source), settings),
   grayscale: (source, settings) => monoCanvas(toCanvas(source), settings),
-  rotate: (source, settings) => transformCanvas(source, { rotation: settings.rotation }),
-  flip: (source, settings) => transformCanvas(source, { flipH: settings.flipH, flipV: settings.flipV }),
+  rotate: (source, settings) => rotateImage(toCanvas(source), settings),
+  flip: (source, settings) => flipImage(toCanvas(source), settings),
 }
 
 function EffectPreview({ bitmap, effect, settings, onPoint }) {

@@ -1,12 +1,13 @@
 import { AppError, ERROR_CODES, throwIfAborted } from '@/lib/errors'
 import { decodeImage } from './canvas'
+import { runImageJob } from './imageWorkerClient'
 
 /**
  * Convert iPhone HEIC/HEIF photos. Most browsers can't decode HEIC natively,
  * so heic2any (libheif compiled to JS) is lazy-loaded only for this tool.
  * @param {{ format: 'jpeg'|'png', quality: number }} settings
  */
-export async function convertHeic(file, { format, quality }, { signal, onProgress } = {}) {
+export async function convertHeic(file, { format, quality, scale = 100, maxDimension = null }, { signal, onProgress } = {}) {
   onProgress?.(null, 'decoding')
   const { default: heic2any } = await import('heic2any')
   throwIfAborted(signal)
@@ -19,6 +20,11 @@ export async function convertHeic(file, { format, quality }, { signal, onProgres
   throwIfAborted(signal)
   // Multi-image HEIC (bursts / live photos) returns an array; keep the primary image.
   const blob = Array.isArray(output) ? output[0] : output
+  if (scale !== 100 || maxDimension) {
+    // Resize the decoded photo in the image worker.
+    const resized = await runImageJob('convert', blob, { format, quality, scale, maxDimension }, { signal })
+    return { ...resized, format }
+  }
   const bitmap = await decodeImage(blob)
   const result = { blob, width: bitmap.width, height: bitmap.height, format }
   bitmap.close?.()

@@ -7,6 +7,7 @@ import { useValidation } from '@/hooks/useValidation'
 import { convertImage } from '@/services/image/imageConversionService'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { useToolSettings } from '@/store/toolSettingsStore'
+import { Accordion } from '@/components/ui/Accordion'
 import { ColorInput } from '@/components/ui/ColorInput'
 import { Slider } from '@/components/ui/Slider'
 import { ToolLayout } from '@/components/layout/ToolLayout'
@@ -15,15 +16,17 @@ import { SettingsSection } from '@/components/layout/Panels'
 import { ImagePreview } from '@/components/media/Previews'
 import { ImageResult } from '../shared/ImageResult'
 import { FormatSelect } from '../shared/FormatSelect'
+import { OutputSizeOptions } from '../shared/OutputSizeOptions'
 import { qualitySchema } from '../shared/schemas'
 
 const TOOL_ID = 'image-convert'
-const DEFAULTS = { format: 'webp', quality: 90, background: '#FFFFFF' }
+const DEFAULTS = { format: 'webp', quality: 90, background: '#FFFFFF', scale: 100, limitDimensions: false, maxDimension: 2560 }
 const schema = z.object({ quality: qualitySchema }).passthrough()
 
 export default function ConvertImagePage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
   const { errors, isValid } = useValidation(schema, settings)
   const target = getImageFormat(settings.format)
 
@@ -40,6 +43,7 @@ export default function ConvertImagePage() {
         canProcess={isValid}
         renderPreview={({ file }) => <ImagePreview file={file} />}
         renderSettings={({ meta }) => (
+          <>
           <SettingsSection title={t('settings.conversion')}>
             <div className="flex items-center gap-2 rounded-md bg-surface-2 px-3 py-2 text-[13px]">
               <span className="font-medium text-text">{meta?.format ? getImageFormat(meta.format).label : '—'}</span>
@@ -62,9 +66,17 @@ export default function ConvertImagePage() {
             )}
             {settings.format === 'gif' && <p className="text-xs text-muted">{t('settings.gifNote')}</p>}
           </SettingsSection>
+          <Accordion title={t('settings.resizeOptions')} className="-mb-2" defaultOpen={settings.scale !== 100 || settings.limitDimensions}>
+            <OutputSizeOptions settings={settings} updateSettings={updateSettings} meta={meta} />
+          </Accordion>
+          </>
         )}
         onProcess={({ file, signal, onProgress }) =>
-          convertImage(file, { format: settings.format, quality: settings.format === 'png' ? 100 : settings.quality, background: settings.background }, { signal, onProgress })
+          convertImage(
+            file,
+            { format: settings.format, quality: settings.format === 'png' ? 100 : settings.quality, background: settings.background, scale: settings.scale, maxDimension: settings.limitDimensions ? settings.maxDimension : null },
+            { signal, onProgress },
+          )
         }
         renderResult={(context) => <ImageResult {...context} title={t('result.conversionComplete')} suffix="" />}
       />

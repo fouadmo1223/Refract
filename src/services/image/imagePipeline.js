@@ -1,10 +1,10 @@
 import { CONVERTIBLE_FORMATS, getImageFormatFromFile } from '@/constants/imageFormats'
 import { AppError, ERROR_CODES } from '@/lib/errors'
-import { applyAdjustments, pixelateCanvas } from './adjustments'
+import { applyAdjustments } from './adjustments'
 import { cropCanvas, decodeImage, getContext, createCanvas, resampleCanvas, toCanvas, transformCanvas } from './canvas'
 import { encodeCanvas } from './encoders'
 import { addBorder, applyFilterPreset, censorRegions } from './compositionEffects'
-import { blurWithFocus, monoCanvas } from './effectExtras'
+import { blurWithFocus, flipImage, monoCanvas, pixelateStyled, rotateImage } from './effectExtras'
 
 /**
  * Pure image-processing pipeline. Runs inside the image Web Worker, or on the
@@ -68,10 +68,17 @@ function limitDimension(canvas, maxDimension) {
   return resizeCanvas(canvas, { width: maxDimension, height: maxDimension, mode: 'fit', noUpscale: true })
 }
 
+/** Scale by a percentage (100 = unchanged). */
+function scaleCanvas(canvas, scale) {
+  if (!scale || scale === 100) return canvas
+  const factor = scale / 100
+  return resizeCanvas(canvas, { width: Math.max(1, Math.round(canvas.width * factor)), height: Math.max(1, Math.round(canvas.height * factor)), mode: 'stretch' })
+}
+
 // Each operation receives a canvas of the decoded image and returns a canvas.
 const OPERATIONS = {
-  compress: (canvas, params) => limitDimension(canvas, params.maxDimension),
-  convert: (canvas) => canvas,
+  compress: (canvas, params) => limitDimension(scaleCanvas(canvas, params.scale), params.maxDimension),
+  convert: (canvas, params) => limitDimension(scaleCanvas(canvas, params.scale), params.maxDimension),
   resize: (canvas, params) => resizeCanvas(canvas, params),
   crop: (canvas, params) => {
     const transformed = transformCanvas(canvas, params)
@@ -89,12 +96,13 @@ const OPERATIONS = {
       case 'blur':
         return blurWithFocus(canvas, params)
       case 'pixelate':
-        return pixelateCanvas(canvas, Math.max(2, (params.amount / 100) * Math.min(canvas.width, canvas.height) * 0.1))
+        return pixelateStyled(canvas, params)
       case 'grayscale':
         return monoCanvas(canvas, params)
       case 'rotate':
+        return rotateImage(canvas, params)
       case 'flip':
-        return transformCanvas(canvas, params)
+        return flipImage(canvas, params)
       default:
         return canvas
     }
