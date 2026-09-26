@@ -69,26 +69,47 @@ export async function applyVideoFilters(file, settings, meta, options) {
  * Blur or pixelate rectangular regions for the whole video.
  * @param {{ regions: {x,y,width,height}[], mode: 'blur'|'pixelate'|'solid', strength: number }} settings
  */
-export async function censorVideo(file, { regions, mode, strength }, meta, options) {
+export const DEFAULT_CENSOR_AREA = { mode: 'blur', strength: 60, color: '#000000', shape: 'rect', start: 0, end: null }
+
+/** FFmpeg chain that turns a cropped w×h patch into its censored version. */
+function censorEffect(area, w, h) {
+  const size = Math.min(w, h)
+  const strength = area.strength ?? 60
+  if (area.mode === 'solid') return `drawbox=x=0:y=0:w=iw:h=ih:color=${(area.color ?? '#000000').replace('#', '0x')}:t=fill`
+  if (area.mode === 'pixelate') {
+    const block = Math.max(4, Math.round((strength / 100) * size * 0.25))
+    return `scale=iw/${block}:-2:flags=neighbor,scale=${w}:${h}:flags=neighbor`
+  }
+  return `boxblur=${Math.max(2, Math.min(Math.floor(size / 2) - 1, Math.round((strength / 100) * size * 0.18)))}:3`
+}
+
+// Ellipse mask: keep pixels inside the inscribed ellipse (X/Y/W/H are per plane, so it works on subsampled chroma).
+const ELLIPSE_MASK = "format=yuva420p,geq=lum='lum(X,Y)':cb='cb(X,Y)':cr='cr(X,Y)':a='if(lte(pow(2*X/W-1,2)+pow(2*Y/H-1,2),1),255,0)'"
+
+/**
+ * Hide areas of a video. Every area carries its own effect, strength, color,
+ * shape and optional time range ({ start, end } in seconds, end null = to the end).
+ */
+export async function censorVideo(file, { regions }, meta, options) {
+  const duration = meta?.duration ?? Infinity
   const valid = regions.filter((region) => region.width >= 4 && region.height >= 4)
   if (!valid.length) throw new AppError(ERROR_CODES.INVALID_CROP)
   const parts = [`[0:v]split=${valid.length + 1}[base]${valid.map((_, index) => `[c${index}]`).join('')}`]
   let current = 'base'
   valid.forEach((region, index) => {
+    const area = { ...DEFAULT_CENSOR_AREA, ...region }
     const w = even(region.width)
     const h = even(region.height)
     const x = Math.max(0, Math.round(region.x))
     const y = Math.max(0, Math.round(region.y))
-    const size = Math.min(w, h)
-    let effect
-    if (mode === 'solid') effect = 'drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill'
-    else if (mode === 'pixelate') {
-      const block = Math.max(4, Math.round((strength / 100) * size * 0.25))
-      effect = `scale=iw/${block}:-2:flags=neighbor,scale=${w}:${h}:flags=neighbor`
-    } else effect = `boxblur=${Math.max(2, Math.min(Math.floor(size / 2) - 1, Math.round((strength / 100) * size * 0.18)))}:3`
+    const effect = [censorEffect(area, w, h), area.shape === 'ellipse' ? ELLIPSE_MASK : null].filter(Boolean).join(',')
+    const start = Math.max(0, area.start ?? 0)
+    const end = area.end == null ? null : Math.min(duration, area.end)
+    const timed = start > 0.01 || (end != null && end < duration - 0.01)
+    const enable = timed ? `:enable='between(t,${seconds(start)},${seconds(end ?? duration)})'` : ''
     const next = index === valid.length - 1 ? 'vout' : `v${index}`
     parts.push(`[c${index}]crop=${w}:${h}:${x}:${y},${effect}[b${index}]`)
-    parts.push(`[${current}][b${index}]overlay=${x}:${y}[${next}]`)
+    parts.push(`[${current}][b${index}]overlay=${x}:${y}${enable}[${next}]`)
     current = next
   })
   parts.push('[vout]format=yuv420p[v]')

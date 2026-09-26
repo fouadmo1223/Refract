@@ -16,7 +16,19 @@ export function createRegionId() {
  * the same regions apply to the full-resolution export. Arrow keys nudge the
  * focused box; Delete removes it.
  */
-export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, children, className, style, previewClassName }) {
+const CORNERS = [
+  { id: 'nw', className: '-start-1.5 -top-1.5 cursor-nwse-resize' },
+  { id: 'ne', className: '-end-1.5 -top-1.5 cursor-nesw-resize' },
+  { id: 'sw', className: '-bottom-1.5 -start-1.5 cursor-nesw-resize' },
+  { id: 'se', className: '-bottom-1.5 -end-1.5 cursor-nwse-resize' },
+]
+
+/**
+ * Optional: `selectedId` / `onSelect` highlight one area, `newRegion(rect)` adds
+ * per-area defaults, `renderFill(region)` draws a live effect inside each box,
+ * `isRegionVisible(region)` dims areas that are inactive at the current time.
+ */
+export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, children, className, style, previewClassName, selectedId, onSelect, newRegion, renderFill, isRegionVisible }) {
   const { t } = useTranslation()
   const containerRef = useRef(null)
   const dragRef = useRef(null)
@@ -45,6 +57,30 @@ export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, child
     if (event.button !== 0) return
     containerRef.current.setPointerCapture(event.pointerId)
     dragRef.current = { type: 'move', id: region.id, origin: toMedia(event), start: region }
+    onSelect?.(region.id)
+  }
+
+  const startResize = (event, region, corner) => {
+    event.stopPropagation()
+    if (event.button !== 0) return
+    containerRef.current.setPointerCapture(event.pointerId)
+    dragRef.current = { type: 'resize', id: region.id, corner, origin: toMedia(event), start: region }
+    onSelect?.(region.id)
+  }
+
+  const resizeRect = (start, corner, dx, dy) => {
+    let { x, y, width, height } = start
+    if (corner.includes('w')) {
+      const left = Math.min(Math.max(0, x + dx), x + width - minSize)
+      width += x - left
+      x = left
+    } else width = Math.max(minSize, Math.min(mediaWidth - x, width + dx))
+    if (corner.includes('n')) {
+      const top = Math.min(Math.max(0, y + dy), y + height - minSize)
+      height += y - top
+      y = top
+    } else height = Math.max(minSize, Math.min(mediaHeight - y, height + dy))
+    return { x, y, width, height }
   }
 
   const handlePointerMove = (event) => {
@@ -58,6 +94,9 @@ export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, child
         width: Math.abs(point.x - drag.origin.x),
         height: Math.abs(point.y - drag.origin.y),
       })
+    } else if (drag.type === 'resize') {
+      const resized = resizeRect(drag.start, drag.corner, point.x - drag.origin.x, point.y - drag.origin.y)
+      onChange(regions.map((region) => (region.id === drag.id ? { ...region, ...resized } : region)))
     } else {
       const moved = clampRect({ ...drag.start, x: drag.start.x + point.x - drag.origin.x, y: drag.start.y + point.y - drag.origin.y }, bounds)
       onChange(regions.map((region) => (region.id === drag.id ? { ...region, ...moved } : region)))
@@ -68,8 +107,10 @@ export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, child
     const drag = dragRef.current
     dragRef.current = null
     if (drag?.type === 'draw' && draft && draft.width >= minSize && draft.height >= minSize) {
-      onChange([...regions, { ...draft, id: createRegionId() }])
-    }
+      const id = createRegionId()
+      onChange([...regions, { ...(newRegion?.(draft) ?? {}), ...draft, id }])
+      onSelect?.(id)
+    } else if (drag?.type === 'draw') onSelect?.(null)
     setDraft(null)
   }
 
@@ -109,17 +150,28 @@ export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, child
       role="application"
     >
       <div className={cn('size-full', previewClassName)}>{children}</div>
-      {regions.map((region, index) => (
+      {regions.map((region, index) => {
+        const selected = selectedId === region.id
+        const visible = isRegionVisible ? isRegionVisible(region) : true
+        return (
         <div
           key={region.id}
           role="button"
           tabIndex={0}
           aria-label={t('censor.region', { index: index + 1 })}
+          aria-pressed={onSelect ? selected : undefined}
           onPointerDown={(event) => startMove(event, region)}
+          onFocus={() => onSelect?.(region.id)}
           onKeyDown={(event) => handleKeyDown(event, region)}
-          className="absolute cursor-move border-2 border-white bg-primary/25 shadow-[0_0_0_1px_rgba(0,0,0,0.4)] outline-none focus-visible:border-primary"
-          style={boxStyle(region)}
+          className={cn(
+            'absolute cursor-move border-2 shadow-[0_0_0_1px_rgba(0,0,0,0.4)] outline-none focus-visible:border-primary',
+            selected ? 'z-10 border-primary' : 'border-white',
+            !renderFill && 'bg-primary/25',
+            !visible && 'border-dashed opacity-50',
+          )}
+          style={{ ...boxStyle(region), borderRadius: region.shape === 'ellipse' ? '50%' : undefined }}
         >
+          {renderFill && visible && <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ borderRadius: 'inherit' }}>{renderFill(region)}</div>}
           <span className="tabular absolute -top-2.5 start-1 rounded-sm bg-primary px-1 text-2xs font-semibold text-primary-fg">{index + 1}</span>
           <button
             type="button"
@@ -130,8 +182,18 @@ export function RegionEditor({ mediaWidth, mediaHeight, regions, onChange, child
           >
             <X size={12} aria-hidden="true" />
           </button>
+          {(selected || !onSelect) &&
+            CORNERS.map((corner) => (
+              <span
+                key={corner.id}
+                aria-hidden="true"
+                onPointerDown={(event) => startResize(event, region, corner.id)}
+                className={cn('absolute size-3 rounded-full border-2 border-primary bg-white shadow-sm', corner.className)}
+              />
+            ))}
         </div>
-      ))}
+        )
+      })}
       {draft && <div className="pointer-events-none absolute border-2 border-dashed border-white bg-white/15" style={boxStyle(draft)} />}
     </div>
   )

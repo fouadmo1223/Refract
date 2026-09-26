@@ -1518,7 +1518,24 @@
       "pixelate": "Pixelate",
       "solid": "Black box"
     },
-    "videoHint": "Areas stay in the same place for the whole video. The preview shows an approximation."
+    "videoHint": "Click an area to change its effect, shape and timing. Drag its corners to resize. The preview is an approximation.",
+    "play": "Play",
+    "timelineFor": "Timing for area {{index}} — drag the handles",
+    "timelineHint": "Select an area to set when it appears",
+    "seek": "Seek video",
+    "fillColor": "Fill color",
+    "shape": "Shape",
+    "shapes": {
+      "rect": "Rectangle",
+      "ellipse": "Ellipse"
+    },
+    "wholeVideo": "Whole video",
+    "wholeVideoHint": "Hidden from start to end.",
+    "timedHint": "Hidden from {{start}} to {{end}}.",
+    "startHere": "Start at playhead",
+    "endHere": "End at playhead",
+    "duplicate": "Duplicate",
+    "applyToAll": "Apply style to all"
   },
   "border": {
     "frame": "Frame",
