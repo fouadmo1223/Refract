@@ -16,11 +16,13 @@ import { VideoToolFlow } from '../shared/VideoToolFlow'
 import { VideoResult } from '../shared/VideoResult'
 
 const TOOL_ID = 'video-add-audio'
-const DEFAULTS = { mode: 'replace', loopAudio: true, audioVolume: 100 }
+const DEFAULTS = { mode: 'replace', loopAudio: true, audioVolume: 100, originalVolume: 100, delay: 0, skip: 0, fadeIn: 0, fadeOut: 0 }
+const seconds = (value) => `${value}s`
 
 export default function AddAudioPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
   const [audioFile, setAudioFile] = useState(null)
 
   return (
@@ -53,7 +55,16 @@ export default function AddAudioPage() {
               />
               <p className="-mt-1 text-xs text-muted">{t(`addAudio.${settings.mode}Hint`)}</p>
               <Slider label={t('addAudio.volume')} value={settings.audioVolume} min={0} max={200} onChange={(audioVolume) => updateSettings({ audioVolume })} formatValue={(value) => `${value}%`} />
+              {settings.mode === 'mix' && (
+                <Slider label={t('addAudio.originalVolume')} value={settings.originalVolume} min={0} max={200} onChange={(originalVolume) => updateSettings({ originalVolume })} formatValue={(value) => `${value}%`} />
+              )}
               <Switch label={t('addAudio.loop')} description={t('addAudio.loopHint')} checked={settings.loopAudio} onChange={(loopAudio) => updateSettings({ loopAudio })} />
+            </SettingsSection>
+            <SettingsSection title={t('addAudio.timing')}>
+              <Slider label={t('addAudio.delay')} value={settings.delay} min={0} max={30} step={0.5} onChange={(delay) => updateSettings({ delay })} formatValue={seconds} />
+              <Slider label={t('addAudio.skip')} value={settings.skip} min={0} max={120} step={0.5} onChange={(skip) => updateSettings({ skip })} formatValue={seconds} />
+              <Slider label={t('fade.in')} value={settings.fadeIn} min={0} max={10} step={0.25} onChange={(fadeIn) => updateSettings({ fadeIn })} formatValue={seconds} />
+              <Slider label={t('fade.out')} value={settings.fadeOut} min={0} max={10} step={0.25} onChange={(fadeOut) => updateSettings({ fadeOut })} formatValue={seconds} />
             </SettingsSection>
           </>
         )}

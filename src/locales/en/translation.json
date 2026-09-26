@@ -714,11 +714,30 @@
     "mode": "Cut mode",
     "precise": "Frame-accurate cut",
     "preciseHint": "Re-encodes the clip so it starts exactly where you set it. Slower.",
-    "fastHint": "Instant and lossless. Cuts snap to the nearest keyframe, so the start may shift slightly."
+    "fastHint": "Instant and lossless. Cuts snap to the nearest keyframe, so the start may shift slightly.",
+    "action": "What to do",
+    "modes": {
+      "keep": "Keep selection",
+      "remove": "Cut out selection"
+    },
+    "modeHints": {
+      "keep": "Only the selected part is kept.",
+      "remove": "The selected part is removed and the rest is joined together."
+    },
+    "fades": "Fades"
   },
   "mute": {
-    "title": "Remove audio",
-    "description": "All audio tracks are removed. The video stream is copied as-is, so quality stays identical and it’s fast."
+    "title": "Audio",
+    "description": "All audio tracks are removed. The video stream is copied as-is, so quality stays identical and it’s fast.",
+    "modes": {
+      "mute": "Remove audio",
+      "adjust": "Change volume"
+    },
+    "adjustDescription": "Make the sound louder or quieter, even out the loudness, or fade it in and out. The picture isn't re-encoded for MP4 and MOV.",
+    "applyAction": "Apply audio changes",
+    "volume": "Volume",
+    "normalize": "Normalize loudness",
+    "normalizeHint": "Evens out quiet and loud parts to a standard streaming level."
   },
   "audio": {
     "output": "Audio output",
@@ -727,7 +746,13 @@
       "mp3": "Plays everywhere. Good balance of size and quality.",
       "wav": "Uncompressed. Best for editing, large files.",
       "aac": "Efficient codec used by Apple devices (.m4a)."
-    }
+    },
+    "channels": "Channels",
+    "stereo": "Stereo",
+    "mono": "Mono",
+    "part": "Part of the video",
+    "partHint": "Extract only this range. Leave it as is for the whole audio.",
+    "sound": "Sound"
   },
   "addAudio": {
     "track": "Audio track",
@@ -738,7 +763,12 @@
     "mixHint": "The new track plays over the original audio.",
     "volume": "Track volume",
     "loop": "Loop the audio",
-    "loopHint": "Repeat the track if it’s shorter than the video."
+    "loopHint": "Repeat the track if it’s shorter than the video.",
+    "originalVolume": "Original audio volume",
+    "timing": "Timing",
+    "delay": "Start the track after",
+    "skip": "Skip the first part of the track",
+    "fadeIn": "Fade in"
   },
   "speed": {
     "title": "Playback speed",
@@ -816,11 +846,40 @@
   },
   "merge": {
     "title": "Merge clips",
-    "description": "Clips are joined in the order shown. They are scaled to match the first clip and exported as MP4.",
+    "description": "Clips are joined in the order shown and exported as MP4.",
     "moveUp": "Move up",
     "moveDown": "Move down",
     "addClips": "Add more clips",
-    "audioDropped": "Some clips had no audio, so the merged video is silent."
+    "audioDropped": "Some clips had no audio, so the merged video is silent.",
+    "transitions": "Transitions",
+    "transition": "Between clips",
+    "transitionTypes": {
+      "none": "None (hard cut)",
+      "fade": "Crossfade",
+      "fadeblack": "Fade through black",
+      "fadewhite": "Fade through white",
+      "wipeleft": "Wipe",
+      "slideleft": "Slide",
+      "circleopen": "Circle reveal",
+      "dissolve": "Dissolve"
+    },
+    "frame": "Frame",
+    "size": "Output size",
+    "sizes": {
+      "first": "Same as the first clip",
+      "720p": "HD 1280 × 720",
+      "1080p": "Full HD 1920 × 1080",
+      "vertical": "Vertical 1080 × 1920",
+      "square": "Square 1080 × 1080"
+    },
+    "fit": "Clips with a different shape",
+    "fits": {
+      "pad": "Add bars",
+      "crop": "Crop to fill"
+    },
+    "barColor": "Bar color",
+    "keepAudio": "Keep audio",
+    "keepAudioHint": "Turn off for a silent video (e.g. to add music later)."
   },
   "validation": {
     "qualityRange": "Quality must be between 1 and 100.",

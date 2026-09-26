@@ -5,10 +5,16 @@ import { MERGE_MAX_FILES, UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { createFileId } from '@/lib/files'
 import { formatBytes } from '@/lib/format'
 import { useProcessingJob } from '@/hooks/useProcessingJob'
-import { mergeVideos } from '@/services/video/videoMergeService'
+import { DEFAULT_MERGE, MERGE_SIZES, MERGE_TRANSITIONS, mergeVideos } from '@/services/video/videoMergeService'
+import { useToolSettings } from '@/store/toolSettingsStore'
 import { preloadFFmpeg } from '@/services/video/ffmpeg/ffmpegClient'
 import { Button } from '@/components/ui/Button'
+import { ColorInput } from '@/components/ui/ColorInput'
 import { IconButton } from '@/components/ui/IconButton'
+import { SegmentedControl } from '@/components/ui/SegmentedControl'
+import { Select } from '@/components/ui/Select'
+import { Slider } from '@/components/ui/Slider'
+import { Switch } from '@/components/ui/Switch'
 import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaStage, SettingsPanel, SettingsSection } from '@/components/layout/Panels'
 import { FileUploader } from '@/components/media/FileUploader'
@@ -45,6 +51,8 @@ function ClipList({ clips, onMove, onRemove, disabled }) {
 export default function MergeVideosPage() {
   const { t } = useTranslation()
   const [clips, setClips] = useState([])
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULT_MERGE)
+  const settings = { ...DEFAULT_MERGE, ...stored }
   const job = useProcessingJob({ toolId: TOOL_ID, successMessage: 'toasts.videosMerged' })
 
   const addClips = (files) => {
@@ -59,7 +67,7 @@ export default function MergeVideosPage() {
       return next
     })
 
-  const handleMergeStart = () => job.run(({ signal, onProgress }) => mergeVideos(clips.map((clip) => clip.file), { signal, onProgress }), { fileName: clips[0]?.file.name })
+  const handleMergeStart = () => job.run(({ signal, onProgress }) => mergeVideos(clips.map((clip) => clip.file), settings, { signal, onProgress }), { fileName: clips[0]?.file.name })
 
   if (job.status === 'success' && job.result) {
     const firstClip = clips[0].file
@@ -127,6 +135,38 @@ export default function MergeVideosPage() {
           <SettingsSection title={t('merge.title')}>
             <p className="text-[13px] leading-relaxed text-text-2">{t('merge.description')}</p>
             {clips.length < 2 && <p className="text-xs font-medium text-danger">{t('validation.mergeMinClips')}</p>}
+          </SettingsSection>
+          <SettingsSection title={t('merge.transitions')}>
+            <Select
+              label={t('merge.transition')}
+              value={settings.transition}
+              onChange={(transition) => updateSettings({ transition })}
+              options={MERGE_TRANSITIONS.map((value) => ({ value, label: t(`merge.transitionTypes.${value}`) }))}
+            />
+            {settings.transition !== 'none' && (
+              <Slider label={t('fade.duration')} value={settings.transitionDuration} min={0.25} max={2} step={0.25} onChange={(transitionDuration) => updateSettings({ transitionDuration })} formatValue={(value) => `${value}s`} />
+            )}
+          </SettingsSection>
+          <SettingsSection title={t('merge.frame')}>
+            <Select
+              label={t('merge.size')}
+              value={settings.size}
+              onChange={(size) => updateSettings({ size })}
+              options={Object.keys(MERGE_SIZES).map((value) => ({ value, label: t(`merge.sizes.${value}`) }))}
+            />
+            <SegmentedControl
+              label={t('merge.fit')}
+              value={settings.fit}
+              onChange={(fit) => updateSettings({ fit })}
+              options={[
+                { value: 'pad', label: t('merge.fits.pad') },
+                { value: 'crop', label: t('merge.fits.crop') },
+              ]}
+            />
+            {settings.fit === 'pad' && <ColorInput label={t('merge.barColor')} value={settings.background} onChange={(background) => updateSettings({ background })} />}
+          </SettingsSection>
+          <SettingsSection title={t('audio.sound')}>
+            <Switch label={t('merge.keepAudio')} description={t('merge.keepAudioHint')} checked={settings.keepAudio} onChange={(keepAudio) => updateSettings({ keepAudio })} />
           </SettingsSection>
           <PrivacyNote />
         </SettingsPanel>
