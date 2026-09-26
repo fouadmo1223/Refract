@@ -108,6 +108,8 @@ export function runFFmpeg(job) {
     const mountPoint = `/input-${jobId}`
     const workDir = `/work-${jobId}`
     const logs = []
+    // Dev aid: inspect the running job's FFmpeg output from the console.
+    if (import.meta.env.DEV) globalThis.__ffmpegLogs = logs
     let inputDuration = null
     const targetDuration = () => expectedDuration ?? inputDuration
 

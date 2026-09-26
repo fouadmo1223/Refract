@@ -801,6 +801,23 @@
       "high": "High",
       "medium": "Medium",
       "low": "Small"
+    },
+    "playback": "Playback",
+    "upscale": "Enlarge",
+    "upscaleHint": "Sharp pixel scaling — ideal for pixel art and small GIFs.",
+    "background": "Fill transparent areas with",
+    "square": "Crop to square",
+    "direction": "Direction",
+    "directions": {
+      "normal": "Forward",
+      "reverse": "Reverse",
+      "boomerang": "Boomerang"
+    },
+    "loop": "Loop",
+    "loops": {
+      "forever": "Forever",
+      "once": "Play once",
+      "three": "3 times"
     }
   },
   "thumbnail": {
@@ -832,7 +849,18 @@
   "fps": {
     "title": "Frame rate",
     "custom": "Custom frame rate",
-    "hint": "Lower frame rates make smaller files; higher rates duplicate frames and won’t add smoothness."
+    "hint": "Lower frame rates make smaller files. To raise the frame rate smoothly, choose Blend or Motion.",
+    "method": "How new frames are made",
+    "methods": {
+      "drop": "Repeat / drop",
+      "blend": "Blend",
+      "motion": "Motion"
+    },
+    "methodHints": {
+      "drop": "Fastest. Frames are repeated or dropped — motion looks the same as before.",
+      "blend": "Mixes neighbouring frames for a softer, smoother look.",
+      "motion": "Estimates in-between frames for real smoothness. Much slower — best for short clips."
+    }
   },
   "frames": {
     "title": "Frame extraction",
@@ -842,7 +870,16 @@
     "expected": "Frames",
     "limit": "Limited to {{max}} frames per run.",
     "count": "Frames",
-    "totalSize": "Total size"
+    "totalSize": "Total size",
+    "mode": "Extract",
+    "modes": {
+      "interval": "Every N seconds",
+      "count": "Fixed number"
+    },
+    "countHint": "Spread evenly over the chosen part.",
+    "size": "Image size",
+    "maxWidth": "Max {{width}}px wide",
+    "fullSize": "Full size"
   },
   "merge": {
     "title": "Merge clips",
@@ -912,7 +949,8 @@
     "fadeRequired": "Set a fade in or fade out duration.",
     "fadeTooLong": "The fades are longer than the video.",
     "splitRange": "Choose settings that create between 2 and {{max}} parts.",
-    "targetSize": "Enter a size of at least 5 KB."
+    "targetSize": "Enter a size of at least 5 KB.",
+    "frameCountRange": "Choose between 1 and 300 frames."
   },
   "errors": {
     "UNSUPPORTED_FORMAT": {
@@ -1877,5 +1915,14 @@
     "targetUnsupported": "Target size works with JPG, WebP and AVIF — pick one of those output formats.",
     "targetHit": "Best quality that fits the target: {{quality}}%.",
     "targetMissed": "The target couldn't be reached — this is the smallest file (quality {{quality}}%). Try scaling the image down too."
+  },
+  "convertVideo": {
+    "encoding": "Encoding",
+    "quality": {
+      "high": "High",
+      "balanced": "Balanced",
+      "small": "Smaller file"
+    },
+    "frameRate": "Frame rate"
   }
 }

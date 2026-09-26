@@ -12,13 +12,14 @@ import { VideoResult } from '../shared/VideoResult'
 import { VideoInfo } from '../shared/VideoInfo'
 
 const TOOL_ID = 'video-fps'
-const DEFAULTS = { fps: 30 }
+const DEFAULTS = { fps: 30, method: 'drop' }
 const PRESETS = [15, 24, 25, 30, 50, 60]
 const isValidFps = (value) => Number.isFinite(value) && value >= 1 && value <= 120
 
 export default function VideoFpsPage() {
   const { t } = useTranslation()
-  const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+  const settings = { ...DEFAULTS, ...stored }
   const valid = isValidFps(settings.fps)
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -42,6 +43,13 @@ export default function VideoFpsPage() {
               />
               <NumberInput label={t('fps.custom')} value={settings.fps} min={1} max={120} precision={2} onChange={(fps) => updateSettings({ fps })} suffix="fps" error={valid ? undefined : 'validation.fpsRange'} />
               <p className="text-xs text-muted">{t('fps.hint')}</p>
+              <SegmentedControl
+                label={t('fps.method')}
+                value={settings.method}
+                onChange={(method) => updateSettings({ method })}
+                options={['drop', 'blend', 'motion'].map((value) => ({ value, label: t(`fps.methods.${value}`) }))}
+              />
+              <p className="-mt-1 text-xs text-muted">{t(`fps.methodHints.${settings.method}`)}</p>
             </SettingsSection>
           </>
         )}
