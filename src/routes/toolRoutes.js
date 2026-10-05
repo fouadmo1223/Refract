@@ -8,6 +8,7 @@ export const TOOL_PAGES = {
   'ai-image': lazy(() => import('@/features/ai/image/AiImagePage')),
   'ai-video': lazy(() => import('@/features/ai/video/AiVideoPage')),
 
+  'resume-builder': lazy(() => import('@/features/resume/ResumeBuilderPage')),
   'pdf-editor': lazy(() => import('@/features/pdf/editor/PdfEditorPage')),
   'images-to-pdf': lazy(() => import('@/features/pdf/ImagesToPdfPage')),
   'pdf-to-images': lazy(() => import('@/features/pdf/PdfToImagesPage')),

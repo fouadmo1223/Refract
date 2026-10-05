@@ -49,7 +49,8 @@
     "preview": "معاينة",
     "breadcrumb": "مسار التنقل",
     "hexColor": "رمز اللون السداسي",
-    "systemColorPicker": "فتح منتقي الألوان في النظام"
+    "systemColorPicker": "فتح منتقي الألوان في النظام",
+    "more": "المزيد"
   },
   "preferences": {
     "language": "اللغة",
@@ -1153,7 +1154,10 @@
     "pdfCompressed": "تم ضغط PDF",
     "pdfMerged": "تم دمج ملفات PDF",
     "pdfCreated": "تم إنشاء PDF",
-    "clickToPlace": "انقر على الصفحة لوضع الصورة"
+    "clickToPlace": "انقر على الصفحة لوضع الصورة",
+    "resumeGenerated": "تمت كتابة السيرة الذاتية — راجعها وعدّل ما تريد",
+    "resumeTailored": "تم تكييف الملخص والمهارات مع الوظيفة",
+    "resumeImported": "تم استيراد السيرة الذاتية"
   },
   "tools": {
     "image-compress": {
@@ -1702,6 +1706,15 @@
       "seoDescription": "صغّر ملفات PDF بإعادة الحفظ أو بإعادة عرض الصفحات بدقة أقل، بخصوصية في متصفحك.",
       "keywords": "",
       "action": "ضغط PDF"
+    },
+    "resume-builder": {
+      "title": "منشئ السيرة الذاتية",
+      "short": "قوالب ومعاينة مباشرة وكاتب ذكي",
+      "description": "أنشئ سيرة ذاتية احترافية بمعاينة مباشرة و6 قوالب وتحكم كامل في التصميم وكاتب ذكاء اصطناعي اختياري.",
+      "seoTitle": "منشئ سيرة ذاتية مجاني بالذكاء الاصطناعي",
+      "seoDescription": "أنشئ سيرتك الذاتية أونلاين بمعاينة مباشرة وقوالب جميلة وألوان وخطوط مخصصة ودعم للعربية وكتابة بالذكاء الاصطناعي. حمّل PDF دون تسجيل.",
+      "keywords": "",
+      "action": "تحميل PDF"
     }
   },
   "pages": {
@@ -2358,5 +2371,176 @@
     "editSummary_other": "{{count}} تعديل في {{pages}} صفحات",
     "clearPage": "مسح هذه الصفحة",
     "saved": "تم حفظ PDF"
+  },
+  "aiText": {
+    "vision": "رؤية",
+    "keyHint": "مفتاح Pollinations مجاني (نفس مفتاح صور الذكاء الاصطناعي). يُرسل النص إلى Pollinations فقط عند الضغط على زر ذكاء اصطناعي."
+  },
+  "resume": {
+    "panels": "لوحات السيرة الذاتية",
+    "tabs": {
+      "content": "المحتوى",
+      "design": "التصميم",
+      "ai": "الكاتب الذكي"
+    },
+    "personal": "البيانات الشخصية",
+    "addPhoto": "إضافة صورة",
+    "changePhoto": "تغيير الصورة",
+    "fields": {
+      "fullName": "الاسم الكامل",
+      "title": "المسمى الوظيفي",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "location": "الموقع",
+      "website": "الموقع الإلكتروني",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "summary": "الملخص المهني",
+      "role": "الوظيفة",
+      "company": "الشركة",
+      "degree": "الدرجة العلمية",
+      "school": "الجامعة / المدرسة",
+      "start": "البداية",
+      "end": "النهاية",
+      "date": "التاريخ",
+      "description": "الوصف",
+      "name": "الاسم",
+      "level": "المستوى",
+      "link": "الرابط",
+      "issuer": "الجهة المانحة",
+      "subtitle": "العنوان الفرعي"
+    },
+    "descriptionHint": "إنجاز واحد في كل سطر — يصبح كل سطر نقطة.",
+    "itemCount_zero": "{{count}} عنصر",
+    "itemCount_one": "عنصر واحد",
+    "itemCount_two": "عنصران",
+    "itemCount_few": "{{count}} عناصر",
+    "itemCount_many": "{{count}} عنصرًا",
+    "itemCount_other": "{{count}} عنصر",
+    "sectionTitle": "عنوان القسم",
+    "addItem": "إضافة عنصر",
+    "addSection": "إضافة قسم",
+    "deleteSection": "حذف القسم",
+    "hideSection": "إخفاء القسم",
+    "showSection": "إظهار القسم",
+    "types": {
+      "experience": "الخبرة العملية",
+      "education": "التعليم",
+      "projects": "المشاريع",
+      "skills": "المهارات",
+      "languages": "اللغات",
+      "certifications": "الشهادات",
+      "awards": "الجوائز",
+      "volunteering": "التطوع",
+      "references": "المراجع",
+      "interests": "الاهتمامات",
+      "custom": "قسم مخصص"
+    },
+    "labels": {
+      "contact": "التواصل",
+      "profile": "نبذة"
+    },
+    "clickToEdit": "انقر على أي جزء لتعديله",
+    "pageBreak": "الصفحة {{page}}",
+    "pages_zero": "{{count}} صفحة",
+    "pages_one": "صفحة واحدة",
+    "pages_two": "صفحتان",
+    "pages_few": "{{count}} صفحات",
+    "pages_many": "{{count}} صفحة",
+    "pages_other": "{{count}} صفحة",
+    "downloadPdf": "تحميل PDF",
+    "printPdf": "طباعة / حفظ كـ PDF متجهي",
+    "downloadPng": "تحميل PNG",
+    "exportJson": "حفظ كملف JSON",
+    "importJson": "فتح ملف JSON",
+    "loadSample": "تحميل سيرة ذاتية نموذجية",
+    "startEmpty": "البدء من الصفر",
+    "templates": {
+      "modern": "عصري",
+      "sidebar": "شريط جانبي",
+      "classic": "كلاسيكي",
+      "minimal": "بسيط",
+      "executive": "تنفيذي",
+      "compact": "مضغوط"
+    },
+    "fonts": {
+      "inter": "Inter",
+      "roboto": "Roboto",
+      "poppins": "Poppins + Source Sans",
+      "lora": "Lora + Source Sans",
+      "playfair": "Playfair + Lora",
+      "merriweather": "Merriweather",
+      "arabic": "IBM Plex Sans Arabic"
+    },
+    "design": {
+      "template": "القالب",
+      "colors": "اللون",
+      "accent": "اللون المميز",
+      "typography": "الخطوط",
+      "font": "الخطوط",
+      "fontSize": "حجم النص",
+      "headings": "عناوين الأقسام",
+      "uppercase": "عناوين بأحرف كبيرة",
+      "layout": "التخطيط",
+      "spacing": "المسافات",
+      "direction": "الاتجاه",
+      "details": "التفاصيل",
+      "photo": "إظهار الصورة",
+      "photoShape": "شكل الصورة",
+      "icons": "أيقونات التواصل",
+      "skills": "شكل المهارات"
+    },
+    "headingStyles": {
+      "accent": "شريط",
+      "underline": "خط",
+      "pill": "كبسولة",
+      "plain": "عادي"
+    },
+    "spacing": {
+      "compact": "مضغوط",
+      "normal": "عادي",
+      "relaxed": "مريح"
+    },
+    "directions": {
+      "auto": "تلقائي",
+      "ltr": "من اليسار لليمين",
+      "rtl": "من اليمين لليسار"
+    },
+    "photoShapes": {
+      "circle": "دائرة",
+      "rounded": "مستدير",
+      "square": "مربع"
+    },
+    "skillStyles": {
+      "bars": "أشرطة",
+      "dots": "نقاط",
+      "tags": "وسوم",
+      "list": "قائمة"
+    },
+    "ai": {
+      "improve": "تحسين",
+      "modes": {
+        "summary": "إعادة كتابة الملخص",
+        "bullets": "نقاط أقوى",
+        "shorter": "اختصار",
+        "grammar": "تصحيح اللغة"
+      },
+      "promo": "دع الذكاء الاصطناعي يكتب سيرتك الذاتية من وصف قصير",
+      "writeTitle": "اكتب سيرتي الذاتية",
+      "writeHint": "صِف خبرتك بكلماتك — أو الصق سيرة ذاتية قديمة. يستخدم الذكاء الاصطناعي الحقائق التي تقدمها فقط.",
+      "aboutYou": "عنك",
+      "aboutPlaceholder": "مثال: مطور واجهات أمامية، 4 سنوات في شركة أكمي في بناء لوحات تحكم React، قدت الانتقال إلى TypeScript، بكالوريوس علوم الحاسب من جامعة القاهرة 2019، العربية والإنجليزية…",
+      "targetRole": "الوظيفة المستهدفة (اختياري)",
+      "targetPlaceholder": "مثال: مهندس واجهات أمامية أول",
+      "language": "لغة السيرة الذاتية",
+      "generate": "اكتب السيرة الذاتية بالذكاء الاصطناعي",
+      "undoHint": "يستبدل المحتوى الحالي. اضغط تراجع لاستعادته.",
+      "tailorTitle": "التكييف مع وظيفة",
+      "tailorHint": "الصق إعلان وظيفة: يعيد الذكاء الاصطناعي كتابة ملخصك ومهاراتك لتناسبها، باستخدام ما في سيرتك فقط.",
+      "jobAd": "وصف الوظيفة",
+      "tailor": "تكييف السيرة الذاتية",
+      "settings": "إعدادات الذكاء الاصطناعي",
+      "needsKey": "أضف مفتاح Pollinations المجاني أدناه لاستخدام الكاتب الذكي."
+    }
   }
 }

@@ -47,6 +47,7 @@ import {
   FileStack,
   FileDown,
   Images,
+  FileUser,
 } from 'lucide-react'
 
 /**
@@ -119,6 +120,7 @@ export const TOOLS = [
   { id: 'video-fade', category: 'video', groups: ['edit'], path: '/video/fade', icon: Sunset, keywords: ['fade', 'fade in', 'fade out', 'transition'] },
   { id: 'video-add-audio', category: 'video', groups: ['edit'], path: '/video/add-audio', icon: AudioLines, keywords: ['add audio', 'music', 'soundtrack', 'replace audio'] },
   // ---------------------------------------------------------------- PDF & documents
+  { id: 'resume-builder', category: 'pdf', groups: ['generate'], path: '/resume', icon: FileUser, popular: true, keywords: ['resume', 'cv', 'curriculum vitae', 'resume builder', 'cv maker', 'template', 'ai resume', 'cover'] },
   { id: 'pdf-editor', category: 'pdf', groups: ['edit'], path: '/pdf/edit', icon: FilePen, popular: true, keywords: ['pdf editor', 'edit pdf', 'sign pdf', 'add text to pdf', 'annotate', 'whiteout', 'fill pdf', 'link'] },
   { id: 'images-to-pdf', category: 'pdf', groups: ['convert'], path: '/pdf/from-images', icon: FileText, keywords: ['jpg to pdf', 'png to pdf', 'image to pdf', 'photos to pdf', 'scan'] },
   { id: 'pdf-to-images', category: 'pdf', groups: ['convert'], path: '/pdf/to-images', icon: Images, keywords: ['pdf to jpg', 'pdf to png', 'pdf to image', 'extract pages'] },

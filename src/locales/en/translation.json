@@ -49,7 +49,8 @@
     "preview": "Preview",
     "breadcrumb": "Breadcrumb",
     "hexColor": "Hex color",
-    "systemColorPicker": "Open system color picker"
+    "systemColorPicker": "Open system color picker",
+    "more": "More"
   },
   "preferences": {
     "language": "Language",
@@ -1133,7 +1134,10 @@
     "pdfCompressed": "PDF compressed",
     "pdfMerged": "PDFs merged",
     "pdfCreated": "PDF created",
-    "clickToPlace": "Click on the page to place the image"
+    "clickToPlace": "Click on the page to place the image",
+    "resumeGenerated": "Resume written — review and edit anything",
+    "resumeTailored": "Summary and skills tailored to the job",
+    "resumeImported": "Resume imported"
   },
   "tools": {
     "image-compress": {
@@ -1678,6 +1682,15 @@
       "seoDescription": "Shrink PDF files by re-saving or by re-rendering pages at a lower resolution, privately in your browser.",
       "keywords": "",
       "action": "Compress PDF"
+    },
+    "resume-builder": {
+      "title": "Resume Builder",
+      "short": "Templates, live preview & AI writer",
+      "description": "Create a professional CV with live preview, 6 templates, full design control and an optional AI writer.",
+      "seoTitle": "Free Resume / CV Builder with AI",
+      "seoDescription": "Build a resume online with live preview, beautiful templates, custom colors and fonts, Arabic support and AI writing. Download PDF — no sign-up.",
+      "keywords": "",
+      "action": "Download PDF"
     }
   },
   "pages": {
@@ -2274,5 +2287,168 @@
     "editSummary_other": "{{count}} edits across {{pages}} pages",
     "clearPage": "Clear this page",
     "saved": "PDF saved"
+  },
+  "aiText": {
+    "vision": "Vision",
+    "keyHint": "Free Pollinations key (same one used for AI images). Text is sent to Pollinations only when you press an AI button."
+  },
+  "resume": {
+    "panels": "Resume panels",
+    "tabs": {
+      "content": "Content",
+      "design": "Design",
+      "ai": "AI writer"
+    },
+    "personal": "Personal details",
+    "addPhoto": "Add photo",
+    "changePhoto": "Change photo",
+    "fields": {
+      "fullName": "Full name",
+      "title": "Job title",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "website": "Website",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "summary": "Professional summary",
+      "role": "Role",
+      "company": "Company",
+      "degree": "Degree",
+      "school": "School",
+      "start": "Start",
+      "end": "End",
+      "date": "Date",
+      "description": "Description",
+      "name": "Name",
+      "level": "Level",
+      "link": "Link",
+      "issuer": "Issuer",
+      "subtitle": "Subtitle"
+    },
+    "descriptionHint": "One achievement per line — each line becomes a bullet point.",
+    "itemCount_one": "{{count}} entry",
+    "itemCount_other": "{{count}} entries",
+    "sectionTitle": "Section title",
+    "addItem": "Add entry",
+    "addSection": "Add section",
+    "deleteSection": "Delete section",
+    "hideSection": "Hide section",
+    "showSection": "Show section",
+    "types": {
+      "experience": "Experience",
+      "education": "Education",
+      "projects": "Projects",
+      "skills": "Skills",
+      "languages": "Languages",
+      "certifications": "Certifications",
+      "awards": "Awards",
+      "volunteering": "Volunteering",
+      "references": "References",
+      "interests": "Interests",
+      "custom": "Custom section"
+    },
+    "labels": {
+      "contact": "Contact",
+      "profile": "Profile"
+    },
+    "clickToEdit": "Click any part to edit it",
+    "pageBreak": "Page {{page}}",
+    "pages_one": "{{count}} page",
+    "pages_other": "{{count}} pages",
+    "downloadPdf": "Download PDF",
+    "printPdf": "Print / save as vector PDF",
+    "downloadPng": "Download PNG",
+    "exportJson": "Save as JSON",
+    "importJson": "Open JSON",
+    "loadSample": "Load example resume",
+    "startEmpty": "Start from scratch",
+    "templates": {
+      "modern": "Modern",
+      "sidebar": "Sidebar",
+      "classic": "Classic",
+      "minimal": "Minimal",
+      "executive": "Executive",
+      "compact": "Compact"
+    },
+    "fonts": {
+      "inter": "Inter",
+      "roboto": "Roboto",
+      "poppins": "Poppins + Source Sans",
+      "lora": "Lora + Source Sans",
+      "playfair": "Playfair + Lora",
+      "merriweather": "Merriweather",
+      "arabic": "IBM Plex Sans Arabic"
+    },
+    "design": {
+      "template": "Template",
+      "colors": "Color",
+      "accent": "Accent color",
+      "typography": "Typography",
+      "font": "Fonts",
+      "fontSize": "Text size",
+      "headings": "Section headings",
+      "uppercase": "Uppercase headings",
+      "layout": "Layout",
+      "spacing": "Spacing",
+      "direction": "Direction",
+      "details": "Details",
+      "photo": "Show photo",
+      "photoShape": "Photo shape",
+      "icons": "Contact icons",
+      "skills": "Skill style"
+    },
+    "headingStyles": {
+      "accent": "Bar",
+      "underline": "Line",
+      "pill": "Pill",
+      "plain": "Plain"
+    },
+    "spacing": {
+      "compact": "Compact",
+      "normal": "Normal",
+      "relaxed": "Relaxed"
+    },
+    "directions": {
+      "auto": "Auto",
+      "ltr": "Left to right",
+      "rtl": "Right to left"
+    },
+    "photoShapes": {
+      "circle": "Circle",
+      "rounded": "Rounded",
+      "square": "Square"
+    },
+    "skillStyles": {
+      "bars": "Bars",
+      "dots": "Dots",
+      "tags": "Tags",
+      "list": "List"
+    },
+    "ai": {
+      "improve": "Improve",
+      "modes": {
+        "summary": "Rewrite summary",
+        "bullets": "Stronger bullets",
+        "shorter": "Make shorter",
+        "grammar": "Fix grammar"
+      },
+      "promo": "Let AI write your resume from a short description",
+      "writeTitle": "Write my resume",
+      "writeHint": "Describe your experience in your own words — or paste an old CV. The AI only uses facts you give it.",
+      "aboutYou": "About you",
+      "aboutPlaceholder": "e.g. Frontend developer, 4 years at Acme building React dashboards, led migration to TypeScript, BSc Computer Science from Cairo University 2019, English and Arabic…",
+      "targetRole": "Target role (optional)",
+      "targetPlaceholder": "e.g. Senior Frontend Engineer",
+      "language": "Resume language",
+      "generate": "Write resume with AI",
+      "undoHint": "Replaces the current content. Press Undo to get it back.",
+      "tailorTitle": "Tailor to a job",
+      "tailorHint": "Paste a job ad: the AI rewrites your summary and skills to match it, using only what's already in your resume.",
+      "jobAd": "Job description",
+      "tailor": "Tailor resume",
+      "settings": "AI settings",
+      "needsKey": "Add your free Pollinations key below to use the AI writer."
+    }
   }
 }
