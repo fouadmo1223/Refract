@@ -48,6 +48,8 @@ import {
   FileDown,
   Images,
   FileUser,
+  Code2,
+  Camera,
 } from 'lucide-react'
 
 /**
@@ -76,6 +78,8 @@ export const TOOLS = [
   { id: 'image-ico', category: 'image', groups: ['convert'], path: '/image/ico', icon: Grid2x2, keywords: ['ico', 'favicon', 'icon'] },
   { id: 'svg-to-png', category: 'image', groups: ['convert'], path: '/image/svg-to-png', icon: FileCode2, keywords: ['svg', 'png', 'vector', 'rasterize'] },
   { id: 'png-to-svg', category: 'image', groups: ['convert'], path: '/image/png-to-svg', icon: PenTool, keywords: ['svg', 'vectorize', 'trace', 'vector', 'png to svg', 'jpg to svg', 'logo'] },
+  { id: 'html-to-image', category: 'image', groups: ['convert'], path: '/image/html-to-image', icon: Camera, keywords: ['html', 'css', 'html to image', 'screenshot', 'code to image', 'og image', 'snapshot'] },
+  { id: 'image-to-html', category: 'image', groups: ['convert'], path: '/image/to-html', icon: Code2, keywords: ['html', 'css', 'image to html', 'screenshot to code', 'design to code', 'tailwind', 'pixel art'] },
   { id: 'heic-to-jpg', category: 'image', groups: ['convert'], path: '/image/heic-to-jpg', icon: Smartphone, popular: true, keywords: ['heic', 'heif', 'iphone', 'jpg', 'apple', 'ios'] },
   { id: 'image-text', category: 'image', groups: ['edit'], path: '/image/add-text', icon: Type, keywords: ['text', 'meme', 'caption', 'title', 'write', 'quote'] },
   { id: 'image-censor', category: 'image', groups: ['edit'], path: '/image/censor', icon: EyeOff, keywords: ['censor', 'blur face', 'hide', 'redact', 'license plate', 'privacy', 'pixelate area'] },

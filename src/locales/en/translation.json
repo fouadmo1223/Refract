@@ -1137,7 +1137,8 @@
     "clickToPlace": "Click on the page to place the image",
     "resumeGenerated": "Resume written — review and edit anything",
     "resumeTailored": "Summary and skills tailored to the job",
-    "resumeImported": "Resume imported"
+    "resumeImported": "Resume imported",
+    "codeReady": "Code generated successfully."
   },
   "tools": {
     "image-compress": {
@@ -1691,6 +1692,24 @@
       "seoDescription": "Build a resume online with live preview, beautiful templates, custom colors and fonts, Arabic support and AI writing. Download PDF — no sign-up.",
       "keywords": "",
       "action": "Download PDF"
+    },
+    "html-to-image": {
+      "title": "HTML to Image",
+      "short": "Render HTML & CSS as an image",
+      "description": "Write or paste HTML and CSS, see it live and export a crisp PNG, JPG, WebP or SVG — social cards, banners, code shots and more.",
+      "seoTitle": "HTML/CSS to Image Converter",
+      "seoDescription": "Turn HTML and CSS into a PNG, JPG, WebP or SVG image in your browser with a live preview.",
+      "keywords": "",
+      "action": "Export image"
+    },
+    "image-to-html": {
+      "title": "Image to HTML/CSS",
+      "short": "Screenshot to code, embeds and CSS art",
+      "description": "Turn a screenshot or design into HTML & CSS with AI, get a ready-to-paste embed snippet, or recreate the image as pure-CSS pixel art.",
+      "seoTitle": "Image to HTML & CSS Converter",
+      "seoDescription": "Convert a screenshot or design into HTML and CSS (plain or Tailwind), an embed snippet or CSS pixel art.",
+      "keywords": "",
+      "action": "Generate code"
     }
   },
   "pages": {
@@ -2450,5 +2469,73 @@
       "settings": "AI settings",
       "needsKey": "Add your free Pollinations key below to use the AI writer."
     }
+  },
+  "html": {
+    "code": "Code",
+    "examples": "Examples",
+    "exampleNames": {
+      "card": "Social card",
+      "quote": "Quote post",
+      "banner": "Profile banner",
+      "code": "Code snippet"
+    },
+    "editorHint": "Tab indents · Ctrl+Enter exports. Scripts don't run — HTML and CSS only.",
+    "preview": "Preview",
+    "auto": "auto",
+    "canvas": "Canvas",
+    "sizes": {
+      "custom": "Custom",
+      "og": "Open Graph / link preview",
+      "square": "Square post",
+      "story": "Story / reel",
+      "banner": "Profile banner",
+      "twitter": "X / Twitter image"
+    },
+    "autoHeight": "Fit height to content",
+    "autoHeightHint": "Captures the full page height instead of a fixed size.",
+    "scale": "Resolution",
+    "transparentHint": "Areas without a background stay transparent.",
+    "renderError": "Couldn't render this HTML. External images may be blocked by their server (CORS).",
+    "done": "Your image is ready",
+    "backToCode": "Back to code"
+  },
+  "imageHtml": {
+    "mode": "Output",
+    "modes": {
+      "ai": "AI code",
+      "embed": "Embed",
+      "pixel": "CSS pixel art"
+    },
+    "modeHints": {
+      "ai": "A vision model rebuilds the screenshot or design as HTML & CSS.",
+      "embed": "The image as a self-contained HTML snippet (no hosting needed).",
+      "pixel": "The image redrawn with pure CSS — one element, no image files."
+    },
+    "actions": {
+      "ai": "Generate code",
+      "embed": "Create snippet",
+      "pixel": "Create CSS art"
+    },
+    "processingAi": "Writing the code…",
+    "codeStyle": "Code style",
+    "responsive": "Responsive layout",
+    "notes": "Extra instructions",
+    "notesPlaceholder": "e.g. use a dark theme, Arabic RTL layout, make the buttons rounded…",
+    "needsKey": "AI code needs a free Pollinations key — add it below.",
+    "embedOptions": "Snippet options",
+    "fullWidth": "Full width",
+    "altText": "Alt text",
+    "pixelOptions": "Pixel art",
+    "columns": "Detail (columns)",
+    "pixelSize": "Pixel size",
+    "pixelSummary": "{{pixels}} CSS pixels",
+    "done": {
+      "ai": "Your code is ready",
+      "embed": "Your snippet is ready",
+      "pixel": "Your CSS art is ready"
+    },
+    "copyPage": "Copy page",
+    "downloadHtml": "Download .html",
+    "editHint": "Edit the HTML or CSS tabs — the preview and download update with your changes."
   }
 }
