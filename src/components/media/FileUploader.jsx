@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useImperativeHandle, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { CloudUpload, FileVideo, ImagePlus, Music } from 'lucide-react'
+import { CloudUpload, FileText, FileVideo, ImagePlus, Music } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/cn'
 import { getAcceptString } from '@/constants/fileConstraints'
@@ -11,7 +11,7 @@ import { notify } from '@/lib/notify'
 import { Button } from '@/components/ui/Button'
 import { Kbd } from '@/components/ui/misc'
 
-const KIND_ICONS = { image: ImagePlus, video: FileVideo, audio: Music, any: CloudUpload }
+const KIND_ICONS = { image: ImagePlus, video: FileVideo, audio: Music, pdf: FileText, any: CloudUpload }
 
 /**
  * Reusable upload surface: drag & drop, click to browse (hidden native input),
@@ -101,7 +101,22 @@ export function FileUploader({ profile, onFiles, multiple = false, maxFiles = 1,
   const openPicker = () => !disabled && inputRef.current?.click()
   // Lets surrounding UI (e.g. a hero CTA) open the file dialog.
   useImperativeHandle(pickerRef, () => ({ open: openPicker }))
-  const kindKey = profile.kind === 'any' ? 'files' : profile.kind === 'image' ? (multiple ? 'images' : 'image') : profile.kind === 'video' ? (multiple ? 'videos' : 'video') : 'audio'
+  const kindKey =
+    profile.kind === 'any'
+      ? 'files'
+      : profile.kind === 'image'
+        ? multiple
+          ? 'images'
+          : 'image'
+        : profile.kind === 'video'
+          ? multiple
+            ? 'videos'
+            : 'video'
+          : profile.kind === 'pdf'
+            ? multiple
+              ? 'pdfs'
+              : 'pdf'
+            : 'audio'
   const isMac = typeof navigator !== 'undefined' && /mac/i.test(navigator.platform)
 
   return (

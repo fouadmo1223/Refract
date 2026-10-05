@@ -15,7 +15,8 @@
     "menu": "Menu",
     "openMenu": "Open menu",
     "skipToContent": "Skip to content",
-    "aiStudio": "AI Studio"
+    "aiStudio": "AI Studio",
+    "pdfTools": "PDF Tools"
   },
   "footer": {
     "tagline": "Refract · Private media tools that run in your browser.",
@@ -136,6 +137,12 @@
       "short": "AI",
       "description": "Generate images and videos from text, or bring still images to life.",
       "seoTitle": "AI Image & Video Generator"
+    },
+    "pdf": {
+      "title": "PDF & Documents",
+      "short": "PDF",
+      "description": "Edit, sign, merge, split, compress and convert PDFs — right in your browser.",
+      "seoTitle": "Free PDF Tools"
     }
   },
   "groups": {
@@ -153,7 +160,9 @@
       "video": "Drop a video here",
       "videos": "Drop videos here",
       "audio": "Drop an audio file here",
-      "files": "Drop an image or video here"
+      "files": "Drop an image or video here",
+      "pdf": "Drop a PDF here",
+      "pdfs": "Drop PDFs here"
     },
     "or": "or",
     "browse": "Browse files",
@@ -220,7 +229,13 @@
     "tracing": "Tracing vectors",
     "applyingOverlay": "Adding overlay",
     "creatingCollage": "Creating collage",
-    "splittingVideo": "Splitting video"
+    "splittingVideo": "Splitting video",
+    "renderingPages": "Rendering pages…",
+    "splittingPdf": "Splitting PDF…",
+    "savingPdf": "Saving PDF…",
+    "compressingPdf": "Compressing PDF…",
+    "mergingPdfs": "Merging PDFs…",
+    "creatingPdf": "Creating PDF…"
   },
   "result": {
     "before": "Before",
@@ -965,7 +980,8 @@
     "fadeTooLong": "The fades are longer than the video.",
     "splitRange": "Choose settings that create between 2 and {{max}} parts.",
     "targetSize": "Enter a size of at least 5 KB.",
-    "frameCountRange": "Choose between 1 and 300 frames."
+    "frameCountRange": "Choose between 1 and 300 frames.",
+    "pageRanges": "Use page numbers like 1-3, 5, 8-"
   },
   "errors": {
     "UNSUPPORTED_FORMAT": {
@@ -1067,6 +1083,10 @@
     "AI_GENERATION_FAILED": {
       "title": "Generation failed.",
       "description": "The AI service couldn’t create this. Try rephrasing the prompt or another model."
+    },
+    "PDF_PROTECTED": {
+      "title": "This PDF is password-protected.",
+      "description": "Remove the password in your PDF reader, then try again."
     }
   },
   "toasts": {
@@ -1106,7 +1126,14 @@
     "vectorized": "SVG created successfully.",
     "collageCreated": "Collage created successfully.",
     "overlayApplied": "Overlay added successfully.",
-    "videoSplit": "Video split successfully."
+    "videoSplit": "Video split successfully.",
+    "pagesExported": "Pages exported",
+    "pdfSplit": "PDF split",
+    "pdfSaved": "PDF saved",
+    "pdfCompressed": "PDF compressed",
+    "pdfMerged": "PDFs merged",
+    "pdfCreated": "PDF created",
+    "clickToPlace": "Click on the page to place the image"
   },
   "tools": {
     "image-compress": {
@@ -1588,6 +1615,69 @@
       "seoDescription": "Add smooth fade-in and fade-out to video and audio.",
       "keywords": "",
       "action": "Apply fades"
+    },
+    "pdf-editor": {
+      "title": "PDF Editor",
+      "short": "Edit text, sign, draw and add links",
+      "description": "Edit existing text, add text, images, shapes, highlights, links and signatures to any PDF.",
+      "seoTitle": "Edit PDF Online Free",
+      "seoDescription": "Edit PDF text, add images, shapes, highlights, signatures and links in your browser. No upload, no sign-up.",
+      "keywords": "",
+      "action": "Save PDF"
+    },
+    "images-to-pdf": {
+      "title": "Images to PDF",
+      "short": "JPG, PNG and more into one PDF",
+      "description": "Turn photos and scans into a single PDF with the page size and margins you choose.",
+      "seoTitle": "JPG to PDF Converter",
+      "seoDescription": "Convert JPG, PNG and WebP images to PDF in your browser — reorder pages, choose A4 or Letter and margins.",
+      "keywords": "",
+      "action": "Create PDF"
+    },
+    "pdf-to-images": {
+      "title": "PDF to Images",
+      "short": "Every page as PNG, JPG or WebP",
+      "description": "Save PDF pages as high-quality images at the resolution you need.",
+      "seoTitle": "PDF to JPG / PNG Converter",
+      "seoDescription": "Convert PDF pages to PNG, JPG or WebP images up to 300 DPI, privately in your browser.",
+      "keywords": "",
+      "action": "Convert pages"
+    },
+    "pdf-merge": {
+      "title": "Merge PDF",
+      "short": "Combine PDFs into one",
+      "description": "Join several PDFs into one document in the order you want.",
+      "seoTitle": "Merge PDF Files Online",
+      "seoDescription": "Combine multiple PDF files into one — drag to reorder, merge instantly in your browser.",
+      "keywords": "",
+      "action": "Merge PDFs"
+    },
+    "pdf-split": {
+      "title": "Split PDF",
+      "short": "Extract pages or split into parts",
+      "description": "Pull out the pages you need or split a PDF into several files.",
+      "seoTitle": "Split PDF Online",
+      "seoDescription": "Extract selected pages or split a PDF by ranges or page count, without uploading it.",
+      "keywords": "",
+      "action": "Split PDF"
+    },
+    "pdf-organize": {
+      "title": "Organize PDF",
+      "short": "Reorder, rotate and delete pages",
+      "description": "Drag pages into a new order, rotate them or remove the ones you don't need.",
+      "seoTitle": "Rearrange PDF Pages",
+      "seoDescription": "Reorder, rotate and delete PDF pages visually, then save — all in your browser.",
+      "keywords": "",
+      "action": "Save PDF"
+    },
+    "pdf-compress": {
+      "title": "Compress PDF",
+      "short": "Make PDFs smaller",
+      "description": "Reduce PDF file size for email and uploads.",
+      "seoTitle": "Compress PDF Online",
+      "seoDescription": "Shrink PDF files by re-saving or by re-rendering pages at a lower resolution, privately in your browser.",
+      "keywords": "",
+      "action": "Compress PDF"
     }
   },
   "pages": {
@@ -1988,5 +2078,201 @@
     "useShared": "Use shared",
     "usingShared": "Using shared settings — change anything to customize",
     "resizeShared": "Each image is fitted into this box using its own proportions. Open a file to size it exactly."
+  },
+  "pdf": {
+    "pageN": "Page {{number}}",
+    "pageShort": "p. {{number}}",
+    "pagesShort": "pp.",
+    "pages": "Pages",
+    "pageCount_one": "{{count}} page",
+    "pageCount_other": "{{count}} pages",
+    "movePage": "Move page {{number}}",
+    "rotatePage": "Rotate page {{number}}",
+    "deletePage": "Delete page {{number}}",
+    "moveFile": "Move {{name}}",
+    "orderHint": "Drag the handle to change the order.",
+    "pagesTitle": "Pages",
+    "selectNone": "Select none",
+    "selectPagesHint": "Click pages to export only those. With nothing selected, every page is exported.",
+    "selectedCount": "{{count}} of {{total}} pages selected",
+    "allPages_one": "All {{count}} page",
+    "allPages_other": "All {{count}} pages",
+    "resolution": "Resolution",
+    "resolutionHint": "150 DPI suits screens; 300 DPI is print quality.",
+    "transparent": "Transparent background",
+    "transparentHint": "Keeps empty page areas see-through.",
+    "imagesDone_one": "{{count}} image ready",
+    "imagesDone_other": "{{count}} images ready",
+    "splitHow": "Split",
+    "splitModes": {
+      "select": "Pick pages",
+      "ranges": "By ranges",
+      "every": "Every N pages"
+    },
+    "splitHints": {
+      "select": "Click pages on the left to put them in a new PDF.",
+      "ranges": "Each comma-separated range becomes its own PDF.",
+      "every": "Cut the document into files of equal page count."
+    },
+    "ranges": "Page ranges",
+    "pagesPerFile": "Pages per file",
+    "splitSummary_one": "{{count}} PDF · {{pages}} pages",
+    "splitSummary_other": "{{count}} PDFs · {{pages}} pages",
+    "splitNothing": "Nothing to export yet.",
+    "selectExtractHint": "Click the pages you want to keep.",
+    "extractAction": "Extract pages",
+    "extractDone_one": "{{count}} page extracted",
+    "extractDone_other": "{{count}} pages extracted",
+    "splitDone_one": "Split into {{count}} file",
+    "splitDone_other": "Split into {{count}} files",
+    "organizeHint": "Drag pages by the handle to reorder. Use the buttons on each page to rotate or delete it.",
+    "organizeSummary": "{{count}} pages · {{removed}} removed · {{rotated}} rotated",
+    "rotateAllLeft": "Rotate all left",
+    "rotateAllRight": "Rotate all right",
+    "reverseOrder": "Reverse order",
+    "organizeDone": "Pages organized",
+    "compressModes": {
+      "strong": "Strong",
+      "lossless": "Lossless"
+    },
+    "compressHints": {
+      "strong": "Re-renders every page as an image — much smaller for scans and photos, but text is no longer selectable.",
+      "lossless": "Re-saves the file and drops unused data. Text stays selectable; savings are usually small."
+    },
+    "compressLevel": "Level",
+    "levels": {
+      "light": "Light",
+      "medium": "Medium",
+      "small": "Smallest"
+    },
+    "compressDone": "PDF compressed",
+    "mergeTitle": "Merge",
+    "mergeDescription": "PDFs are joined in the order shown. Bookmarks and form fields from the originals may be dropped.",
+    "mergeSummary": "{{files}} files · {{pages}} pages in total",
+    "mergeDone": "{{count}} PDFs merged",
+    "pageSetup": "Page setup",
+    "pageSize": "Page size",
+    "pageSizes": {
+      "a4": "A4",
+      "letter": "US Letter",
+      "legal": "US Legal",
+      "a5": "A5",
+      "fit": "Same as image"
+    },
+    "orientation": "Orientation",
+    "orientations": {
+      "auto": "Auto",
+      "portrait": "Portrait",
+      "landscape": "Landscape"
+    },
+    "imageFit": "Image placement",
+    "fits": {
+      "contain": "Fit whole image",
+      "cover": "Fill the page"
+    },
+    "margin": "Margin",
+    "margins": {
+      "none": "None",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "imageQualityHint": "Applies to photos (JPG). PNG images stay lossless.",
+    "createdDone_one": "PDF created from {{count}} image",
+    "createdDone_other": "PDF created from {{count}} images",
+    "alreadySmall": "Already well compressed",
+    "alreadySmallHint": "Compressing didn't make this PDF smaller (it's mostly text or vectors), so the original is kept. Try the other mode or a lower resolution."
+  },
+  "pdfEditor": {
+    "tools": "Editing tools",
+    "toolNames": {
+      "select": "Select & move",
+      "editText": "Edit existing text",
+      "text": "Add text",
+      "image": "Add image",
+      "rect": "Rectangle",
+      "ellipse": "Ellipse",
+      "line": "Line",
+      "arrow": "Arrow",
+      "draw": "Draw / sign",
+      "highlight": "Highlight",
+      "whiteout": "White-out",
+      "link": "Add link"
+    },
+    "toolHints": {
+      "select": "Click an element to edit it. Drag to move, use the corners to resize. Delete removes it.",
+      "editText": "Click any text on the page to replace it.",
+      "text": "Click or drag on the page to add a text box.",
+      "image": "Choose an image, then click on the page to place it.",
+      "rect": "Drag on the page to draw a rectangle.",
+      "ellipse": "Drag on the page to draw an ellipse.",
+      "line": "Drag on the page to draw a line.",
+      "arrow": "Drag on the page to draw an arrow.",
+      "draw": "Draw freehand — great for signatures.",
+      "highlight": "Drag over text to highlight it.",
+      "whiteout": "Drag to cover content with a solid box.",
+      "link": "Drag over an area to make it a clickable link."
+    },
+    "elements": {
+      "text": "Text",
+      "image": "Image",
+      "rect": "Rectangle",
+      "ellipse": "Ellipse",
+      "line": "Line",
+      "arrow": "Arrow",
+      "draw": "Drawing",
+      "highlight": "Highlight",
+      "whiteout": "White-out",
+      "link": "Link"
+    },
+    "typeHere": "Type here…",
+    "link": "Link",
+    "move": "Move",
+    "editThisText": "Edit this text",
+    "editTextHint": "Click a highlighted text run to edit it. The original is covered and an editable copy appears in its place.",
+    "placeImage": "Click on the page where the image should go. Press Esc to cancel.",
+    "font": "Font",
+    "fonts": {
+      "helvetica": "Sans (Helvetica)",
+      "times": "Serif (Times)",
+      "courier": "Mono (Courier)"
+    },
+    "size": "Size",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "alignLeft": "Align left",
+    "alignCenter": "Align center",
+    "alignRight": "Align right",
+    "textColor": "Text color",
+    "textBackground": "Background",
+    "lineHeight": "Line spacing",
+    "textHint": "Type directly in the box on the page.",
+    "fill": "Fill",
+    "stroke": "Outline",
+    "strokeWidth": "Outline width",
+    "color": "Color",
+    "none": "None",
+    "opacity": "Opacity",
+    "lineEnd": "End",
+    "plainEnd": "Plain",
+    "arrowEnd": "Arrow",
+    "url": "Link address",
+    "linkHint": "The area becomes clickable in PDF readers.",
+    "whiteoutHint": "Covers what's underneath. Combine with text to replace content.",
+    "bringForward": "Bring forward",
+    "sendBackward": "Send backward",
+    "duplicate": "Duplicate",
+    "deleteElement": "Delete",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageOf": "Page {{page}} of {{total}}",
+    "document": "Document",
+    "editSummary_one": "{{count}} edit across {{pages}} pages",
+    "editSummary_other": "{{count}} edits across {{pages}} pages",
+    "clearPage": "Clear this page",
+    "saved": "PDF saved"
   }
 }

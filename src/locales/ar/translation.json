@@ -15,7 +15,8 @@
     "menu": "القائمة",
     "openMenu": "فتح القائمة",
     "skipToContent": "تخطَّ إلى المحتوى",
-    "aiStudio": "استوديو الذكاء الاصطناعي"
+    "aiStudio": "استوديو الذكاء الاصطناعي",
+    "pdfTools": "أدوات PDF"
   },
   "footer": {
     "tagline": "Refract · أدوات وسائط خاصة تعمل داخل متصفحك.",
@@ -140,6 +141,12 @@
       "short": "ذكاء اصطناعي",
       "description": "أنشئ صورًا ومقاطع فيديو من النص، أو حرّك صورك الثابتة.",
       "seoTitle": "مولّد الصور والفيديو بالذكاء الاصطناعي"
+    },
+    "pdf": {
+      "title": "PDF والمستندات",
+      "short": "PDF",
+      "description": "عدّل ووقّع وادمج وقسّم واضغط وحوّل ملفات PDF — مباشرة في متصفحك.",
+      "seoTitle": "أدوات PDF مجانية"
     }
   },
   "groups": {
@@ -157,7 +164,9 @@
       "video": "أفلت مقطع فيديو هنا",
       "videos": "أفلت مقاطع الفيديو هنا",
       "audio": "أفلت ملفًا صوتيًا هنا",
-      "files": "أفلت صورة أو فيديو هنا"
+      "files": "أفلت صورة أو فيديو هنا",
+      "pdf": "أفلت ملف PDF هنا",
+      "pdfs": "أفلت ملفات PDF هنا"
     },
     "or": "أو",
     "browse": "تصفّح الملفات",
@@ -224,7 +233,13 @@
     "tracing": "جارٍ التحويل إلى متجه",
     "applyingOverlay": "جارٍ إضافة الطبقة",
     "creatingCollage": "جارٍ إنشاء الكولاج",
-    "splittingVideo": "جارٍ تقسيم الفيديو"
+    "splittingVideo": "جارٍ تقسيم الفيديو",
+    "renderingPages": "جارٍ عرض الصفحات…",
+    "splittingPdf": "جارٍ تقسيم PDF…",
+    "savingPdf": "جارٍ حفظ PDF…",
+    "compressingPdf": "جارٍ ضغط PDF…",
+    "mergingPdfs": "جارٍ دمج ملفات PDF…",
+    "creatingPdf": "جارٍ إنشاء PDF…"
   },
   "result": {
     "before": "قبل",
@@ -985,7 +1000,8 @@
     "fadeTooLong": "مدة التدرج أطول من الفيديو.",
     "splitRange": "اختر إعدادات تنتج من 2 إلى {{max}} جزءًا.",
     "targetSize": "أدخل حجمًا لا يقل عن 5 كيلوبايت.",
-    "frameCountRange": "اختر من 1 إلى 300 إطار."
+    "frameCountRange": "اختر من 1 إلى 300 إطار.",
+    "pageRanges": "استخدم أرقام صفحات مثل 1-3، 5، 8-"
   },
   "errors": {
     "UNSUPPORTED_FORMAT": {
@@ -1087,6 +1103,10 @@
     "AI_GENERATION_FAILED": {
       "title": "فشل التوليد.",
       "description": "تعذّر على خدمة الذكاء الاصطناعي إنشاء ذلك. جرّب صياغة أخرى للوصف أو نموذجًا آخر."
+    },
+    "PDF_PROTECTED": {
+      "title": "ملف PDF هذا محمي بكلمة مرور.",
+      "description": "أزل كلمة المرور من قارئ PDF ثم حاول مرة أخرى."
     }
   },
   "toasts": {
@@ -1126,7 +1146,14 @@
     "vectorized": "تم إنشاء ملف SVG بنجاح.",
     "collageCreated": "تم إنشاء الكولاج بنجاح.",
     "overlayApplied": "تمت إضافة الطبقة بنجاح.",
-    "videoSplit": "تم تقسيم الفيديو بنجاح."
+    "videoSplit": "تم تقسيم الفيديو بنجاح.",
+    "pagesExported": "تم تصدير الصفحات",
+    "pdfSplit": "تم تقسيم PDF",
+    "pdfSaved": "تم حفظ PDF",
+    "pdfCompressed": "تم ضغط PDF",
+    "pdfMerged": "تم دمج ملفات PDF",
+    "pdfCreated": "تم إنشاء PDF",
+    "clickToPlace": "انقر على الصفحة لوضع الصورة"
   },
   "tools": {
     "image-compress": {
@@ -1612,6 +1639,69 @@
       "seoDescription": "أضف ظهورًا واختفاءً تدريجيًا ناعمًا للفيديو والصوت.",
       "keywords": "تدريجي ظهور اختفاء انتقال",
       "action": "تطبيق التدرج"
+    },
+    "pdf-editor": {
+      "title": "محرر PDF",
+      "short": "تعديل النص والتوقيع والرسم وإضافة روابط",
+      "description": "عدّل النص الموجود، وأضف نصوصًا وصورًا وأشكالًا وتظليلًا وروابط وتوقيعات إلى أي PDF.",
+      "seoTitle": "تعديل PDF مجانًا",
+      "seoDescription": "عدّل نص PDF وأضف الصور والأشكال والتظليل والتوقيعات والروابط في متصفحك دون رفع أو تسجيل.",
+      "keywords": "",
+      "action": "حفظ PDF"
+    },
+    "images-to-pdf": {
+      "title": "صور إلى PDF",
+      "short": "JPG وPNG وغيرها في ملف PDF واحد",
+      "description": "حوّل الصور والمستندات الممسوحة إلى ملف PDF واحد بحجم الصفحة والهوامش التي تختارها.",
+      "seoTitle": "تحويل JPG إلى PDF",
+      "seoDescription": "حوّل صور JPG وPNG وWebP إلى PDF في متصفحك — رتّب الصفحات واختر A4 أو Letter والهوامش.",
+      "keywords": "",
+      "action": "إنشاء PDF"
+    },
+    "pdf-to-images": {
+      "title": "PDF إلى صور",
+      "short": "كل صفحة بصيغة PNG أو JPG أو WebP",
+      "description": "احفظ صفحات PDF كصور عالية الجودة بالدقة التي تحتاجها.",
+      "seoTitle": "تحويل PDF إلى JPG / PNG",
+      "seoDescription": "حوّل صفحات PDF إلى صور PNG أو JPG أو WebP حتى 300 DPI بخصوصية في متصفحك.",
+      "keywords": "",
+      "action": "تحويل الصفحات"
+    },
+    "pdf-merge": {
+      "title": "دمج PDF",
+      "short": "ضم عدة ملفات PDF في ملف واحد",
+      "description": "اجمع عدة ملفات PDF في مستند واحد بالترتيب الذي تريده.",
+      "seoTitle": "دمج ملفات PDF",
+      "seoDescription": "ادمج عدة ملفات PDF في ملف واحد — اسحب لإعادة الترتيب وادمج فورًا في متصفحك.",
+      "keywords": "",
+      "action": "دمج PDF"
+    },
+    "pdf-split": {
+      "title": "تقسيم PDF",
+      "short": "استخراج صفحات أو التقسيم إلى أجزاء",
+      "description": "استخرج الصفحات التي تحتاجها أو قسّم PDF إلى عدة ملفات.",
+      "seoTitle": "تقسيم PDF",
+      "seoDescription": "استخرج صفحات محددة أو قسّم PDF حسب النطاقات أو عدد الصفحات دون رفعه.",
+      "keywords": "",
+      "action": "تقسيم PDF"
+    },
+    "pdf-organize": {
+      "title": "تنظيم PDF",
+      "short": "إعادة ترتيب الصفحات وتدويرها وحذفها",
+      "description": "اسحب الصفحات لترتيب جديد، أو دوّرها، أو احذف ما لا تحتاجه.",
+      "seoTitle": "إعادة ترتيب صفحات PDF",
+      "seoDescription": "أعد ترتيب صفحات PDF ودوّرها واحذفها بصريًا ثم احفظ — كل ذلك في متصفحك.",
+      "keywords": "",
+      "action": "حفظ PDF"
+    },
+    "pdf-compress": {
+      "title": "ضغط PDF",
+      "short": "تصغير ملفات PDF",
+      "description": "قلّل حجم ملف PDF للبريد الإلكتروني والرفع.",
+      "seoTitle": "ضغط PDF",
+      "seoDescription": "صغّر ملفات PDF بإعادة الحفظ أو بإعادة عرض الصفحات بدقة أقل، بخصوصية في متصفحك.",
+      "keywords": "",
+      "action": "ضغط PDF"
     }
   },
   "pages": {
@@ -2040,5 +2130,233 @@
     "useShared": "استخدام المشترك",
     "usingShared": "يستخدم الإعدادات المشتركة — غيّر أي شيء لتخصيصه",
     "resizeShared": "تُوضع كل صورة داخل هذا الإطار وفق أبعادها الخاصة. افتح ملفًا لتحديد حجمه بدقة."
+  },
+  "pdf": {
+    "pageN": "الصفحة {{number}}",
+    "pageShort": "ص {{number}}",
+    "pagesShort": "ص",
+    "pages": "الصفحات",
+    "pageCount_zero": "{{count}} صفحة",
+    "pageCount_one": "صفحة واحدة",
+    "pageCount_two": "صفحتان",
+    "pageCount_few": "{{count}} صفحات",
+    "pageCount_many": "{{count}} صفحة",
+    "pageCount_other": "{{count}} صفحة",
+    "movePage": "نقل الصفحة {{number}}",
+    "rotatePage": "تدوير الصفحة {{number}}",
+    "deletePage": "حذف الصفحة {{number}}",
+    "moveFile": "نقل {{name}}",
+    "orderHint": "اسحب المقبض لتغيير الترتيب.",
+    "pagesTitle": "الصفحات",
+    "selectNone": "إلغاء التحديد",
+    "selectPagesHint": "انقر على الصفحات لتصدير هذه فقط. عند عدم تحديد أي صفحة تُصدّر كل الصفحات.",
+    "selectedCount": "تم تحديد {{count}} من {{total}} صفحة",
+    "allPages_zero": "كل الصفحات ({{count}})",
+    "allPages_one": "الصفحة الوحيدة",
+    "allPages_two": "الصفحتان",
+    "allPages_few": "كل الصفحات ({{count}})",
+    "allPages_many": "كل الصفحات ({{count}})",
+    "allPages_other": "كل الصفحات ({{count}})",
+    "resolution": "الدقة",
+    "resolutionHint": "150 DPI مناسبة للشاشات؛ 300 DPI بجودة الطباعة.",
+    "transparent": "خلفية شفافة",
+    "transparentHint": "تبقى المناطق الفارغة شفافة.",
+    "imagesDone_zero": "{{count}} صورة جاهزة",
+    "imagesDone_one": "صورة واحدة جاهزة",
+    "imagesDone_two": "صورتان جاهزتان",
+    "imagesDone_few": "{{count}} صور جاهزة",
+    "imagesDone_many": "{{count}} صورة جاهزة",
+    "imagesDone_other": "{{count}} صورة جاهزة",
+    "splitHow": "التقسيم",
+    "splitModes": {
+      "select": "اختيار صفحات",
+      "ranges": "حسب النطاقات",
+      "every": "كل N صفحات"
+    },
+    "splitHints": {
+      "select": "انقر على الصفحات على اليسار لوضعها في PDF جديد.",
+      "ranges": "كل نطاق مفصول بفاصلة يصبح ملف PDF مستقلًا.",
+      "every": "قسّم المستند إلى ملفات بعدد صفحات متساوٍ."
+    },
+    "ranges": "نطاقات الصفحات",
+    "pagesPerFile": "عدد الصفحات لكل ملف",
+    "splitSummary_zero": "{{count}} ملف PDF · {{pages}} صفحة",
+    "splitSummary_one": "ملف PDF واحد · {{pages}} صفحة",
+    "splitSummary_two": "ملفا PDF · {{pages}} صفحة",
+    "splitSummary_few": "{{count}} ملفات PDF · {{pages}} صفحة",
+    "splitSummary_many": "{{count}} ملف PDF · {{pages}} صفحة",
+    "splitSummary_other": "{{count}} ملف PDF · {{pages}} صفحة",
+    "splitNothing": "لا يوجد ما يُصدّر بعد.",
+    "selectExtractHint": "انقر على الصفحات التي تريد الاحتفاظ بها.",
+    "extractAction": "استخراج الصفحات",
+    "extractDone_zero": "تم استخراج {{count}} صفحة",
+    "extractDone_one": "تم استخراج صفحة واحدة",
+    "extractDone_two": "تم استخراج صفحتين",
+    "extractDone_few": "تم استخراج {{count}} صفحات",
+    "extractDone_many": "تم استخراج {{count}} صفحة",
+    "extractDone_other": "تم استخراج {{count}} صفحة",
+    "splitDone_zero": "تم التقسيم إلى {{count}} ملف",
+    "splitDone_one": "تم التقسيم إلى ملف واحد",
+    "splitDone_two": "تم التقسيم إلى ملفين",
+    "splitDone_few": "تم التقسيم إلى {{count}} ملفات",
+    "splitDone_many": "تم التقسيم إلى {{count}} ملفًا",
+    "splitDone_other": "تم التقسيم إلى {{count}} ملف",
+    "organizeHint": "اسحب الصفحات من المقبض لإعادة ترتيبها. استخدم الأزرار على كل صفحة لتدويرها أو حذفها.",
+    "organizeSummary": "{{count}} صفحة · {{removed}} محذوفة · {{rotated}} مدوّرة",
+    "rotateAllLeft": "تدوير الكل يسارًا",
+    "rotateAllRight": "تدوير الكل يمينًا",
+    "reverseOrder": "عكس الترتيب",
+    "organizeDone": "تم تنظيم الصفحات",
+    "compressModes": {
+      "strong": "قوي",
+      "lossless": "بدون فقدان"
+    },
+    "compressHints": {
+      "strong": "يعيد عرض كل صفحة كصورة — أصغر بكثير للمستندات الممسوحة والصور، لكن النص لن يكون قابلًا للتحديد.",
+      "lossless": "يعيد حفظ الملف ويحذف البيانات غير المستخدمة. يبقى النص قابلًا للتحديد؛ التوفير عادة صغير."
+    },
+    "compressLevel": "المستوى",
+    "levels": {
+      "light": "خفيف",
+      "medium": "متوسط",
+      "small": "الأصغر"
+    },
+    "compressDone": "تم ضغط PDF",
+    "mergeTitle": "الدمج",
+    "mergeDescription": "تُدمج ملفات PDF بالترتيب المعروض. قد تُفقد الإشارات المرجعية وحقول النماذج من الملفات الأصلية.",
+    "mergeSummary": "{{files}} ملفات · {{pages}} صفحة إجمالًا",
+    "mergeDone": "تم دمج {{count}} ملفات PDF",
+    "pageSetup": "إعداد الصفحة",
+    "pageSize": "حجم الصفحة",
+    "pageSizes": {
+      "a4": "A4",
+      "letter": "US Letter",
+      "legal": "US Legal",
+      "a5": "A5",
+      "fit": "مثل الصورة"
+    },
+    "orientation": "الاتجاه",
+    "orientations": {
+      "auto": "تلقائي",
+      "portrait": "عمودي",
+      "landscape": "أفقي"
+    },
+    "imageFit": "وضع الصورة",
+    "fits": {
+      "contain": "إظهار الصورة كاملة",
+      "cover": "ملء الصفحة"
+    },
+    "margin": "الهامش",
+    "margins": {
+      "none": "بدون",
+      "small": "صغير",
+      "medium": "متوسط",
+      "large": "كبير"
+    },
+    "imageQualityHint": "تنطبق على الصور (JPG). تبقى صور PNG دون فقدان.",
+    "createdDone_zero": "تم إنشاء PDF من {{count}} صورة",
+    "createdDone_one": "تم إنشاء PDF من صورة واحدة",
+    "createdDone_two": "تم إنشاء PDF من صورتين",
+    "createdDone_few": "تم إنشاء PDF من {{count}} صور",
+    "createdDone_many": "تم إنشاء PDF من {{count}} صورة",
+    "createdDone_other": "تم إنشاء PDF من {{count}} صورة",
+    "alreadySmall": "الملف مضغوط جيدًا بالفعل",
+    "alreadySmallHint": "لم يجعل الضغط ملف PDF هذا أصغر (فهو نص أو رسومات متجهية غالبًا)، لذا تم الإبقاء على الأصلي. جرّب الوضع الآخر أو دقة أقل."
+  },
+  "pdfEditor": {
+    "tools": "أدوات التحرير",
+    "toolNames": {
+      "select": "تحديد ونقل",
+      "editText": "تعديل النص الموجود",
+      "text": "إضافة نص",
+      "image": "إضافة صورة",
+      "rect": "مستطيل",
+      "ellipse": "شكل بيضاوي",
+      "line": "خط",
+      "arrow": "سهم",
+      "draw": "رسم / توقيع",
+      "highlight": "تظليل",
+      "whiteout": "طمس أبيض",
+      "link": "إضافة رابط"
+    },
+    "toolHints": {
+      "select": "انقر على عنصر لتعديله. اسحب للنقل واستخدم الزوايا لتغيير الحجم. Delete لحذفه.",
+      "editText": "انقر على أي نص في الصفحة لاستبداله.",
+      "text": "انقر أو اسحب على الصفحة لإضافة مربع نص.",
+      "image": "اختر صورة ثم انقر على الصفحة لوضعها.",
+      "rect": "اسحب على الصفحة لرسم مستطيل.",
+      "ellipse": "اسحب على الصفحة لرسم شكل بيضاوي.",
+      "line": "اسحب على الصفحة لرسم خط.",
+      "arrow": "اسحب على الصفحة لرسم سهم.",
+      "draw": "ارسم بحرية — مثالي للتوقيعات.",
+      "highlight": "اسحب فوق النص لتظليله.",
+      "whiteout": "اسحب لتغطية المحتوى بمربع ملوّن.",
+      "link": "اسحب فوق منطقة لجعلها رابطًا قابلًا للنقر."
+    },
+    "elements": {
+      "text": "نص",
+      "image": "صورة",
+      "rect": "مستطيل",
+      "ellipse": "شكل بيضاوي",
+      "line": "خط",
+      "arrow": "سهم",
+      "draw": "رسم",
+      "highlight": "تظليل",
+      "whiteout": "طمس",
+      "link": "رابط"
+    },
+    "typeHere": "اكتب هنا…",
+    "link": "رابط",
+    "move": "نقل",
+    "editThisText": "تعديل هذا النص",
+    "editTextHint": "انقر على نص مميز لتعديله. يُغطّى الأصل وتظهر نسخة قابلة للتعديل مكانه.",
+    "placeImage": "انقر على الصفحة حيث يجب أن تكون الصورة. اضغط Esc للإلغاء.",
+    "font": "الخط",
+    "fonts": {
+      "helvetica": "بلا تذييل (Helvetica)",
+      "times": "بتذييل (Times)",
+      "courier": "ثابت العرض (Courier)"
+    },
+    "size": "الحجم",
+    "bold": "عريض",
+    "italic": "مائل",
+    "underline": "تسطير",
+    "alignLeft": "محاذاة لليسار",
+    "alignCenter": "توسيط",
+    "alignRight": "محاذاة لليمين",
+    "textColor": "لون النص",
+    "textBackground": "الخلفية",
+    "lineHeight": "تباعد الأسطر",
+    "textHint": "اكتب مباشرة في المربع على الصفحة.",
+    "fill": "التعبئة",
+    "stroke": "الحد",
+    "strokeWidth": "سماكة الحد",
+    "color": "اللون",
+    "none": "بدون",
+    "opacity": "الشفافية",
+    "lineEnd": "النهاية",
+    "plainEnd": "عادية",
+    "arrowEnd": "سهم",
+    "url": "عنوان الرابط",
+    "linkHint": "تصبح المنطقة قابلة للنقر في قارئات PDF.",
+    "whiteoutHint": "يغطي ما تحته. استخدمه مع النص لاستبدال المحتوى.",
+    "bringForward": "إحضار للأمام",
+    "sendBackward": "إرسال للخلف",
+    "duplicate": "تكرار",
+    "deleteElement": "حذف",
+    "zoomIn": "تكبير",
+    "zoomOut": "تصغير",
+    "previousPage": "الصفحة السابقة",
+    "nextPage": "الصفحة التالية",
+    "pageOf": "الصفحة {{page}} من {{total}}",
+    "document": "المستند",
+    "editSummary_zero": "{{count}} تعديل في {{pages}} صفحات",
+    "editSummary_one": "تعديل واحد في {{pages}} صفحات",
+    "editSummary_two": "تعديلان في {{pages}} صفحات",
+    "editSummary_few": "{{count}} تعديلات في {{pages}} صفحات",
+    "editSummary_many": "{{count}} تعديلًا في {{pages}} صفحات",
+    "editSummary_other": "{{count}} تعديل في {{pages}} صفحات",
+    "clearPage": "مسح هذه الصفحة",
+    "saved": "تم حفظ PDF"
   }
 }

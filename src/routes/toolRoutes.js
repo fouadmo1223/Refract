@@ -8,6 +8,14 @@ export const TOOL_PAGES = {
   'ai-image': lazy(() => import('@/features/ai/image/AiImagePage')),
   'ai-video': lazy(() => import('@/features/ai/video/AiVideoPage')),
 
+  'pdf-editor': lazy(() => import('@/features/pdf/editor/PdfEditorPage')),
+  'images-to-pdf': lazy(() => import('@/features/pdf/ImagesToPdfPage')),
+  'pdf-to-images': lazy(() => import('@/features/pdf/PdfToImagesPage')),
+  'pdf-merge': lazy(() => import('@/features/pdf/MergePdfPage')),
+  'pdf-split': lazy(() => import('@/features/pdf/SplitPdfPage')),
+  'pdf-organize': lazy(() => import('@/features/pdf/OrganizePdfPage')),
+  'pdf-compress': lazy(() => import('@/features/pdf/CompressPdfPage')),
+
   'image-compress': lazy(() => import('@/features/image/compress/CompressImagePage')),
   'image-convert': lazy(() => import('@/features/image/convert/ConvertImagePage')),
   'image-resize': lazy(() => import('@/features/image/resize/ResizeImagePage')),

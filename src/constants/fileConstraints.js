@@ -10,6 +10,7 @@ export const AUDIO_MAX_SIZE = 100 * MB
 export const BASE64_MAX_SIZE = 10 * MB
 export const BATCH_MAX_FILES = 50
 export const MERGE_MAX_FILES = 10
+export const PDF_MAX_SIZE = 200 * MB
 
 /** Hard ceiling for canvas dimensions (browser limits sit around 16k–32k). */
 export const MAX_CANVAS_DIMENSION = 16384
@@ -31,6 +32,10 @@ export const SUPPORTED_SVG_TYPES = {
 export const SUPPORTED_HEIC_TYPES = {
   'image/heic': ['.heic'],
   'image/heif': ['.heif'],
+}
+
+export const SUPPORTED_PDF_TYPES = {
+  'application/pdf': ['.pdf'],
 }
 
 export const SUPPORTED_GIF_TYPES = {
@@ -93,6 +98,12 @@ export const UPLOAD_PROFILES = {
     types: SUPPORTED_SVG_TYPES,
     maxSize: 10 * MB,
     formatsLabel: 'SVG',
+  },
+  pdf: {
+    kind: 'pdf',
+    types: SUPPORTED_PDF_TYPES,
+    maxSize: PDF_MAX_SIZE,
+    formatsLabel: 'PDF',
   },
   audio: {
     kind: 'audio',

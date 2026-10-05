@@ -43,6 +43,10 @@ import {
   VolumeX,
   GalleryHorizontalEnd,
   FileVideo,
+  FilePen,
+  FileStack,
+  FileDown,
+  Images,
 } from 'lucide-react'
 
 /**
@@ -114,12 +118,21 @@ export const TOOLS = [
   { id: 'video-split', category: 'video', groups: ['edit'], path: '/video/split', icon: SplitSquareHorizontal, keywords: ['split', 'cut into parts', 'segments', 'divide', 'chunks'] },
   { id: 'video-fade', category: 'video', groups: ['edit'], path: '/video/fade', icon: Sunset, keywords: ['fade', 'fade in', 'fade out', 'transition'] },
   { id: 'video-add-audio', category: 'video', groups: ['edit'], path: '/video/add-audio', icon: AudioLines, keywords: ['add audio', 'music', 'soundtrack', 'replace audio'] },
+  // ---------------------------------------------------------------- PDF & documents
+  { id: 'pdf-editor', category: 'pdf', groups: ['edit'], path: '/pdf/edit', icon: FilePen, popular: true, keywords: ['pdf editor', 'edit pdf', 'sign pdf', 'add text to pdf', 'annotate', 'whiteout', 'fill pdf', 'link'] },
+  { id: 'images-to-pdf', category: 'pdf', groups: ['convert'], path: '/pdf/from-images', icon: FileText, keywords: ['jpg to pdf', 'png to pdf', 'image to pdf', 'photos to pdf', 'scan'] },
+  { id: 'pdf-to-images', category: 'pdf', groups: ['convert'], path: '/pdf/to-images', icon: Images, keywords: ['pdf to jpg', 'pdf to png', 'pdf to image', 'extract pages'] },
+  { id: 'pdf-merge', category: 'pdf', groups: ['edit'], path: '/pdf/merge', icon: FileStack, keywords: ['merge pdf', 'combine pdf', 'join pdf'] },
+  { id: 'pdf-split', category: 'pdf', groups: ['edit'], path: '/pdf/split', icon: Scissors, keywords: ['split pdf', 'extract pages', 'separate pdf'] },
+  { id: 'pdf-organize', category: 'pdf', groups: ['edit'], path: '/pdf/organize', icon: LayoutGrid, keywords: ['organize pdf', 'reorder pages', 'rotate pdf', 'delete pages'] },
+  { id: 'pdf-compress', category: 'pdf', groups: ['compress'], path: '/pdf/compress', icon: FileDown, keywords: ['compress pdf', 'reduce pdf size', 'shrink pdf'] },
 ]
 
 export const TOOL_CATEGORIES = [
   { id: 'image', path: '/image-tools', icon: ImageIcon },
   { id: 'video', path: '/video-tools', icon: Clapperboard },
   { id: 'ai', path: '/ai-tools', icon: Sparkles },
+  { id: 'pdf', path: '/pdf-tools', icon: FileText },
 ]
 
 export const TOOL_GROUPS = ['compress', 'convert', 'edit', 'generate']
@@ -139,7 +152,7 @@ export function getToolsByCategory(category) {
 }
 
 export function getPopularTools() {
-  const order = ['image-compress', 'image-convert', 'image-resize', 'image-crop', 'image-remove-bg', 'video-compress', 'video-trim', 'video-convert']
+  const order = ['image-compress', 'image-convert', 'image-resize', 'image-crop', 'image-remove-bg', 'video-compress', 'video-trim', 'pdf-editor']
   return order.map(getTool)
 }
 

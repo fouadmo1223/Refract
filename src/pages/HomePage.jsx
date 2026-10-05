@@ -16,7 +16,7 @@ import { Stagger, StaggerItem } from '@/components/ui/Stagger'
 
 // Stable arrays so ordering hooks don't recompute every render.
 const POPULAR_TOOLS = getPopularTools()
-const CATEGORY_TOOLS = Object.fromEntries(['ai', 'image', 'video'].map((category) => [category, getToolsByCategory(category).filter((tool) => tool.status !== 'soon').slice(0, 12)]))
+const CATEGORY_TOOLS = Object.fromEntries(['ai', 'image', 'video', 'pdf'].map((category) => [category, getToolsByCategory(category).filter((tool) => tool.status !== 'soon').slice(0, 12)]))
 
 function SectionHeader({ title, description, action }) {
   return (
@@ -120,7 +120,7 @@ export default function HomePage() {
         <SortableToolGrid listKey="home:popular" tools={POPULAR_TOOLS} inView className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" />
       </section>
 
-      {['ai', 'image', 'video'].map((category) => (
+      {['ai', 'image', 'video', 'pdf'].map((category) => (
         <section key={category} className="pb-12">
           <SectionHeader
             title={t(`categories.${category}.title`)}

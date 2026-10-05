@@ -14,6 +14,7 @@ import { RecentJobsMenu } from './RecentJobsMenu'
 const NAV_ITEMS = [
   { to: '/image-tools', key: 'nav.imageTools' },
   { to: '/video-tools', key: 'nav.videoTools' },
+  { to: '/pdf-tools', key: 'nav.pdfTools' },
   { to: '/ai-tools', key: 'nav.aiStudio' },
   { to: '/tools', key: 'nav.allTools' },
 ]

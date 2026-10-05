@@ -12,7 +12,7 @@ import { SortableToolGrid } from '@/components/media/SortableToolGrid'
 import i18n from '@/i18n'
 
 const tEn = i18n.getFixedT('en')
-const PATHS = { image: '/image-tools', video: '/video-tools', ai: '/ai-tools', all: '/tools' }
+const PATHS = { image: '/image-tools', video: '/video-tools', ai: '/ai-tools', pdf: '/pdf-tools', all: '/tools' }
 
 /** Listing for /image-tools, /video-tools and /tools with group filter + inline search. */
 export default function CategoryPage({ category }) {
@@ -34,6 +34,7 @@ export default function CategoryPage({ category }) {
         { value: 'image', label: t('categories.image.short'), count: baseTools.filter((tool) => tool.category === 'image').length },
         { value: 'video', label: t('categories.video.short'), count: baseTools.filter((tool) => tool.category === 'video').length },
         { value: 'ai', label: t('categories.ai.short'), count: baseTools.filter((tool) => tool.category === 'ai').length },
+        { value: 'pdf', label: t('categories.pdf.short'), count: baseTools.filter((tool) => tool.category === 'pdf').length },
       )
     }
     for (const id of TOOL_GROUPS.filter((groupId) => baseTools.some((tool) => tool.groups.includes(groupId)))) tabs.push({ value: id, label: t(`groups.${id}`), count: baseTools.filter((tool) => tool.groups.includes(id)).length })
@@ -42,7 +43,7 @@ export default function CategoryPage({ category }) {
 
   const visibleTools = useMemo(() => {
     let list = baseTools
-    if (['image', 'video', 'ai'].includes(group)) list = list.filter((tool) => tool.category === group)
+    if (['image', 'video', 'ai', 'pdf'].includes(group)) list = list.filter((tool) => tool.category === group)
     else if (group !== 'all') list = list.filter((tool) => tool.groups.includes(group))
     if (query.trim()) {
       const matches = searchTools(query, t, tEn)

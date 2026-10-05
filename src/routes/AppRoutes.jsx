@@ -18,6 +18,7 @@ export function AppRoutes() {
         <Route path="image-tools" element={<CategoryPage category="image" />} />
         <Route path="video-tools" element={<CategoryPage category="video" />} />
         <Route path="ai-tools" element={<CategoryPage category="ai" />} />
+        <Route path="pdf-tools" element={<CategoryPage category="pdf" />} />
         <Route path="tools" element={<CategoryPage category="all" />} />
         {TOOLS.filter((tool) => TOOL_PAGES[tool.id]).map((tool) => {
           const Page = TOOL_PAGES[tool.id]

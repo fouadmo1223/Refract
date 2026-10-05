@@ -1,4 +1,4 @@
-import { FileVideo, Music, RefreshCw, X } from 'lucide-react'
+import { FileText, FileVideo, Music, RefreshCw, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/cn'
 import { getExtension } from '@/lib/files'
@@ -11,12 +11,12 @@ export function FileCard({ file, meta, onRemove, onReplace, className, children 
   const { t } = useTranslation()
   const isImage = file.type.startsWith('image/')
   const thumbnail = useObjectUrl(isImage ? file : null)
-  const Icon = file.type.startsWith('audio/') ? Music : FileVideo
+  const Icon = file.type.startsWith('audio/') ? Music : file.type === 'application/pdf' ? FileText : FileVideo
 
   const details = [
     getExtension(file.name).toUpperCase(),
     formatBytes(file.size),
-    meta?.width ? formatDimensions(meta.width, meta.height) : null,
+    meta?.pages ? t('pdf.pageCount', { count: meta.pages }) : meta?.width ? formatDimensions(meta.width, meta.height) : null,
     meta?.duration ? formatDuration(meta.duration) : null,
   ].filter(Boolean)
 
