@@ -24,7 +24,7 @@ import { PrivacyNote } from '@/components/media/PrivacyNote'
 import { ResultStats } from '@/components/media/ResultStats'
 import { FormatSelect } from '../shared/FormatSelect'
 import { QualityControl } from '../shared/QualityControl'
-import { useBatchQueue } from './useBatchQueue'
+import { useBatchQueue } from '@/hooks/useBatchQueue'
 import { BatchQueueItem } from './BatchQueueItem'
 
 const TOOL_ID = 'image-batch'

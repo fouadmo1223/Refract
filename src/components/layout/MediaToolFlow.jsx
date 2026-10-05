@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Files } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { getAcceptString } from '@/constants/fileConstraints'
 import { validateFile } from '@/lib/files'
@@ -13,6 +14,7 @@ import { FileUploader } from '@/components/media/FileUploader'
 import { FileCard } from '@/components/media/FileCard'
 import { PrivacyNote } from '@/components/media/PrivacyNote'
 import { ProcessingState } from '@/components/media/ProcessingState'
+import { BatchWorkspace } from './BatchWorkspace'
 import { MediaStage, SettingsPanel } from './Panels'
 import { Stagger, StaggerItem } from '@/components/ui/Stagger'
 
@@ -31,6 +33,8 @@ import { Stagger, StaggerItem } from '@/components/ui/Stagger'
  * @param {(ctx) => ReactNode} props.renderResult ({ file, meta, result, reset, startOver })
  * @param {string} props.actionLabel
  * @param {boolean|((ctx) => boolean)} [props.canProcess] false disables the action (field errors present)
+ * @param {object} [props.batch] enables multi-file mode (see BatchWorkspace): dropping several
+ *   files opens a queue where each file can have its own settings.
  */
 export function MediaToolFlow({
   toolId,
@@ -48,10 +52,13 @@ export function MediaToolFlow({
   longRunning = false,
   onFileChange,
   uploaderTitle,
+  batch,
 }) {
   const { t } = useTranslation()
   const [file, setFile] = useState(null)
+  const [batchFiles, setBatchFiles] = useState(null)
   const replaceInputRef = useRef(null)
+  const addMoreInputRef = useRef(null)
   const takePendingFile = usePendingFileStore((state) => state.takePendingFile)
   const job = useProcessingJob({ toolId, successMessage })
   const meta = useMediaMeta(file, loadMeta, { key: toolId })
@@ -102,18 +109,73 @@ export function MediaToolFlow({
     job.run(({ signal, onProgress }) => onProcess({ file, meta: meta.data, signal, onProgress }), { fileName: file.name })
   }
 
+  const handleFiles = (files) => {
+    if (batch && files.length > 1) {
+      job.reset()
+      setBatchFiles(files)
+      return
+    }
+    acceptFile(files[0])
+  }
+
+  // -------------------------------------------------------------- Multi-file
+  if (batch && batchFiles) {
+    return (
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <BatchWorkspace
+          toolId={toolId}
+          profile={profile}
+          loadMeta={loadMeta}
+          initialFiles={batchFiles}
+          batch={batch}
+          actionLabel={actionLabel}
+          actionIcon={actionIcon}
+          onExit={() => {
+            setBatchFiles(null)
+            clearFile()
+          }}
+        />
+      </motion.div>
+    )
+  }
+
   // -------------------------------------------------------------- Empty
   if (!file) {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <FileUploader profile={profile} onFiles={([next]) => acceptFile(next)} title={uploaderTitle} />
+        <FileUploader profile={profile} multiple={Boolean(batch)} maxFiles={batch ? 50 : 1} onFiles={handleFiles} title={uploaderTitle} />
         <PrivacyNote className="mx-auto mt-4 max-w-md bg-transparent" />
       </motion.div>
     )
   }
 
   const hiddenReplaceInput = (
-    <input ref={replaceInputRef} type="file" className="sr-only" tabIndex={-1} aria-hidden="true" accept={getAcceptString(profile.types)} onChange={handleReplaceChange} />
+    <>
+      <input ref={replaceInputRef} type="file" className="sr-only" tabIndex={-1} aria-hidden="true" accept={getAcceptString(profile.types)} onChange={handleReplaceChange} />
+      {batch && (
+        <input
+          ref={addMoreInputRef}
+          type="file"
+          multiple
+          className="sr-only"
+          tabIndex={-1}
+          aria-hidden="true"
+          accept={getAcceptString(profile.types)}
+          onChange={(event) => {
+            const added = []
+            for (const next of [...(event.target.files ?? [])]) {
+              try {
+                added.push(validateFile(next, profile))
+              } catch (error) {
+                notify.error(error)
+              }
+            }
+            event.target.value = ''
+            if (added.length) setBatchFiles([file, ...added])
+          }}
+        />
+      )}
+    </>
   )
 
   // -------------------------------------------------------------- Result
@@ -167,17 +229,24 @@ export function MediaToolFlow({
       <StaggerItem className="lg:sticky lg:top-20">
       <SettingsPanel
         footer={
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            leftIcon={actionIcon}
-            onClick={handleProcessStart}
-            loading={isBusy}
-            disabled={!metaReady || !isAllowed || meta.isError}
-          >
-            {actionLabel}
-          </Button>
+          <>
+            <Button
+              variant="primary"
+              size="lg"
+              fullWidth
+              leftIcon={actionIcon}
+              onClick={handleProcessStart}
+              loading={isBusy}
+              disabled={!metaReady || !isAllowed || meta.isError}
+            >
+              {actionLabel}
+            </Button>
+            {batch && !isBusy && (
+              <Button variant="ghost" size="sm" fullWidth leftIcon={Files} onClick={() => addMoreInputRef.current?.click()}>
+                {t('multi.addMoreFiles')}
+              </Button>
+            )}
+          </>
         }
       >
         <FileCard file={file} meta={meta.data} onReplace={isBusy ? undefined : () => replaceInputRef.current?.click()} onRemove={isBusy ? undefined : clearFile} />

@@ -10,8 +10,16 @@ function reducer(items, action) {
       return [...items, ...action.files.map((file) => ({ id: createFileId(file), file, status: 'idle', progress: 0, result: null, error: null, job: null }))]
     case 'patch':
       return items.map((item) => (item.id === action.id ? { ...item, ...action.patch } : item))
+    case 'reset':
+      // Back to idle so finished files can be processed again with new settings.
+      return items.map((item) => (item.status === 'processing' || item.status === 'waiting' ? item : { ...item, status: 'idle', progress: 0, result: null, error: null }))
     case 'queue':
-      return items.map((item) => (action.statuses.includes(item.status) && (!action.ids || action.ids.includes(item.id)) ? { ...item, status: 'waiting', progress: 0, error: null, job: action.job } : item))
+      // `job` may be a function of the item, so every file can carry its own settings.
+      return items.map((item) =>
+        action.statuses.includes(item.status) && (!action.ids || action.ids.includes(item.id))
+          ? { ...item, status: 'waiting', progress: 0, error: null, job: typeof action.job === 'function' ? action.job(item) : action.job }
+          : item,
+      )
     case 'remove':
       return items.filter((item) => item.id !== action.id)
     case 'clear':
@@ -80,6 +88,7 @@ export function useBatchQueue(processItem) {
     retryItem: useCallback((id, job) => dispatch({ type: 'queue', statuses: ['failed', 'canceled'], ids: [id], job }), []),
     retryFailed: useCallback((job) => dispatch({ type: 'queue', statuses: ['failed'], job }), []),
     cancelItem,
+    resetAll: useCallback(() => dispatch({ type: 'reset' }), []),
     removeItem: useCallback((id) => {
       controllers.current.get(id)?.abort()
       dispatch({ type: 'remove', id })

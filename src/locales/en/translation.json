@@ -1943,7 +1943,8 @@
     "targetHint": "We'll find the best quality that fits. Original: {{size}}.",
     "targetUnsupported": "Target size works with JPG, WebP and AVIF — pick one of those output formats.",
     "targetHit": "Best quality that fits the target: {{quality}}%.",
-    "targetMissed": "The target couldn't be reached — this is the smallest file (quality {{quality}}%). Try scaling the image down too."
+    "targetMissed": "The target couldn't be reached — this is the smallest file (quality {{quality}}%). Try scaling the image down too.",
+    "targetHintShared": "We'll find the best quality that fits for each file."
   },
   "convertVideo": {
     "encoding": "Encoding",
@@ -1965,5 +1966,26 @@
     "outputWidth": "Output width",
     "asCropped": "Same as the crop",
     "outputHint": "Scale the cropped area, e.g. to 1080 px wide for Reels and Shorts."
+  },
+  "multi": {
+    "custom": "Custom",
+    "customizedHint": "This file has its own settings",
+    "customize": "Settings for this file",
+    "filesCount_one": "{{count}} file",
+    "filesCount_other": "{{count}} files",
+    "customizedCount_one": "{{count}} customized",
+    "customizedCount_other": "{{count}} customized",
+    "addFiles": "Add files",
+    "addMoreFiles": "Add more files",
+    "done": "Done",
+    "processAll_one": "{{action}} · {{count}} file",
+    "processAll_other": "{{action}} · {{count}} files",
+    "processAgain": "Process all again",
+    "settingsFor": "This file",
+    "sharedSettings": "All files",
+    "sharedHint": "Used for every file unless you customize it. Click a file to give it its own settings.",
+    "allFiles": "All files",
+    "useShared": "Use shared",
+    "usingShared": "Using shared settings — change anything to customize"
   }
 }

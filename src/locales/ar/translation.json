@@ -1983,7 +1983,8 @@
     "targetHint": "سنجد أفضل جودة تناسب هذا الحجم. الأصلي: {{size}}.",
     "targetUnsupported": "الحجم المستهدف يعمل مع JPG وWebP وAVIF — اختر أحد هذه الصيغ.",
     "targetHit": "أفضل جودة تناسب الحجم المستهدف: {{quality}}%.",
-    "targetMissed": "تعذر الوصول إلى الحجم المستهدف — هذا أصغر ملف ممكن (جودة {{quality}}%). جرّب تصغير أبعاد الصورة أيضًا."
+    "targetMissed": "تعذر الوصول إلى الحجم المستهدف — هذا أصغر ملف ممكن (جودة {{quality}}%). جرّب تصغير أبعاد الصورة أيضًا.",
+    "targetHintShared": "سنجد أفضل جودة مناسبة لكل ملف."
   },
   "convertVideo": {
     "encoding": "الترميز",
@@ -2005,5 +2006,38 @@
     "outputWidth": "عرض الإخراج",
     "asCropped": "مثل منطقة القص",
     "outputHint": "غيّر حجم المنطقة المقصوصة، مثلًا إلى عرض 1080 بكسل لـ Reels وShorts."
+  },
+  "multi": {
+    "custom": "مخصص",
+    "customizedHint": "لهذا الملف إعداداته الخاصة",
+    "customize": "إعدادات هذا الملف",
+    "filesCount_zero": "{{count}} ملف",
+    "filesCount_one": "ملف واحد",
+    "filesCount_two": "ملفان",
+    "filesCount_few": "{{count}} ملفات",
+    "filesCount_many": "{{count}} ملفًا",
+    "filesCount_other": "{{count}} ملف",
+    "customizedCount_zero": "{{count}} مخصص",
+    "customizedCount_one": "{{count}} مخصص",
+    "customizedCount_two": "{{count}} مخصصان",
+    "customizedCount_few": "{{count}} مخصصة",
+    "customizedCount_many": "{{count}} مخصصًا",
+    "customizedCount_other": "{{count}} مخصص",
+    "addFiles": "إضافة ملفات",
+    "addMoreFiles": "إضافة ملفات أخرى",
+    "done": "تم",
+    "processAll_zero": "{{action}} · {{count}} ملف",
+    "processAll_one": "{{action}} · ملف واحد",
+    "processAll_two": "{{action}} · ملفان",
+    "processAll_few": "{{action}} · {{count}} ملفات",
+    "processAll_many": "{{action}} · {{count}} ملفًا",
+    "processAll_other": "{{action}} · {{count}} ملف",
+    "processAgain": "معالجة الكل مرة أخرى",
+    "settingsFor": "هذا الملف",
+    "sharedSettings": "كل الملفات",
+    "sharedHint": "تُستخدم لكل ملف ما لم تخصصه. انقر على ملف لتمنحه إعداداته الخاصة.",
+    "allFiles": "كل الملفات",
+    "useShared": "استخدام المشترك",
+    "usingShared": "يستخدم الإعدادات المشتركة — غيّر أي شيء لتخصيصه"
   }
 }
