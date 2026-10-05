@@ -1,5 +1,6 @@
 import { RectangleVertical } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { formatDimensions } from '@/lib/format'
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 import { even } from '@/services/video/encodingArgs'
@@ -43,6 +44,50 @@ export default function FitVideoPage() {
   const settings = { ...DEFAULTS, ...stored }
   const size = FIT_SIZES[settings.aspect]
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => {
+    const size = FIT_SIZES[settings.aspect]
+    return (
+      <>
+        <SettingsSection title={t('fit.canvas')}>
+          <SegmentedControl label={t('crop.aspectRatio')} value={settings.aspect} onChange={(aspect) => updateSettings({ aspect })} options={Object.keys(FIT_SIZES).map((value) => ({ value, label: value }))} />
+          <SegmentedControl
+            label={t('fit.resolution')}
+            value={settings.resolution}
+            onChange={(resolution) => updateSettings({ resolution })}
+            options={[
+              { value: 'hd', label: formatDimensions(size.width, size.height) },
+              { value: 'sd', label: formatDimensions(even((size.width * 2) / 3), even((size.height * 2) / 3)) },
+            ]}
+          />
+        </SettingsSection>
+        <SettingsSection title={t('removeBg.background')}>
+          <SegmentedControl
+            value={settings.background}
+            onChange={(background) => updateSettings({ background })}
+            options={[
+              { value: 'blur', label: t('fit.blurred') },
+              { value: 'color', label: t('removeBg.modes.color') },
+            ]}
+          />
+          {settings.background === 'color' && <ColorInput label={t('settings.backgroundColor')} value={settings.color} onChange={(color) => updateSettings({ color })} />}
+          {settings.background === 'blur' && <Slider label={t('removeBg.blurAmount')} value={settings.blur} min={0} max={100} onChange={(blur) => updateSettings({ blur })} />}
+        </SettingsSection>
+        <SettingsSection title={t('fit.video')}>
+          <Slider label={t('fit.size')} value={settings.scale} min={50} max={100} step={5} onChange={(scale) => updateSettings({ scale })} formatValue={(value) => `${value}%`} />
+          <SegmentedControl
+            label={t('fit.position')}
+            value={settings.position}
+            onChange={(position) => updateSettings({ position })}
+            options={['top', 'center', 'bottom'].map((value) => ({ value, label: t(`fit.positions.${value}`) }))}
+          />
+          <p className="text-xs text-muted">{t('fit.hint')}</p>
+        </SettingsSection>
+      </>
+    )
+  }
+  const runJob = ({ settings, file, meta, signal, onProgress }) => fitVideoToAspect(file, settings, meta, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <VideoToolFlow
@@ -52,45 +97,15 @@ export default function FitVideoPage() {
         processingTitle={t('processing.applyingEffect')}
         successMessage="toasts.effectApplied"
         renderPreview={({ file, meta }) => <FitPreview file={file} meta={meta} settings={settings} />}
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('fit.canvas')}>
-              <SegmentedControl label={t('crop.aspectRatio')} value={settings.aspect} onChange={(aspect) => updateSettings({ aspect })} options={Object.keys(FIT_SIZES).map((value) => ({ value, label: value }))} />
-              <SegmentedControl
-                label={t('fit.resolution')}
-                value={settings.resolution}
-                onChange={(resolution) => updateSettings({ resolution })}
-                options={[
-                  { value: 'hd', label: formatDimensions(size.width, size.height) },
-                  { value: 'sd', label: formatDimensions(even((size.width * 2) / 3), even((size.height * 2) / 3)) },
-                ]}
-              />
-            </SettingsSection>
-            <SettingsSection title={t('removeBg.background')}>
-              <SegmentedControl
-                value={settings.background}
-                onChange={(background) => updateSettings({ background })}
-                options={[
-                  { value: 'blur', label: t('fit.blurred') },
-                  { value: 'color', label: t('removeBg.modes.color') },
-                ]}
-              />
-              {settings.background === 'color' && <ColorInput label={t('settings.backgroundColor')} value={settings.color} onChange={(color) => updateSettings({ color })} />}
-              {settings.background === 'blur' && <Slider label={t('removeBg.blurAmount')} value={settings.blur} min={0} max={100} onChange={(blur) => updateSettings({ blur })} />}
-            </SettingsSection>
-            <SettingsSection title={t('fit.video')}>
-              <Slider label={t('fit.size')} value={settings.scale} min={50} max={100} step={5} onChange={(scale) => updateSettings({ scale })} formatValue={(value) => `${value}%`} />
-              <SegmentedControl
-                label={t('fit.position')}
-                value={settings.position}
-                onChange={(position) => updateSettings({ position })}
-                options={['top', 'center', 'bottom'].map((value) => ({ value, label: t(`fit.positions.${value}`) }))}
-              />
-              <p className="text-xs text-muted">{t('fit.hint')}</p>
-            </SettingsSection>
-          </>
-        )}
-        onProcess={({ file, meta, signal, onProgress }) => fitVideoToAspect(file, settings, meta, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'fit', result?.format),
+        }}
         renderResult={(context) => <VideoResult {...context} title={t('result.effectComplete')} suffix={settings.aspect.replace(':', 'x')} showSizeChange={false} />}
       />
     </ToolLayout>

@@ -2,9 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { getExtension } from '@/lib/files'
 import { formatBytes, formatDimensions, formatDuration } from '@/lib/format'
 
-/** Compact source summary: size · resolution · duration · format. */
+/** Compact source summary: size · resolution · duration · format. Hidden for multi-file shared settings. */
 export function VideoInfo({ file, meta }) {
   const { t } = useTranslation()
+  if (!file) return null
   const rows = [
     { label: t('result.fileSize'), value: formatBytes(file.size) },
     { label: t('result.resolution'), value: meta?.width ? formatDimensions(meta.width, meta.height) : '—' },

@@ -1,5 +1,6 @@
 import { Lock, LockOpen, Scaling } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { z } from 'zod'
 import { VIDEO_RESOLUTIONS } from '@/constants/presets'
 import { formatDimensions } from '@/lib/format'
@@ -26,7 +27,7 @@ const schema = z.object({ width: dimensionSchema('width'), height: dimensionSche
 
 /** Target size from a preset height (keeps aspect) or custom width/height. */
 function resolveSize(settings, meta) {
-  if (!meta?.width) return { width: NaN, height: NaN }
+  if (!meta?.width) return settings.resolution === 'custom' ? { width: settings.width ?? 1280, height: settings.height ?? 720 } : { width: NaN, height: NaN }
   if (settings.resolution !== 'custom') {
     const preset = VIDEO_RESOLUTIONS.find((item) => item.id === settings.resolution)
     const height = preset?.height ?? meta.height
@@ -39,7 +40,8 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
   const { t } = useTranslation()
   const size = resolveSize(settings, meta)
   const { errors } = useValidation(schema, size)
-  const ratio = meta.width / meta.height
+  // Multi-file shared settings have no single source size: presets scale each video by its own aspect.
+  const ratio = meta?.width ? meta.width / meta.height : 16 / 9
 
   const setDimension = (key, value) => {
     const next = { resolution: 'custom', width: size.width, height: size.height, [key]: value }
@@ -59,10 +61,11 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
           value={settings.resolution}
           onChange={(resolution) => updateSettings({ resolution })}
           options={[
-            ...VIDEO_RESOLUTIONS.filter((item) => item.height).map((item) => ({ value: item.id, label: item.label, meta: meta.width ? formatDimensions(even((meta.width * item.height) / meta.height), item.height) : undefined })),
+            ...VIDEO_RESOLUTIONS.filter((item) => item.height).map((item) => ({ value: item.id, label: item.label, meta: meta?.width ? formatDimensions(even((meta.width * item.height) / meta.height), item.height) : undefined })),
             { value: 'custom', label: t('presets.resize.custom') },
           ]}
         />
+        {(meta?.width || settings.resolution === 'custom') && (
         <div className="flex items-start gap-2">
           <NumberInput label={t('settings.width')} value={size.width} min={2} onChange={(value) => setDimension('width', value)} suffix="px" stepper={false} error={errors.width} className="flex-1" />
           <IconButton
@@ -75,6 +78,7 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
           />
           <NumberInput label={t('settings.height')} value={size.height} min={2} onChange={(value) => setDimension('height', value)} suffix="px" stepper={false} error={errors.height} className="flex-1" />
         </div>
+        )}
         <p className="text-xs text-muted">{t('video.evenDimensionsHint')}</p>
         {Math.abs(size.width / size.height - ratio) > 0.01 && (
           <>
@@ -87,7 +91,7 @@ function ResizeVideoSettings({ file, meta, settings, updateSettings }) {
             {settings.fit === 'pad' && <ColorInput label={t('merge.barColor')} value={settings.padColor} onChange={(padColor) => updateSettings({ padColor })} />}
           </>
         )}
-        {size.height > meta.height && <p className="text-xs text-warning">{t('video.upscaleWarning')}</p>}
+        {meta?.height && size.height > meta.height && <p className="text-xs text-warning">{t('video.upscaleWarning')}</p>}
       </SettingsSection>
     </>
   )
@@ -97,6 +101,10 @@ export default function ResizeVideoPage() {
   const { t } = useTranslation()
   const [stored, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
   const settings = { ...DEFAULTS, ...stored }
+
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings, file, meta }) => <ResizeVideoSettings file={file} meta={meta} settings={settings} updateSettings={updateSettings} />
+  const runJob = ({ settings, file, meta, signal, onProgress }) => resizeVideo(file, { ...resolveSize(settings, meta), fit: settings.fit, padColor: settings.padColor }, meta, { signal, onProgress })
 
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -109,8 +117,15 @@ export default function ResizeVideoPage() {
         successMessage="toasts.videoResized"
         canProcess={({ meta }) => schema.safeParse(resolveSize(settings, meta)).success}
         renderPreview={({ file, meta }) => <VideoPreview file={file} meta={meta} />}
-        renderSettings={({ file, meta }) => <ResizeVideoSettings file={file} meta={meta} settings={settings} updateSettings={updateSettings} />}
-        onProcess={({ file, meta, signal, onProgress }) => resizeVideo(file, { ...resolveSize(settings, meta), fit: settings.fit, padColor: settings.padColor }, meta, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'resized', result?.format),
+        }}
         renderResult={(context) => <VideoResult {...context} title={t('result.resizeComplete')} suffix="resized" />}
       />
     </ToolLayout>

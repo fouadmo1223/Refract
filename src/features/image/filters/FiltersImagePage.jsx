@@ -3,6 +3,7 @@ import { Palette, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/cn'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
+import { resultFileName } from '@/lib/files'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { resampleCanvas, toCanvas } from '@/services/image/canvas'
 import { applyFilterPreset } from '@/services/image/compositionEffects'
@@ -82,6 +83,45 @@ export default function FiltersImagePage() {
   const [file, setFile] = useState(null)
   const { bitmap } = usePreviewBitmap(file, 1200)
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => {
+    const setTune = (key, value) => updateSettings({ tune: { ...settings.tune, [key]: value } })
+    return (
+      <>
+        <SettingsSection title={t('filters.look')}>
+          <FilterGrid bitmap={bitmap} value={settings.preset} onChange={(preset) => updateSettings({ preset })} />
+          <Slider label={t('effects.intensity')} value={settings.intensity} min={0} max={100} onChange={(intensity) => updateSettings({ intensity })} formatValue={(value) => `${value}%`} />
+        </SettingsSection>
+        <SettingsSection
+          title={t('filters.fineTune')}
+          description={t('filters.fineTuneHint')}
+          action={
+            hasTune(settings.tune) && (
+              <Button variant="ghost" size="xs" leftIcon={RotateCcw} onClick={() => updateSettings({ tune: {} })}>
+                {t('common.reset')}
+              </Button>
+            )
+          }
+        >
+          {TUNE_KEYS.map(({ key, min, max }) => (
+            <Slider
+              key={key}
+              label={key === 'vignette' ? t('filters.vignette') : t(`editor.adjustments.${key}`)}
+              value={settings.tune[key] ?? 0}
+              min={min}
+              max={max}
+              origin={min < 0 ? 0 : undefined}
+              onChange={(value) => setTune(key, value)}
+              onDoubleClick={() => setTune(key, 0)}
+              formatValue={(value) => (min < 0 && value > 0 ? `+${value}` : String(value))}
+            />
+          ))}
+        </SettingsSection>
+      </>
+    )
+  }
+  const runJob = ({ settings, file: source, signal, onProgress }) => runImageJob('filter', source, { ...settings, format: 'original', quality: 92 }, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <MediaToolFlow
@@ -105,40 +145,15 @@ export default function FiltersImagePage() {
             </MediaStage>
           )
         }
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('filters.look')}>
-              <FilterGrid bitmap={bitmap} value={settings.preset} onChange={(preset) => updateSettings({ preset })} />
-              <Slider label={t('effects.intensity')} value={settings.intensity} min={0} max={100} onChange={(intensity) => updateSettings({ intensity })} formatValue={(value) => `${value}%`} />
-            </SettingsSection>
-            <SettingsSection
-              title={t('filters.fineTune')}
-              description={t('filters.fineTuneHint')}
-              action={
-                hasTune(settings.tune) && (
-                  <Button variant="ghost" size="xs" leftIcon={RotateCcw} onClick={() => updateSettings({ tune: {} })}>
-                    {t('common.reset')}
-                  </Button>
-                )
-              }
-            >
-              {TUNE_KEYS.map(({ key, min, max }) => (
-                <Slider
-                  key={key}
-                  label={key === 'vignette' ? t('filters.vignette') : t(`editor.adjustments.${key}`)}
-                  value={settings.tune[key] ?? 0}
-                  min={min}
-                  max={max}
-                  origin={min < 0 ? 0 : undefined}
-                  onChange={(value) => setTune(key, value)}
-                  onDoubleClick={() => setTune(key, 0)}
-                  formatValue={(value) => (min < 0 && value > 0 ? `+${value}` : String(value))}
-                />
-              ))}
-            </SettingsSection>
-          </>
-        )}
-        onProcess={({ file: source, signal, onProgress }) => runImageJob('filter', source, { ...settings, format: 'original', quality: 92 }, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result, fileSettings) => resultFileName(file.name, fileSettings.preset === 'none' ? 'edited' : fileSettings.preset, result?.format),
+        }}
         renderResult={(context) => <ImageResult {...context} title={t('result.effectComplete')} suffix={settings.preset === 'none' ? 'edited' : settings.preset} />}
       />
     </ToolLayout>

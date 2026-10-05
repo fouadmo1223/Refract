@@ -62,3 +62,10 @@ export function getFileKind(file) {
 export function createFileId(file) {
   return `${file.name}-${file.size}-${file.lastModified ?? 0}-${Math.random().toString(36).slice(2, 8)}`
 }
+
+const FORMAT_EXTENSIONS = { jpeg: 'jpg' }
+
+/** Output name for a processed file: ("clip.mov", "compressed", "mp4") → "clip-compressed.mp4". */
+export function resultFileName(fileName, suffix, format) {
+  return buildOutputName(fileName, suffix, format ? (FORMAT_EXTENSIONS[format] ?? format) : undefined)
+}

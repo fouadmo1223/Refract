@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Sparkles, Sunrise, Sunset } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { cn } from '@/lib/cn'
 import { formatDuration } from '@/lib/format'
 import { useObjectUrl } from '@/hooks/useObjectUrl'
@@ -150,6 +151,61 @@ export default function FadeVideoPage() {
   const settings = { ...DEFAULT_FADE, ...stored }
   const isValid = (meta) => Boolean(meta?.duration) && settings.fadeIn + settings.fadeOut > 0 && settings.fadeIn + settings.fadeOut <= meta.duration
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings, file, meta }) => {
+    const isValid = (meta) => Boolean(meta?.duration) && settings.fadeIn + settings.fadeOut > 0 && settings.fadeIn + settings.fadeOut <= meta.duration
+  const duration = meta?.duration ?? 10
+  return (
+    <>
+      <VideoInfo file={file} meta={meta} />
+      <SettingsSection title={t('fade.presets')}>
+        <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-2">
+          {Object.entries(PRESETS).map(([id, preset]) => {
+            const active = isPresetActive(settings, preset)
+            return (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => updateSettings({ ...preset, fadeIn: Math.min(preset.fadeIn, duration / 2), fadeOut: Math.min(preset.fadeOut, duration / 2) })}
+                className={cn(
+                  'flex flex-col items-start gap-0.5 rounded-md border px-2.5 py-2 text-start outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring',
+                  active ? 'border-primary bg-primary-soft' : 'border-border bg-surface-2/40 hover:border-border-strong',
+                )}
+              >
+                <span className="inline-flex items-center gap-1 text-[13px] font-medium text-text">
+                  {active && <Sparkles size={12} className="text-primary" aria-hidden="true" />}
+                  {t(`fade.presetNames.${id}`)}
+                </span>
+                <span className="text-2xs text-muted">{t(`fade.presetHints.${id}`)}</span>
+              </button>
+            )
+          })}
+        </div>
+      </SettingsSection>
+      <FadeSide side="in" settings={settings} updateSettings={updateSettings} maxLength={duration - settings.fadeOut} />
+      <FadeSide side="out" settings={settings} updateSettings={updateSettings} maxLength={duration - settings.fadeIn} />
+      <SettingsSection title={t('fade.audioTitle')}>
+        <Switch label={t('fade.audio')} checked={settings.fadeAudio} onChange={(fadeAudio) => updateSettings({ fadeAudio })} />
+        {settings.fadeAudio && (
+          <>
+          <SegmentedControl
+            label={t('fade.audioCurve')}
+            wrap
+            value={settings.audioCurve}
+            onChange={(audioCurve) => updateSettings({ audioCurve })}
+            options={Object.keys(AUDIO_CURVES).map((value) => ({ value, label: t(`fade.curves.${value}`) }))}
+          />
+          <p className="-mt-1 text-xs text-muted">{t(`fade.curveHints.${settings.audioCurve}`)}</p>
+          </>
+        )}
+      </SettingsSection>
+      {!isValid(meta) && <p className="text-xs font-medium text-danger">{t(settings.fadeIn + settings.fadeOut === 0 ? 'validation.fadeRequired' : 'validation.fadeTooLong')}</p>}
+    </>
+  )
+  }
+  const runJob = ({ settings, file, meta, signal, onProgress }) => fadeVideo(file, settings, meta, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <VideoToolFlow
@@ -160,58 +216,15 @@ export default function FadeVideoPage() {
         successMessage="toasts.effectApplied"
         canProcess={({ meta }) => isValid(meta)}
         renderPreview={({ file, meta }) => <FadePreview file={file} meta={meta} settings={settings} />}
-        renderSettings={({ file, meta }) => {
-          const duration = meta?.duration ?? 10
-          return (
-            <>
-              <VideoInfo file={file} meta={meta} />
-              <SettingsSection title={t('fade.presets')}>
-                <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-2">
-                  {Object.entries(PRESETS).map(([id, preset]) => {
-                    const active = isPresetActive(settings, preset)
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() => updateSettings({ ...preset, fadeIn: Math.min(preset.fadeIn, duration / 2), fadeOut: Math.min(preset.fadeOut, duration / 2) })}
-                        className={cn(
-                          'flex flex-col items-start gap-0.5 rounded-md border px-2.5 py-2 text-start outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring',
-                          active ? 'border-primary bg-primary-soft' : 'border-border bg-surface-2/40 hover:border-border-strong',
-                        )}
-                      >
-                        <span className="inline-flex items-center gap-1 text-[13px] font-medium text-text">
-                          {active && <Sparkles size={12} className="text-primary" aria-hidden="true" />}
-                          {t(`fade.presetNames.${id}`)}
-                        </span>
-                        <span className="text-2xs text-muted">{t(`fade.presetHints.${id}`)}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              </SettingsSection>
-              <FadeSide side="in" settings={settings} updateSettings={updateSettings} maxLength={duration - settings.fadeOut} />
-              <FadeSide side="out" settings={settings} updateSettings={updateSettings} maxLength={duration - settings.fadeIn} />
-              <SettingsSection title={t('fade.audioTitle')}>
-                <Switch label={t('fade.audio')} checked={settings.fadeAudio} onChange={(fadeAudio) => updateSettings({ fadeAudio })} />
-                {settings.fadeAudio && (
-                  <>
-                  <SegmentedControl
-                    label={t('fade.audioCurve')}
-                    wrap
-                    value={settings.audioCurve}
-                    onChange={(audioCurve) => updateSettings({ audioCurve })}
-                    options={Object.keys(AUDIO_CURVES).map((value) => ({ value, label: t(`fade.curves.${value}`) }))}
-                  />
-                  <p className="-mt-1 text-xs text-muted">{t(`fade.curveHints.${settings.audioCurve}`)}</p>
-                  </>
-                )}
-              </SettingsSection>
-              {!isValid(meta) && <p className="text-xs font-medium text-danger">{t(settings.fadeIn + settings.fadeOut === 0 ? 'validation.fadeRequired' : 'validation.fadeTooLong')}</p>}
-            </>
-          )
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'fade', result?.format),
         }}
-        onProcess={({ file, meta, signal, onProgress }) => fadeVideo(file, settings, meta, { signal, onProgress })}
         renderResult={(context) => <VideoResult {...context} title={t('result.effectComplete')} suffix="fade" showSizeChange={false} />}
       />
     </ToolLayout>

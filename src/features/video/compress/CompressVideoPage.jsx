@@ -1,5 +1,6 @@
 import { Minimize2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { z } from 'zod'
 import { VIDEO_COMPRESSION_PRESETS, VIDEO_RESOLUTIONS } from '@/constants/presets'
 import { formatBytes, formatPercent } from '@/lib/format'
@@ -35,7 +36,7 @@ const schema = z
 function CompressVideoSettings({ file, meta, settings, updateSettings, errors }) {
   const { t } = useTranslation()
   const estimate = estimateCompressedSize(meta, settings)
-  const reduction = estimate ? 1 - estimate / file.size : null
+  const reduction = estimate && file ? 1 - estimate / file.size : null
 
   return (
     <>
@@ -108,6 +109,10 @@ export default function CompressVideoPage() {
   const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
   const { errors, isValid } = useValidation(schema, settings)
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings, file, meta }) => <CompressVideoSettings file={file} meta={meta} settings={settings} updateSettings={updateSettings} errors={errors} />
+  const runJob = ({ settings, file, meta, signal, onProgress }) => compressVideo(file, settings, meta, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <VideoToolFlow
@@ -118,8 +123,15 @@ export default function CompressVideoPage() {
         successMessage="toasts.videoCompressed"
         canProcess={isValid}
         renderPreview={({ file, meta }) => <VideoPreview file={file} meta={meta} />}
-        renderSettings={({ file, meta }) => <CompressVideoSettings file={file} meta={meta} settings={settings} updateSettings={updateSettings} errors={errors} />}
-        onProcess={({ file, meta, signal, onProgress }) => compressVideo(file, settings, meta, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'compressed', result?.format),
+        }}
         renderResult={(context) => <VideoResult {...context} title={t('result.compressionComplete')} suffix="compressed" />}
       />
     </ToolLayout>

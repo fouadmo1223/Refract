@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Frame } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
+import { resultFileName } from '@/lib/files'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { toCanvas } from '@/services/image/canvas'
 import { DEFAULT_BORDER, addBorder } from '@/services/image/compositionEffects'
@@ -29,6 +30,38 @@ export default function BorderImagePage() {
   const { bitmap } = usePreviewBitmap(file, 1200)
   const needsAlpha = settings.transparentBackground || settings.radius > 0
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => {
+    const needsAlpha = settings.transparentBackground || settings.radius > 0
+    return (
+      <>
+        <SettingsSection title={t('border.frame')}>
+          <Slider label={t('border.padding')} value={settings.padding} min={0} max={30} onChange={(padding) => updateSettings({ padding })} formatValue={(value) => `${value}%`} />
+          <Slider label={t('border.radius')} value={settings.radius} min={0} max={25} onChange={(radius) => updateSettings({ radius })} formatValue={(value) => `${value}%`} />
+          <Switch label={t('border.shadow')} checked={settings.shadow} onChange={(shadow) => updateSettings({ shadow })} />
+          <Switch label={t('border.transparent')} checked={settings.transparentBackground} onChange={(transparentBackground) => updateSettings({ transparentBackground })} />
+          {!settings.transparentBackground && <ColorInput label={t('settings.backgroundColor')} value={settings.color} onChange={(color) => updateSettings({ color })} />}
+        </SettingsSection>
+        <SettingsSection title={t('settings.output')}>
+          <SegmentedControl
+            value={settings.format}
+            onChange={(format) => updateSettings({ format })}
+            options={[
+              { value: 'png', label: 'PNG' },
+              { value: 'webp', label: 'WebP' },
+              { value: 'jpeg', label: 'JPG', disabled: needsAlpha },
+            ]}
+          />
+          {needsAlpha && <p className="-mt-1 text-xs text-muted">{t('border.alphaHint')}</p>}
+        </SettingsSection>
+      </>
+    )
+  }
+  const runJob = ({ settings, file: source, signal, onProgress }) => {
+    const needsAlpha = settings.transparentBackground || settings.radius > 0
+    return runImageJob('border', source, { ...settings, format: needsAlpha && settings.format === 'jpeg' ? 'png' : settings.format, quality: 92 }, { signal, onProgress })
+  }
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <MediaToolFlow
@@ -51,32 +84,15 @@ export default function BorderImagePage() {
             </MediaStage>
           )
         }
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('border.frame')}>
-              <Slider label={t('border.padding')} value={settings.padding} min={0} max={30} onChange={(padding) => updateSettings({ padding })} formatValue={(value) => `${value}%`} />
-              <Slider label={t('border.radius')} value={settings.radius} min={0} max={25} onChange={(radius) => updateSettings({ radius })} formatValue={(value) => `${value}%`} />
-              <Switch label={t('border.shadow')} checked={settings.shadow} onChange={(shadow) => updateSettings({ shadow })} />
-              <Switch label={t('border.transparent')} checked={settings.transparentBackground} onChange={(transparentBackground) => updateSettings({ transparentBackground })} />
-              {!settings.transparentBackground && <ColorInput label={t('settings.backgroundColor')} value={settings.color} onChange={(color) => updateSettings({ color })} />}
-            </SettingsSection>
-            <SettingsSection title={t('settings.output')}>
-              <SegmentedControl
-                value={settings.format}
-                onChange={(format) => updateSettings({ format })}
-                options={[
-                  { value: 'png', label: 'PNG' },
-                  { value: 'webp', label: 'WebP' },
-                  { value: 'jpeg', label: 'JPG', disabled: needsAlpha },
-                ]}
-              />
-              {needsAlpha && <p className="-mt-1 text-xs text-muted">{t('border.alphaHint')}</p>}
-            </SettingsSection>
-          </>
-        )}
-        onProcess={({ file: source, signal, onProgress }) =>
-          runImageJob('border', source, { ...settings, format: needsAlpha && settings.format === 'jpeg' ? 'png' : settings.format, quality: 92 }, { signal, onProgress })
-        }
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'framed', result?.format),
+        }}
         renderResult={(context) => <ImageResult {...context} title={t('result.effectComplete')} suffix="framed" compare={false} />}
       />
     </ToolLayout>

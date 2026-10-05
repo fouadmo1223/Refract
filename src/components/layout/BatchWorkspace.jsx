@@ -16,6 +16,7 @@ import { useRecentJobsStore } from '@/store/recentJobsStore'
 import { Button } from '@/components/ui/Button'
 import { IconButton } from '@/components/ui/IconButton'
 import { ProgressBar } from '@/components/ui/Progress'
+import { LoadingState } from '@/components/feedback/States'
 import { PrivacyNote } from '@/components/media/PrivacyNote'
 import { ResultStats } from '@/components/media/ResultStats'
 import { SettingsPanel, SettingsSection } from './Panels'
@@ -102,6 +103,7 @@ const BatchRow = memo(function BatchRow({ item, selected, customized, kind, onSe
 /** Settings for one file; loads that file's metadata so tool controls (format hints, sizes) stay accurate. */
 function ItemSettings({ item, loadMeta, toolId, render, settings, onChange }) {
   const meta = useMediaMeta(item.file, loadMeta, { key: `${toolId}-batch` })
+  if (loadMeta && !meta.data) return meta.isError ? null : <LoadingState />
   return render({ file: item.file, meta: meta.data, settings, updateSettings: onChange })
 }
 
@@ -116,7 +118,8 @@ function ItemSettings({ item, loadMeta, toolId, render, settings, onChange }) {
 export function BatchWorkspace({ toolId, profile, loadMeta, initialFiles, batch, actionLabel, actionIcon: ActionIcon = Play, onExit, maxFiles = 50 }) {
   const { t } = useTranslation()
   const addJob = useRecentJobsStore((state) => state.addJob)
-  const queue = useBatchQueue((file, job, context) => batch.process({ file, settings: job, ...context }))
+  // Tools may need the file's metadata (duration, size…) to process it.
+  const queue = useBatchQueue(async (file, job, context) => batch.process({ file, settings: job, meta: loadMeta ? await loadMeta(file).catch(() => null) : null, ...context }))
   const [overrides, setOverrides] = useState({})
   const [selectedId, setSelectedId] = useState(null)
   const [isZipping, setIsZipping] = useState(false)

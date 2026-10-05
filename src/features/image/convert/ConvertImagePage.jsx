@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { CONVERTIBLE_FORMATS, getImageFormat } from '@/constants/imageFormats'
+import { resultFileName } from '@/lib/files'
 import { useValidation } from '@/hooks/useValidation'
 import { convertImage } from '@/services/image/imageConversionService'
 import { readImageInfo } from '@/services/image/imageInfoService'
@@ -30,6 +31,45 @@ export default function ConvertImagePage() {
   const { errors, isValid } = useValidation(schema, settings)
   const target = getImageFormat(settings.format)
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings, meta }) => {
+    const target = getImageFormat(settings.format)
+    return (
+      <>
+      <SettingsSection title={t('settings.conversion')}>
+        <div className="flex items-center gap-2 rounded-md bg-surface-2 px-3 py-2 text-[13px]">
+          <span className="font-medium text-text">{meta?.format ? getImageFormat(meta.format).label : '—'}</span>
+          <span className="text-muted rtl:-scale-x-100" aria-hidden="true">→</span>
+          <span className="font-medium text-primary">{target.label}</span>
+        </div>
+        <FormatSelect
+          label={t('settings.targetFormat')}
+          value={settings.format}
+          onChange={(format) => updateSettings({ format })}
+          formats={CONVERTIBLE_FORMATS}
+          includeOriginal={false}
+        />
+        {target.lossy && settings.format !== 'png' && (
+          <Slider label={t('settings.quality')} value={settings.quality} min={1} max={100} onChange={(quality) => updateSettings({ quality })} formatValue={(value) => `${value}%`} />
+        )}
+        {errors.quality && <p className="text-xs text-danger">{t(errors.quality)}</p>}
+        {!target.alpha && (
+          <ColorInput label={t('settings.transparentFill')} value={settings.background} onChange={(background) => updateSettings({ background })} />
+        )}
+        {settings.format === 'gif' && <p className="text-xs text-muted">{t('settings.gifNote')}</p>}
+      </SettingsSection>
+      <Accordion title={t('settings.resizeOptions')} className="-mb-2" defaultOpen={settings.scale !== 100 || settings.limitDimensions}>
+        <OutputSizeOptions settings={settings} updateSettings={updateSettings} meta={meta} />
+      </Accordion>
+      </>
+    )
+  }
+  const runJob = ({ settings, file, signal, onProgress }) => convertImage(
+    file,
+    { format: settings.format, quality: settings.format === 'png' ? 100 : settings.quality, background: settings.background, scale: settings.scale, maxDimension: settings.limitDimensions ? settings.maxDimension : null },
+    { signal, onProgress },
+  )
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <MediaToolFlow
@@ -42,42 +82,15 @@ export default function ConvertImagePage() {
         successMessage="toasts.imageConverted"
         canProcess={isValid}
         renderPreview={({ file }) => <ImagePreview file={file} />}
-        renderSettings={({ meta }) => (
-          <>
-          <SettingsSection title={t('settings.conversion')}>
-            <div className="flex items-center gap-2 rounded-md bg-surface-2 px-3 py-2 text-[13px]">
-              <span className="font-medium text-text">{meta?.format ? getImageFormat(meta.format).label : '—'}</span>
-              <span className="text-muted rtl:-scale-x-100" aria-hidden="true">→</span>
-              <span className="font-medium text-primary">{target.label}</span>
-            </div>
-            <FormatSelect
-              label={t('settings.targetFormat')}
-              value={settings.format}
-              onChange={(format) => updateSettings({ format })}
-              formats={CONVERTIBLE_FORMATS}
-              includeOriginal={false}
-            />
-            {target.lossy && settings.format !== 'png' && (
-              <Slider label={t('settings.quality')} value={settings.quality} min={1} max={100} onChange={(quality) => updateSettings({ quality })} formatValue={(value) => `${value}%`} />
-            )}
-            {errors.quality && <p className="text-xs text-danger">{t(errors.quality)}</p>}
-            {!target.alpha && (
-              <ColorInput label={t('settings.transparentFill')} value={settings.background} onChange={(background) => updateSettings({ background })} />
-            )}
-            {settings.format === 'gif' && <p className="text-xs text-muted">{t('settings.gifNote')}</p>}
-          </SettingsSection>
-          <Accordion title={t('settings.resizeOptions')} className="-mb-2" defaultOpen={settings.scale !== 100 || settings.limitDimensions}>
-            <OutputSizeOptions settings={settings} updateSettings={updateSettings} meta={meta} />
-          </Accordion>
-          </>
-        )}
-        onProcess={({ file, signal, onProgress }) =>
-          convertImage(
-            file,
-            { format: settings.format, quality: settings.format === 'png' ? 100 : settings.quality, background: settings.background, scale: settings.scale, maxDimension: settings.limitDimensions ? settings.maxDimension : null },
-            { signal, onProgress },
-          )
-        }
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, '', result?.format),
+        }}
         renderResult={(context) => <ImageResult {...context} title={t('result.conversionComplete')} suffix="" />}
       />
     </ToolLayout>

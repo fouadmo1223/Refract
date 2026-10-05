@@ -1,5 +1,6 @@
 import { RotateCw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 import { rotateVideo } from '@/services/video/videoTransformService'
 import { useToolSettings } from '@/store/toolSettingsStore'
@@ -40,6 +41,43 @@ export default function RotateVideoPage() {
   const settings = { ...DEFAULTS, ...stored }
   const isNoop = settings.rotation === 0 && !settings.flipH && !settings.flipV && !settings.angle
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => {
+    const isNoop = settings.rotation === 0 && !settings.flipH && !settings.flipV && !settings.angle
+    return (
+      <>
+        <SettingsSection title={t('effects.rotation')}>
+          <SegmentedControl value={settings.rotation} onChange={(rotation) => updateSettings({ rotation })} options={[0, 90, 180, 270].map((value) => ({ value, label: `${value}°` }))} />
+        </SettingsSection>
+        <SettingsSection title={t('crop.straighten')}>
+          <Slider
+            label={t('effects.customAngle')}
+            value={settings.angle}
+            min={-45}
+            max={45}
+            step={0.5}
+            origin={0}
+            onChange={(angle) => updateSettings({ angle })}
+            onDoubleClick={() => updateSettings({ angle: 0 })}
+            formatValue={(value) => `${value}°`}
+          />
+          {settings.angle !== 0 && (
+            <>
+              <Switch label={t('effects.autoCrop')} description={t('effects.autoCropHint')} checked={settings.autoCrop} onChange={(autoCrop) => updateSettings({ autoCrop })} />
+              {!settings.autoCrop && <ColorInput label={t('effects.cornerFill')} value={settings.fill} onChange={(fill) => updateSettings({ fill })} />}
+            </>
+          )}
+        </SettingsSection>
+        <SettingsSection title={t('effects.flip')}>
+          <Switch label={t('crop.flipHorizontal')} checked={settings.flipH} onChange={(flipH) => updateSettings({ flipH })} />
+          <Switch label={t('crop.flipVertical')} checked={settings.flipV} onChange={(flipV) => updateSettings({ flipV })} />
+        </SettingsSection>
+        {isNoop && <p className="text-xs text-muted">{t('video.rotateNoop')}</p>}
+      </>
+    )
+  }
+  const runJob = ({ settings, file, meta, signal, onProgress }) => rotateVideo(file, settings, meta, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <VideoToolFlow
@@ -50,38 +88,15 @@ export default function RotateVideoPage() {
         successMessage="toasts.videoRotated"
         canProcess={!isNoop}
         renderPreview={({ file, meta }) => <RotatePreview file={file} meta={meta} settings={settings} />}
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('effects.rotation')}>
-              <SegmentedControl value={settings.rotation} onChange={(rotation) => updateSettings({ rotation })} options={[0, 90, 180, 270].map((value) => ({ value, label: `${value}°` }))} />
-            </SettingsSection>
-            <SettingsSection title={t('crop.straighten')}>
-              <Slider
-                label={t('effects.customAngle')}
-                value={settings.angle}
-                min={-45}
-                max={45}
-                step={0.5}
-                origin={0}
-                onChange={(angle) => updateSettings({ angle })}
-                onDoubleClick={() => updateSettings({ angle: 0 })}
-                formatValue={(value) => `${value}°`}
-              />
-              {settings.angle !== 0 && (
-                <>
-                  <Switch label={t('effects.autoCrop')} description={t('effects.autoCropHint')} checked={settings.autoCrop} onChange={(autoCrop) => updateSettings({ autoCrop })} />
-                  {!settings.autoCrop && <ColorInput label={t('effects.cornerFill')} value={settings.fill} onChange={(fill) => updateSettings({ fill })} />}
-                </>
-              )}
-            </SettingsSection>
-            <SettingsSection title={t('effects.flip')}>
-              <Switch label={t('crop.flipHorizontal')} checked={settings.flipH} onChange={(flipH) => updateSettings({ flipH })} />
-              <Switch label={t('crop.flipVertical')} checked={settings.flipV} onChange={(flipV) => updateSettings({ flipV })} />
-            </SettingsSection>
-            {isNoop && <p className="text-xs text-muted">{t('video.rotateNoop')}</p>}
-          </>
-        )}
-        onProcess={({ file, meta, signal, onProgress }) => rotateVideo(file, settings, meta, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'rotated', result?.format),
+        }}
         renderResult={(context) => <VideoResult {...context} title={t('result.rotateComplete')} suffix="rotated" />}
       />
     </ToolLayout>

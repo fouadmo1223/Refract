@@ -1,5 +1,6 @@
 import { Palette, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 import { VIDEO_ADJUSTMENTS, VIDEO_LOOKS, VIDEO_LOOK_PREVIEW, applyVideoFilters } from '@/services/video/videoLookService'
 import { useToolSettings } from '@/store/toolSettingsStore'
@@ -98,6 +99,18 @@ export default function VideoFiltersPage() {
   const settings = { ...DEFAULTS, ...stored }
   const unchanged = settings.look === 'none' && ADJUSTMENT_KEYS.every((key) => !settings[key])
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => (
+    <>
+      <SettingsSection title={t('filters.look')}>
+        <SegmentedControl wrap value={settings.look} onChange={(look) => updateSettings({ look })} options={Object.keys(VIDEO_LOOKS).map((id) => ({ value: id, label: t(`filters.presets.${id}`) }))} />
+      </SettingsSection>
+      <AdjustmentGroup title={t('filters.groups.color')} keys={GROUPS.color} settings={settings} updateSettings={updateSettings} />
+      <AdjustmentGroup title={t('filters.groups.detail')} keys={GROUPS.detail} settings={settings} updateSettings={updateSettings} />
+    </>
+  )
+  const runJob = ({ settings, file, meta, signal, onProgress }) => applyVideoFilters(file, settings, meta, { signal, onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <VideoToolFlow
@@ -108,16 +121,15 @@ export default function VideoFiltersPage() {
         successMessage="toasts.effectApplied"
         canProcess={!unchanged}
         renderPreview={({ file, meta }) => <FilterPreview file={file} meta={meta} settings={settings} />}
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('filters.look')}>
-              <SegmentedControl wrap value={settings.look} onChange={(look) => updateSettings({ look })} options={Object.keys(VIDEO_LOOKS).map((id) => ({ value: id, label: t(`filters.presets.${id}`) }))} />
-            </SettingsSection>
-            <AdjustmentGroup title={t('filters.groups.color')} keys={GROUPS.color} settings={settings} updateSettings={updateSettings} />
-            <AdjustmentGroup title={t('filters.groups.detail')} keys={GROUPS.detail} settings={settings} updateSettings={updateSettings} />
-          </>
-        )}
-        onProcess={({ file, meta, signal, onProgress }) => applyVideoFilters(file, settings, meta, { signal, onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'filtered', result?.format),
+        }}
         renderResult={(context) => <VideoResult {...context} title={t('result.effectComplete')} suffix={settings.look === 'none' ? 'adjusted' : settings.look} showSizeChange={false} />}
       />
     </ToolLayout>

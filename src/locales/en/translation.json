@@ -1986,6 +1986,7 @@
     "sharedHint": "Used for every file unless you customize it. Click a file to give it its own settings.",
     "allFiles": "All files",
     "useShared": "Use shared",
-    "usingShared": "Using shared settings — change anything to customize"
+    "usingShared": "Using shared settings — change anything to customize",
+    "resizeShared": "Each image is fitted into this box using its own proportions. Open a file to size it exactly."
   }
 }

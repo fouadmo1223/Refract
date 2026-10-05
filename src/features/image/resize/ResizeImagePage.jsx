@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { RESIZE_MODES, RESIZE_PRESETS } from '@/constants/presets'
+import { resultFileName } from '@/lib/files'
 import { formatDimensions } from '@/lib/format'
 import { useValidation } from '@/hooks/useValidation'
 import { readImageInfo } from '@/services/image/imageInfoService'
@@ -30,7 +31,7 @@ function ResizeSettings({ settings, updateSettings, meta }) {
   const { t } = useTranslation()
   const { width, height } = resolveDimensions(settings, meta)
   const { errors } = useValidation(schema, { width, height })
-  const ratio = meta.width / meta.height
+  const ratio = meta ? meta.width / meta.height : width / height || 1
 
   const handleWidthChange = (value) => {
     const next = { width: value, preset: 'custom' }
@@ -52,11 +53,11 @@ function ResizeSettings({ settings, updateSettings, meta }) {
 
   const geometry = useMemo(() => {
     try {
-      return computeResizeGeometry(meta.width, meta.height, { width, height, mode: settings.mode, noUpscale: settings.noUpscale })
+      return meta ? computeResizeGeometry(meta.width, meta.height, { width, height, mode: settings.mode, noUpscale: settings.noUpscale }) : null
     } catch {
       return null
     }
-  }, [height, meta.height, meta.width, settings.mode, settings.noUpscale, width])
+  }, [height, meta, settings.mode, settings.noUpscale, width])
 
   return (
     <>
@@ -67,7 +68,7 @@ function ResizeSettings({ settings, updateSettings, meta }) {
           onChange={handlePresetChange}
           options={[
             { value: 'custom', label: t('presets.resize.custom') },
-            { value: 'original', label: t('presets.resize.original'), meta: formatDimensions(meta.width, meta.height) },
+            ...(meta ? [{ value: 'original', label: t('presets.resize.original'), meta: formatDimensions(meta.width, meta.height) }] : []),
             ...RESIZE_PRESETS.map((preset) => ({ value: preset.id, label: t(`presets.resize.${preset.id}`), meta: `${preset.width}×${preset.height}` })),
           ]}
         />
@@ -83,7 +84,8 @@ function ResizeSettings({ settings, updateSettings, meta }) {
           />
           <NumberInput label={t('settings.height')} value={height} onChange={handleHeightChange} min={1} suffix="px" error={errors.height} className="flex-1" stepper={false} />
         </div>
-        <SegmentedControl
+        {!meta && <p className="-mt-1 text-xs text-muted">{t('multi.resizeShared')}</p>}
+        {meta && <SegmentedControl
           size="sm"
           label={t('settings.scale')}
           value={null}
@@ -91,7 +93,7 @@ function ResizeSettings({ settings, updateSettings, meta }) {
             updateSettings({ preset: 'custom', width: Math.max(1, Math.round(meta.width * factor)), height: Math.max(1, Math.round(meta.height * factor)), lockAspect: true })
           }}
           options={[0.25, 0.5, 0.75, 2].map((factor) => ({ value: factor, label: `${factor * 100}%` }))}
-        />
+        />}
       </SettingsSection>
       <SettingsSection title={t('settings.fitting')}>
         <SegmentedControl
@@ -112,11 +114,17 @@ function ResizeSettings({ settings, updateSettings, meta }) {
 }
 
 // Width/height follow the uploaded image until the user edits them.
-const resolveDimensions = (settings, meta) => ({ width: settings.width ?? meta.width, height: settings.height ?? meta.height })
+// Without metadata (multi-file shared settings) fall back to a 1920px box; each file is resized against its own size.
+const resolveDimensions = (settings, meta) => ({ width: settings.width ?? meta?.width ?? 1920, height: settings.height ?? meta?.height ?? 1920 })
 
 export default function ResizeImagePage() {
   const { t } = useTranslation()
   const [settings, updateSettings] = useToolSettings(TOOL_ID, DEFAULTS)
+
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings, meta }) => <ResizeSettings settings={settings} updateSettings={updateSettings} meta={meta} />
+  const runJob = ({ settings, file, meta, signal, onProgress }) =>
+    resizeImage(file, { ...resolveDimensions(settings, meta), mode: settings.mode, noUpscale: settings.noUpscale }, { signal, onProgress })
 
   return (
     <ToolLayout toolId={TOOL_ID}>
@@ -131,10 +139,15 @@ export default function ResizeImagePage() {
         successMessage="toasts.imageResized"
         canProcess={({ meta }) => schema.safeParse(resolveDimensions(settings, meta)).success}
         renderPreview={({ file }) => <ImagePreview file={file} />}
-        renderSettings={({ meta }) => <ResizeSettings settings={settings} updateSettings={updateSettings} meta={meta} />}
-        onProcess={({ file, meta, signal, onProgress }) =>
-          resizeImage(file, { ...resolveDimensions(settings, meta), mode: settings.mode, noUpscale: settings.noUpscale }, { signal, onProgress })
-        }
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'resized', result?.format),
+        }}
         renderResult={(context) => <ImageResult {...context} title={t('result.resizeComplete')} suffix="resized" compare={false} />}
       />
     </ToolLayout>

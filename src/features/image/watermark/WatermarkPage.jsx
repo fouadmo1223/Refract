@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Stamp } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { resultFileName } from '@/lib/files'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { readImageInfo } from '@/services/image/imageInfoService'
@@ -56,6 +57,54 @@ export default function WatermarkPage() {
   const textMissing = settings.type === 'text' && !settings.text.trim()
   const logoMissing = settings.type === 'image' && !logoFile
 
+  // Controls and processing take settings as arguments so multi-file mode can give each file its own.
+  const renderControls = ({ settings, updateSettings }) => {
+    const textMissing = settings.type === 'text' && !settings.text.trim()
+    return (
+      <>
+        <SettingsSection title={t('watermark.content')}>
+          <SegmentedControl
+            value={settings.type}
+            onChange={(type) => updateSettings({ type })}
+            options={[
+              { value: 'text', label: t('watermark.text') },
+              { value: 'image', label: t('watermark.logo') },
+            ]}
+          />
+          {settings.type === 'text' ? (
+            <>
+              <Input label={t('watermark.textLabel')} value={settings.text} onChange={(event) => updateSettings({ text: event.target.value })} error={textMissing ? 'validation.watermarkTextRequired' : undefined} dir="auto" maxLength={120} />
+              <div className="grid grid-cols-2 gap-3">
+                <ColorInput label={t('watermark.color')} value={settings.color} onChange={(color) => updateSettings({ color })} />
+                <SegmentedControl
+                  label={t('watermark.weight')}
+                  value={settings.fontWeight}
+                  onChange={(fontWeight) => updateSettings({ fontWeight })}
+                  options={[
+                    { value: 400, label: 'Aa', ariaLabel: t('watermark.regular') },
+                    { value: 700, label: <strong>Aa</strong>, ariaLabel: t('watermark.bold') },
+                  ]}
+                />
+              </div>
+            </>
+          ) : logoFile ? (
+            <FileCard file={logoFile} onRemove={() => setLogoFile(null)} />
+          ) : (
+            <FileUploader profile={UPLOAD_PROFILES.image} onFiles={([next]) => setLogoFile(next)} variant="compact" title={t('watermark.dropLogo')} pasteEnabled={false} />
+          )}
+        </SettingsSection>
+        <SettingsSection title={t('watermark.placement')}>
+          <PositionGrid label={t('watermark.position')} value={settings.position} onChange={(position) => updateSettings({ position })} />
+          <Slider label={t('watermark.size')} value={settings.size} min={3} max={100} onChange={(size) => updateSettings({ size })} formatValue={(value) => `${value}%`} />
+          <Slider label={t('watermark.opacity')} value={settings.opacity} min={5} max={100} onChange={(opacity) => updateSettings({ opacity })} formatValue={(value) => `${value}%`} />
+          <Slider label={t('watermark.rotation')} value={settings.rotation} min={-180} max={180} origin={0} onChange={(rotation) => updateSettings({ rotation })} formatValue={(value) => `${value}°`} />
+          <Slider label={t('watermark.margin')} value={settings.margin} min={0} max={20} onChange={(margin) => updateSettings({ margin })} formatValue={(value) => `${value}%`} />
+        </SettingsSection>
+      </>
+    )
+  }
+  const runJob = ({ settings, file: source, onProgress }) => applyWatermark(source, settings, logoFile, { onProgress })
+
   return (
     <ToolLayout toolId={TOOL_ID}>
       <MediaToolFlow
@@ -69,49 +118,15 @@ export default function WatermarkPage() {
         successMessage="toasts.watermarkApplied"
         canProcess={!textMissing && !logoMissing}
         renderPreview={() => <WatermarkPreview bitmap={bitmap} logoBitmap={logoBitmap} settings={settings} />}
-        renderSettings={() => (
-          <>
-            <SettingsSection title={t('watermark.content')}>
-              <SegmentedControl
-                value={settings.type}
-                onChange={(type) => updateSettings({ type })}
-                options={[
-                  { value: 'text', label: t('watermark.text') },
-                  { value: 'image', label: t('watermark.logo') },
-                ]}
-              />
-              {settings.type === 'text' ? (
-                <>
-                  <Input label={t('watermark.textLabel')} value={settings.text} onChange={(event) => updateSettings({ text: event.target.value })} error={textMissing ? 'validation.watermarkTextRequired' : undefined} dir="auto" maxLength={120} />
-                  <div className="grid grid-cols-2 gap-3">
-                    <ColorInput label={t('watermark.color')} value={settings.color} onChange={(color) => updateSettings({ color })} />
-                    <SegmentedControl
-                      label={t('watermark.weight')}
-                      value={settings.fontWeight}
-                      onChange={(fontWeight) => updateSettings({ fontWeight })}
-                      options={[
-                        { value: 400, label: 'Aa', ariaLabel: t('watermark.regular') },
-                        { value: 700, label: <strong>Aa</strong>, ariaLabel: t('watermark.bold') },
-                      ]}
-                    />
-                  </div>
-                </>
-              ) : logoFile ? (
-                <FileCard file={logoFile} onRemove={() => setLogoFile(null)} />
-              ) : (
-                <FileUploader profile={UPLOAD_PROFILES.image} onFiles={([next]) => setLogoFile(next)} variant="compact" title={t('watermark.dropLogo')} pasteEnabled={false} />
-              )}
-            </SettingsSection>
-            <SettingsSection title={t('watermark.placement')}>
-              <PositionGrid label={t('watermark.position')} value={settings.position} onChange={(position) => updateSettings({ position })} />
-              <Slider label={t('watermark.size')} value={settings.size} min={3} max={100} onChange={(size) => updateSettings({ size })} formatValue={(value) => `${value}%`} />
-              <Slider label={t('watermark.opacity')} value={settings.opacity} min={5} max={100} onChange={(opacity) => updateSettings({ opacity })} formatValue={(value) => `${value}%`} />
-              <Slider label={t('watermark.rotation')} value={settings.rotation} min={-180} max={180} origin={0} onChange={(rotation) => updateSettings({ rotation })} formatValue={(value) => `${value}°`} />
-              <Slider label={t('watermark.margin')} value={settings.margin} min={0} max={20} onChange={(margin) => updateSettings({ margin })} formatValue={(value) => `${value}%`} />
-            </SettingsSection>
-          </>
-        )}
-        onProcess={({ file: source, onProgress }) => applyWatermark(source, settings, logoFile, { onProgress })}
+        renderSettings={(context) => renderControls({ ...context, settings, updateSettings })}
+        onProcess={(context) => runJob({ ...context, settings })}
+        batch={{
+          settings,
+          updateSettings,
+          renderSettings: renderControls,
+          process: runJob,
+          outputName: (file, result) => resultFileName(file.name, 'watermarked', result?.format),
+        }}
         renderResult={(context) => <ImageResult {...context} title={t('result.watermarkComplete')} suffix="watermarked" />}
       />
     </ToolLayout>
