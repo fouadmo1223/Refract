@@ -1,3 +1,4 @@
+import { withFrameFallback } from '@/lib/animationFrame'
 import { canvasToBlob } from '@/services/image/canvas'
 import { loadPdfLib } from '@/services/pdf/pdfService'
 
@@ -6,15 +7,7 @@ const POINTS_PER_PX = 72 / 96
 async function capture(node, pixelRatio) {
   const { toCanvas } = await import('html-to-image')
   await document.fonts?.ready
-  // html-to-image waits on requestAnimationFrame, which browsers pause in
-  // background tabs; fall back to timers while hidden so exports still finish.
-  const original = window.requestAnimationFrame
-  if (document.visibilityState === 'hidden') window.requestAnimationFrame = (callback) => setTimeout(() => callback(performance.now()), 0)
-  try {
-    return await toCanvas(node, { pixelRatio, cacheBust: true, backgroundColor: '#FFFFFF' })
-  } finally {
-    window.requestAnimationFrame = original
-  }
+  return withFrameFallback(() => toCanvas(node, { pixelRatio, cacheBust: true, backgroundColor: '#FFFFFF' }))
 }
 
 /** Link rectangles (px, relative to the document node) for clickable PDF links. */
