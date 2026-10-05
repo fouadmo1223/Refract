@@ -8,6 +8,7 @@ import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaToolFlow } from '@/components/layout/MediaToolFlow'
 import { MediaStage, SettingsSection } from '@/components/layout/Panels'
 import { PdfPagesGrid } from './shared/PdfPagesGrid'
+import { SyncValue } from './shared/SyncValue'
 import { PdfResult } from './shared/PdfResults'
 import { usePageItems } from './shared/usePageItems'
 import { usePdfThumbnails } from './shared/usePdfThumbnails'
@@ -30,19 +31,16 @@ export default function OrganizePdfPage() {
       <MediaToolFlow
         toolId={TOOL_ID}
         profile={UPLOAD_PROFILES.pdf}
-        loadMeta={async (next) => {
-          const info = await readPdfInfo(next)
-          setPageCount(info.pages)
-          return info
-        }}
+        loadMeta={readPdfInfo}
         onFileChange={setFile}
         actionLabel={t('tools.pdf-organize.action')}
         actionIcon={LayoutGrid}
         processingTitle={t('processing.savingPdf')}
         successMessage="toasts.pdfSaved"
         canProcess={changed}
-        renderPreview={() => (
+        renderPreview={({ meta }) => (
           <MediaStage className="block bg-surface-2">
+            <SyncValue value={meta?.pages ?? 0} onChange={setPageCount} />
             <p className="mb-3 text-xs text-muted">{t('pdf.organizeHint')}</p>
             <PdfPagesGrid items={pages.items} thumbs={thumbs} onReorder={pages.setItems} onRotate={(id) => pages.rotate(id)} onRemove={pages.remove} />
           </MediaStage>

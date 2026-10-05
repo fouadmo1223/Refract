@@ -12,6 +12,7 @@ import { ToolLayout } from '@/components/layout/ToolLayout'
 import { MediaToolFlow } from '@/components/layout/MediaToolFlow'
 import { MediaStage, SettingsSection } from '@/components/layout/Panels'
 import { PdfPagesGrid } from './shared/PdfPagesGrid'
+import { SyncValue } from './shared/SyncValue'
 import { PdfPartsResult, PdfResult } from './shared/PdfResults'
 import { usePageItems } from './shared/usePageItems'
 import { usePdfThumbnails } from './shared/usePdfThumbnails'
@@ -53,19 +54,16 @@ export default function SplitPdfPage() {
       <MediaToolFlow
         toolId={TOOL_ID}
         profile={UPLOAD_PROFILES.pdf}
-        loadMeta={async (next) => {
-          const info = await readPdfInfo(next)
-          setPageCount(info.pages)
-          return info
-        }}
+        loadMeta={readPdfInfo}
         onFileChange={setFile}
         actionLabel={settings.mode === 'select' ? t('pdf.extractAction') : t('tools.pdf-split.action')}
         actionIcon={Scissors}
         processingTitle={t('processing.splittingPdf')}
         successMessage="toasts.pdfSplit"
         canProcess={Boolean(groups)}
-        renderPreview={() => (
+        renderPreview={({ meta }) => (
           <MediaStage className="block bg-surface-2">
+            <SyncValue value={meta?.pages ?? 0} onChange={setPageCount} />
             {settings.mode === 'select' && <p className="mb-3 text-xs text-muted">{t('pdf.selectExtractHint')}</p>}
             <PdfPagesGrid items={pages.items} thumbs={thumbs} selectedIds={settings.mode === 'select' ? pages.selected : undefined} onToggle={settings.mode === 'select' ? pages.toggle : undefined} />
           </MediaStage>
