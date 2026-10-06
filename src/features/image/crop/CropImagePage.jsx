@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Crop, FlipHorizontal2, FlipVertical2, RotateCcw, RotateCcwSquare, RotateCwSquare } from 'lucide-react'
+import { Crop, Fullscreen, FlipHorizontal2, FlipVertical2, RotateCcw, RotateCcwSquare, RotateCwSquare } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { UPLOAD_PROFILES } from '@/constants/fileConstraints'
 import { CONVERTIBLE_FORMATS } from '@/constants/imageFormats'
 import { IMAGE_ASPECT_RATIOS } from '@/constants/presets'
 import { usePreviewBitmap } from '@/hooks/usePreviewBitmap'
 import { cropImage } from '@/services/image/imageCropService'
+import { detectContentBounds } from '@/services/image/trimService'
+import { notify } from '@/lib/notify'
 import { readImageInfo } from '@/services/image/imageInfoService'
 import { useToolSettings } from '@/store/toolSettingsStore'
 import { Button } from '@/components/ui/Button'
+import { ColorInput } from '@/components/ui/ColorInput'
 import { NumberInput } from '@/components/ui/NumberInput'
 import { IconButton } from '@/components/ui/IconButton'
 import { SegmentedControl } from '@/components/ui/SegmentedControl'
@@ -22,7 +25,7 @@ import { FormatSelect } from '../shared/FormatSelect'
 import { CropWorkspace, rotatedSize } from './CropWorkspace'
 
 const TOOL_ID = 'image-crop'
-const DEFAULTS = { aspectId: 'free', format: 'original', shape: 'rect' }
+const DEFAULTS = { aspectId: 'free', format: 'original', shape: 'rect', trimMode: 'auto', trimTolerance: 10, trimPadding: 0, trimColor: '#FFFFFF' }
 const INITIAL_TRANSFORM = { rotation: 0, straighten: 0, flipH: false, flipV: false }
 
 export default function CropImagePage() {
@@ -34,6 +37,8 @@ export default function CropImagePage() {
   const [transform, setTransform] = useState(INITIAL_TRANSFORM)
   const [rect, setRect] = useState(null)
   const [zoom, setZoom] = useState(1)
+  const [trimming, setTrimming] = useState(false)
+  const [trimInfo, setTrimInfo] = useState(null)
   const { bitmap } = usePreviewBitmap(file)
   const aspect = IMAGE_ASPECT_RATIOS.find((item) => item.id === settings.aspectId)?.value ?? null
   const totalRotation = transform.rotation + transform.straighten
@@ -50,6 +55,31 @@ export default function CropImagePage() {
     setTransform(INITIAL_TRANSFORM)
     setRect(null)
     setZoom(1)
+    setTrimInfo(null)
+  }
+
+  // Fit the crop box to the real content, dropping transparent / solid-colour margins.
+  const trimEmptySpace = async (meta) => {
+    setTrimming(true)
+    try {
+      const bounds = await detectContentBounds(file, effectiveTransform, { mode: settings.trimMode, tolerance: settings.trimTolerance, color: settings.trimColor, padding: settings.trimPadding })
+      const size = rotatedSize(meta.width, meta.height, totalRotation)
+      if (!bounds) {
+        setTrimInfo({ kind: 'empty' })
+        return
+      }
+      if (bounds.width >= size.width && bounds.height >= size.height) {
+        setTrimInfo({ kind: 'none' })
+        return
+      }
+      if (settings.aspectId !== 'free' || circle) updateSettings({ aspectId: 'free', shape: 'rect' })
+      setRect({ x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height })
+      setTrimInfo({ kind: 'trimmed', top: bounds.y, left: bounds.x, right: size.width - bounds.x - bounds.width, bottom: size.height - bounds.y - bounds.height, background: bounds.background })
+    } catch (error) {
+      notify.error(error)
+    } finally {
+      setTrimming(false)
+    }
   }
 
   return (
@@ -106,6 +136,28 @@ export default function CropImagePage() {
           }
           return (
             <>
+              <SettingsSection title={t('crop.trim.title')}>
+                <p className="-mt-1 text-xs text-muted">{t('crop.trim.hint')}</p>
+                <SegmentedControl
+                  label={t('crop.trim.detect')}
+                  value={settings.trimMode}
+                  onChange={(trimMode) => updateSettings({ trimMode })}
+                  options={['auto', 'transparent', 'color'].map((value) => ({ value, label: t(`crop.trim.modes.${value}`) }))}
+                />
+                {settings.trimMode === 'color' && <ColorInput label={t('crop.trim.color')} value={settings.trimColor} onChange={(trimColor) => updateSettings({ trimColor })} />}
+                {settings.trimMode !== 'transparent' && (
+                  <Slider label={t('crop.trim.tolerance')} value={settings.trimTolerance} min={0} max={60} onChange={(trimTolerance) => updateSettings({ trimTolerance })} formatValue={(value) => `${value}%`} />
+                )}
+                <Slider label={t('crop.trim.padding')} value={settings.trimPadding} min={0} max={200} onChange={(trimPadding) => updateSettings({ trimPadding })} formatValue={(value) => `${value}px`} />
+                <Button variant="secondary" leftIcon={Fullscreen} loading={trimming} disabled={!file} onClick={() => trimEmptySpace(meta)}>
+                  {t('crop.trim.action')}
+                </Button>
+                {trimInfo && (
+                  <p className="tabular -mt-1 text-xs text-muted" role="status">
+                    {trimInfo.kind === 'trimmed' ? t('crop.trim.result', { top: trimInfo.top, right: trimInfo.right, bottom: trimInfo.bottom, left: trimInfo.left }) : t(`crop.trim.${trimInfo.kind}`)}
+                  </p>
+                )}
+              </SettingsSection>
               <SettingsSection title={t('crop.aspectRatio')}>
                 <SegmentedControl
                   wrap

@@ -406,7 +406,24 @@
       "rect": "Rectangle",
       "circle": "Circle"
     },
-    "circleHint": "Corners outside the circle become transparent (PNG or WebP)."
+    "circleHint": "Corners outside the circle become transparent (PNG or WebP).",
+    "trim": {
+      "title": "Trim empty space",
+      "hint": "Find the empty margins around the picture (transparent or a solid border) and crop them away.",
+      "detect": "Empty space is",
+      "modes": {
+        "auto": "Auto",
+        "transparent": "Transparent",
+        "color": "A color"
+      },
+      "color": "Border color",
+      "tolerance": "Tolerance",
+      "padding": "Keep padding",
+      "action": "Trim empty space",
+      "result": "Trimmed top {{top}}, right {{right}}, bottom {{bottom}}, left {{left}} px — adjust the box if needed.",
+      "none": "No empty space found around the image. Try a higher tolerance or another mode.",
+      "empty": "The whole image looks empty with these settings — lower the tolerance."
+    }
   },
   "removeBg": {
     "background": "Background",
