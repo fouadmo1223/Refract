@@ -69,6 +69,7 @@ export const TOOLS = [
   { id: 'image-resize', category: 'image', groups: ['edit'], path: '/image/resize', icon: Scaling, popular: true, keywords: ['resize', 'scale', 'dimensions', 'instagram', 'youtube', 'thumbnail'] },
   { id: 'image-crop', category: 'image', groups: ['edit'], path: '/image/crop', icon: Crop, popular: true, keywords: ['crop', 'cut', 'aspect', 'ratio', 'trim'] },
   { id: 'image-remove-bg', category: 'image', groups: ['edit'], path: '/image/remove-background', icon: Eraser, popular: true, keywords: ['remove background', 'background', 'transparent', 'cutout', 'bg'] },
+  { id: 'image-eraser', category: 'image', groups: ['edit'], path: '/image/eraser', icon: Eraser, keywords: ['eraser', 'erase', 'remove', 'transparent', 'magic wand', 'brush', 'cut out', 'delete background', 'restore'] },
   { id: 'image-editor', category: 'image', groups: ['edit'], path: '/image/editor', icon: SlidersHorizontal, keywords: ['edit', 'editor', 'brightness', 'contrast', 'saturation', 'filter', 'adjust'] },
   { id: 'image-watermark', category: 'image', groups: ['edit'], path: '/image/watermark', icon: Stamp, keywords: ['watermark', 'logo', 'text', 'copyright', 'stamp'] },
   { id: 'image-metadata', category: 'image', groups: ['edit'], path: '/image/metadata', icon: FileText, keywords: ['metadata', 'exif', 'gps', 'privacy', 'strip', 'remove'] },

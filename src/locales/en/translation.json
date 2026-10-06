@@ -1710,6 +1710,15 @@
       "seoDescription": "Convert a screenshot or design into HTML and CSS (plain or Tailwind), an embed snippet or CSS pixel art.",
       "keywords": "",
       "action": "Generate code"
+    },
+    "image-eraser": {
+      "title": "Image Eraser",
+      "short": "Erase parts of a photo to transparency",
+      "description": "Brush away anything you don't want, restore what you erased by mistake, or remove a whole color with the magic wand — then save a transparent PNG.",
+      "seoTitle": "Online Image Eraser — Make Parts Transparent",
+      "seoDescription": "Erase parts of an image with a soft brush or magic wand and download a transparent PNG. Undo, restore brush and zoom included.",
+      "keywords": "",
+      "action": "Save image"
     }
   },
   "pages": {
@@ -2537,5 +2546,48 @@
     "copyPage": "Copy page",
     "downloadHtml": "Download .html",
     "editHint": "Edit the HTML or CSS tabs — the preview and download update with your changes."
+  },
+  "eraser": {
+    "tool": "Tool",
+    "tools": {
+      "erase": "Erase",
+      "restore": "Restore",
+      "wand": "Magic wand"
+    },
+    "toolHints": {
+      "erase": "Paint over what you want to remove.",
+      "restore": "Paint back parts you erased.",
+      "wand": "Click a color to erase (or restore) every similar pixel around it."
+    },
+    "brush": "Brush",
+    "size": "Size",
+    "hardness": "Hardness",
+    "strength": "Strength",
+    "wand": "Magic wand",
+    "tolerance": "Tolerance",
+    "contiguous": "Connected pixels only",
+    "contiguousHint": "Off = that color everywhere in the image.",
+    "smooth": "Smooth edges",
+    "quickActions": "Quick actions",
+    "invert": "Invert",
+    "feather": "Soften edges",
+    "restoreAll": "Restore all",
+    "eraseAll": "Erase all",
+    "trim": "Trim transparent edges",
+    "trimHint": "Crop the result to what's left.",
+    "padding": "Padding",
+    "undo": "Undo (Ctrl+Z)",
+    "redo": "Redo (Ctrl+Shift+Z)",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fit": "Fit to screen",
+    "compare": "Hold to see the original",
+    "views": {
+      "checker": "Transparent",
+      "tint": "Red overlay"
+    },
+    "canvasLabel": "Image — paint to erase",
+    "brushHint": "[ and ] change the brush size · E erase · R restore · W magic wand",
+    "wandHint": "Click a color · raise the tolerance to catch more shades"
   }
 }

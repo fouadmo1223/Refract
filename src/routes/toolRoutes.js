@@ -23,6 +23,7 @@ export const TOOL_PAGES = {
   'image-crop': lazy(() => import('@/features/image/crop/CropImagePage')),
   'image-remove-bg': lazy(() => import('@/features/image/removeBackground/RemoveBackgroundPage')),
   'image-editor': lazy(() => import('@/features/image/editor/ImageEditorPage')),
+  'image-eraser': lazy(() => import('@/features/image/eraser/EraserPage')),
   'image-watermark': lazy(() => import('@/features/image/watermark/WatermarkPage')),
   'image-metadata': lazy(() => import('@/features/image/metadata/MetadataPage')),
   'image-batch': lazy(() => import('@/features/image/batch/BatchImagePage')),
