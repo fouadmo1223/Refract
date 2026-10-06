@@ -1,9 +1,10 @@
 # Refract — Media Toolkit
 
-A fast, private media toolkit that runs in your browser. Compress, convert, resize, crop and edit images and videos without uploading them anywhere. It also includes optional AI tools for generating images and videos.
+A fast, private media toolkit that runs in your browser. Compress, convert, resize, crop and edit images, videos and PDFs without uploading them anywhere. It also has a resume builder and optional AI tools for generating images, videos and resume text.
 
-- **53 tools**: 26 image tools, 25 video tools and 2 AI generators
-- **Local processing**: images are handled with Canvas and Web Workers (plus WebAssembly codecs for AVIF and WebP), and videos with FFmpeg compiled to WebAssembly
+- **64 tools**: 29 image tools, 25 video tools, 8 PDF and document tools and 2 AI generators
+- **Multi-file mode**: drop several files into compress, convert, resize, filters and most video tools, with optional per-file settings and a ZIP download
+- **Local processing**: images are handled with Canvas and Web Workers (plus WebAssembly codecs for AVIF and WebP), videos with FFmpeg compiled to WebAssembly, and PDFs with pdf.js and pdf-lib
 - **English and Arabic**, with a full right-to-left layout
 - **Light, dark and system themes**
 - **Accessible**: every control works from the keyboard, and search opens with Ctrl + K / ⌘K
@@ -40,8 +41,9 @@ The build output in `dist/` is a static site you can host anywhere. To serve it 
 
 | Category | Tools |
 | --- | --- |
-| Image | Compress, Convert (JPG/PNG/WebP/AVIF/BMP/GIF), HEIC → JPG, Image → SVG (vector tracing), Resize (with social media presets), Crop, Remove Background, Editor (light, color, detail, undo/redo), Photo filters, Add text / meme, Blur or pixelate areas, Collage, Border & frame, Watermark, Metadata viewer/remover, Batch processing (with ZIP download), Image ↔ Base64, ICO, SVG → PNG, Color picker, Blur, Pixelate, Grayscale, Rotate, Flip |
+| Image | Compress, Convert (JPG/PNG/WebP/AVIF/BMP/GIF), HEIC → JPG, Image → SVG (vector tracing), Resize (with social media presets), Crop, Remove Background, Editor (light, color, detail, undo/redo), Photo filters, Add text / meme, Blur or pixelate areas, Collage, Border & frame, Watermark, Metadata viewer/remover, Eraser (brush, magic wand), Batch processing (with ZIP download), HTML/CSS → image, Image → HTML/CSS (AI, embed, CSS pixel art), Image ↔ Base64, ICO, SVG → PNG, Color picker, Blur, Pixelate, Grayscale, Rotate, Flip |
 | Video | Compress, Convert (MP4/WebM/MOV/AVI/MKV/GIF), Trim, Split, Crop, Resize, Fit to 9:16 with blurred background, Add text, Watermark, Blur or pixelate areas, Filters & color, Fade in/out, Mute, Extract audio, Speed, Rotate, Video → GIF, GIF → Video, Thumbnail, Loop, Reverse, Frame rate, Extract frames, Merge, Add audio |
+| PDF & documents | Resume builder (6 templates, live preview, AI writer and job tailoring, PDF/PNG export), PDF editor (edit text, add text, images, shapes, highlights, signatures, links), Images → PDF, PDF → images, Merge, Split, Organize pages, Compress |
 | AI | Image generator, Video generator (animate an image locally, or text-to-video) |
 
 ## AI tools and privacy
@@ -64,8 +66,8 @@ The AI tools are the exception. They send your **prompt** to a third-party servi
 ```
 src/
   components/   ui/ (design system), layout/, media/, feedback/
-  features/     one folder per tool (image/, video/, ai/)
-  services/     processing logic — image/, video/ (FFmpeg), ai/, backgroundRemoval/
+  features/     one folder per tool (image/, video/, pdf/, resume/, html/, ai/)
+  services/     processing logic — image/, video/ (FFmpeg), pdf/, html/, ai/, backgroundRemoval/
   workers/      image Web Worker
   constants/    tool registry, file limits, formats, presets
   hooks/ store/ lib/ i18n/ locales/ routes/ pages/
@@ -92,6 +94,9 @@ Refract is licensed under the **GNU Affero General Public License v3.0 or later*
 | [FFmpeg](https://ffmpeg.org) via [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) (`@ffmpeg/core`) | GPL-2.0-or-later | Includes x264 and libvpx |
 | [jSquash](https://github.com/jamsinclair/jSquash) (AVIF/WebP codecs) | Apache-2.0 | |
 | [ImageTracer.js](https://github.com/jankovicsandras/imagetracerjs) | Public domain (Unlicense) | Image → SVG tracing |
+| [pdf.js](https://github.com/mozilla/pdf.js) (`pdfjs-dist`) | Apache-2.0 | PDF rendering and text extraction |
+| [pdf-lib](https://github.com/Hopding/pdf-lib) + `@pdf-lib/fontkit` | MIT | PDF writing and editing |
+| [html-to-image](https://github.com/bubkoo/html-to-image) | MIT | HTML → image and resume export |
 | [heic2any](https://github.com/alexcorvi/heic2any) | MIT | HEIC decoding |
 | React, React Router, TanStack Query, Zustand, i18next, Framer Motion, Zod, Lucide, Sonner, Floating UI, fflate, exifr, gifenc, UPNG.js | MIT / ISC / BSD | |
-| Inter, IBM Plex Sans Arabic (via Fontsource) | SIL Open Font License 1.1 | |
+| Inter, IBM Plex Sans Arabic, Lora, Playfair Display, Roboto, Poppins, Merriweather, Source Sans 3 (via Fontsource) | SIL Open Font License 1.1 | |
